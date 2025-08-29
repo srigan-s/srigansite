@@ -8,8 +8,6 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 import AnimatedBaseballs from './components/AnimatedBaseballs';
 import BaseballSwingLoader from './components/BaseballSwingLoader';
-import BaseballScoreboard from './components/BaseballScoreboard';
-import WeatherWidget from './components/WeatherWidget';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -29,8 +27,6 @@ function App() {
         showContent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
       }`}>
         <AnimatedBaseballs />
-        <BaseballScoreboard />
-        <WeatherWidget />
         <Header />
         <Hero />
         <About />
