@@ -82,9 +82,6 @@ const Contact = () => {
               <span className="text-lg">Instagram</span>
             </a>
           </div>
-            </div>
-          </div>
-        </div>
       </div>
     </section>
   );
