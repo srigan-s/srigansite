@@ -107,7 +107,7 @@ const BaseballSwingLoader = ({ onComplete }: { onComplete: () => void }) => {
           <div className={`text-4xl md:text-6xl font-bold text-white mb-4 transition-all duration-500 ${
             animationPhase === 'swing' ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
           }`}>
-            <span className="text-green-400">⚾</span> Loading
+            <span className="text-green-400">⚾</span> Welcome
           </div>
           
           <div className={`text-lg text-green-200 transition-all duration-500 delay-300 ${
