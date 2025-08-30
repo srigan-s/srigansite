@@ -59,7 +59,7 @@ const About = () => {
                   
                   {/* Profile Image Circle */}
                   <img
-                    src="public/sriganPFP.jpg"
+                    src="/sriganPFP.jpg"
                     alt="Profile"
                     className="w-48 h-48 rounded-full mx-auto mb-6 border-4 border-green-400 object-cover"
                   />
