@@ -51,7 +51,7 @@ const Contact = () => {
               href="https://www.linkedin.com/in/srigan-sivagnanenthirarajah-418601206/"
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex items-center gap-4 bg-blue-600 hover:bg-blue-500 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-blue-500/25"
+              className="floating group flex items-center gap-4 bg-blue-600 hover:bg-blue-500 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-blue-500/25"
             >
               <Linkedin className="w-6 h-6 group-hover:rotate-12 transition-transform duration-300" />
               <span className="text-lg">LinkedIn</span>
@@ -61,7 +61,7 @@ const Contact = () => {
               href="https://github.com/srigan-s"
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex items-center gap-4 bg-gray-800 hover:bg-gray-700 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-gray-500/25"
+              className="floating group flex items-center gap-4 bg-gray-800 hover:bg-gray-700 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-gray-500/25"
             >
               <Github className="w-6 h-6 group-hover:rotate-12 transition-transform duration-300" />
               <span className="text-lg">GitHub</span>
@@ -69,7 +69,7 @@ const Contact = () => {
 
             <a
               href="mailto:your.email@example.com"
-              className="group flex items-center gap-4 bg-green-600 hover:bg-green-500 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-green-500/25"
+              className="floating group flex items-center gap-4 bg-green-600 hover:bg-green-500 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-green-500/25"
             >
               <Mail className="w-6 h-6 group-hover:rotate-12 transition-transform duration-300" />
               <span className="text-lg">Email</span>
@@ -79,7 +79,7 @@ const Contact = () => {
               href="https://instagram.com/your_username"
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex items-center gap-4 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-400 hover:to-purple-500 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-pink-500/25"
+              className="floating group flex items-center gap-4 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-400 hover:to-purple-500 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-pink-500/25"
             >
               <Instagram className="w-6 h-6 group-hover:rotate-12 transition-transform duration-300" />
               <span className="text-lg">Instagram</span>
@@ -87,6 +87,27 @@ const Contact = () => {
           </div>
         </div>
       </div>
+
+      {/* Floating animation keyframes */}
+      <style jsx>{`
+        @keyframes float {
+          0% { transform: translateY(0px); }
+          50% { transform: translateY(-10px); }
+          100% { transform: translateY(0px); }
+        }
+        .floating {
+          animation: float 4s ease-in-out infinite;
+        }
+        .floating:nth-child(2) {
+          animation-delay: 0.5s;
+        }
+        .floating:nth-child(3) {
+          animation-delay: 1s;
+        }
+        .floating:nth-child(4) {
+          animation-delay: 1.5s;
+        }
+      `}</style>
     </section>
   );
 };
