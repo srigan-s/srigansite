@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Github, Linkedin, ChevronDown } from 'lucide-react';
+import { Github, FileText, ChevronDown } from 'lucide-react';
 
 const Hero = () => {
   const [visible, setVisible] = useState(false);
@@ -48,13 +48,13 @@ const Hero = () => {
             </a>
             
             <a
-              href="https://www.linkedin.com/in/srigan-sivagnanenthirarajah-418601206/"
+              href="https://drive.google.com/drive/u/0/folders/1Krbx7DbU7BJvlMt0zsL7BW4rIW90jJy-"
               target="_blank"
               rel="noopener noreferrer"
               className="group flex items-center gap-3 bg-transparent border-2 border-green-400 text-green-400 hover:bg-green-400 hover:text-slate-900 px-8 py-4 rounded-full font-semibold transition-all duration-300 transform hover:scale-105"
             >
-              <Linkedin className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300" />
-              LinkedIn Profile
+              <FileText className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300" />
+              View Resume
             </a>
           </div>
 

@@ -57,14 +57,9 @@ const About = () => {
                   <h3 className="text-2xl font-bold text-white mb-4">
                     Passionate Developer & Team Player
                   </h3>
-                  <p className="text-gray-300 leading-relaxed mb-4">
-                    Just like in baseball, I believe in the power of teamwork, strategic thinking, and continuous improvement. 
-                    I approach every project with the dedication of a player stepping up to the plate in the bottom of the ninth.
-                  </p>
                   <p className="text-gray-300 leading-relaxed">
-                    My passion for technology drives me to create innovative solutions that make a real impact. 
-                    Whether it's crafting pixel-perfect user interfaces or architecting robust backend systems, 
-                    I bring the same focus and determination that defines great athletes.
+                    Passionate developer who approaches every project with the dedication of a player stepping up to the plate. 
+                    I create innovative solutions with the same focus and determination that defines great athletes.
                   </p>
                 </div>
               </div>

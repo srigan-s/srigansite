@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { ExternalLink, Github, Star } from 'lucide-react';
+import { ExternalLink, Github, Star, ChevronLeft, ChevronRight, Upload } from 'lucide-react';
 
 const Projects = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -29,7 +30,8 @@ const Projects = () => {
       technologies: ["React", "TypeScript", "D3.js", "Node.js"],
       featured: true,
       github: "#",
-      live: "#"
+      live: "#",
+      image: "https://images.pexels.com/photos/1370296/pexels-photo-1370296.jpeg?auto=compress&cs=tinysrgb&w=600"
     },
     {
       title: "E-Commerce Platform",
@@ -37,7 +39,8 @@ const Projects = () => {
       technologies: ["Vue.js", "Express.js", "MongoDB", "Stripe"],
       featured: false,
       github: "#",
-      live: "#"
+      live: "#",
+      image: "https://images.pexels.com/photos/230544/pexels-photo-230544.jpeg?auto=compress&cs=tinysrgb&w=600"
     },
     {
       title: "Task Management App",
@@ -45,7 +48,8 @@ const Projects = () => {
       technologies: ["React", "Firebase", "Tailwind CSS", "PWA"],
       featured: false,
       github: "#",
-      live: "#"
+      live: "#",
+      image: "https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=600"
     },
     {
       title: "Weather Forecast API",
@@ -53,7 +57,8 @@ const Projects = () => {
       technologies: ["Python", "FastAPI", "PostgreSQL", "Docker"],
       featured: false,
       github: "#",
-      live: "#"
+      live: "#",
+      image: "https://images.pexels.com/photos/1118873/pexels-photo-1118873.jpeg?auto=compress&cs=tinysrgb&w=600"
     },
     {
       title: "Social Media Dashboard",
@@ -61,7 +66,8 @@ const Projects = () => {
       technologies: ["Next.js", "Prisma", "PostgreSQL", "Chart.js"],
       featured: true,
       github: "#",
-      live: "#"
+      live: "#",
+      image: "https://images.pexels.com/photos/267350/pexels-photo-267350.jpeg?auto=compress&cs=tinysrgb&w=600"
     },
     {
       title: "Mobile Fitness Tracker",
@@ -69,9 +75,18 @@ const Projects = () => {
       technologies: ["React Native", "Redux", "Firebase", "Expo"],
       featured: false,
       github: "#",
-      live: "#"
+      live: "#",
+      image: "https://images.pexels.com/photos/4164418/pexels-photo-4164418.jpeg?auto=compress&cs=tinysrgb&w=600"
     }
   ];
+
+  const nextProject = () => {
+    setCurrentIndex((prev) => (prev + 1) % projects.length);
+  };
+
+  const prevProject = () => {
+    setCurrentIndex((prev) => (prev - 1 + projects.length) % projects.length);
+  };
 
   return (
     <section ref={sectionRef} id="projects" className="py-20 relative">
@@ -96,63 +111,115 @@ const Projects = () => {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {projects.map((project, index) => (
-              <div
-                key={project.title}
-                className={`group transform transition-all duration-500 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}
-                style={{ transitionDelay: `${index * 100}ms` }}
+          {/* Projects Carousel */}
+          <div className="max-w-6xl mx-auto relative">
+            <div className="relative overflow-hidden">
+              <div 
+                className="flex transition-transform duration-500 ease-in-out"
+                style={{ transform: `translateX(-${currentIndex * 100}%)` }}
               >
-                <div className="relative h-full">
-                  <div className="absolute -inset-1 bg-gradient-to-r from-green-400 to-emerald-500 rounded-xl blur opacity-0 group-hover:opacity-25 transition-opacity duration-300"></div>
-                  <div className="relative bg-slate-800/80 backdrop-blur-sm p-6 rounded-xl border border-green-500/20 hover:border-green-400/40 transition-all duration-300 h-full flex flex-col">
-                    
-                    {project.featured && (
-                      <div className="flex items-center gap-2 mb-4">
-                        <Star className="w-4 h-4 text-yellow-400 fill-current" />
-                        <span className="text-sm text-yellow-400 font-medium">Featured Project</span>
-                      </div>
-                    )}
+                {projects.map((project, index) => (
+                  <div key={index} className="w-full flex-shrink-0 px-4">
+                    <div className="relative group">
+                      <div className="absolute -inset-1 bg-gradient-to-r from-green-400 to-emerald-500 rounded-xl blur opacity-0 group-hover:opacity-25 transition-opacity duration-300"></div>
+                      <div className="relative bg-slate-800/80 backdrop-blur-sm rounded-xl border border-green-500/20 hover:border-green-400/40 transition-all duration-300 overflow-hidden">
+                        
+                        {/* Project Image */}
+                        <div className="relative h-48 bg-slate-700/50 overflow-hidden group">
+                          <img 
+                            src={project.image}
+                            alt={project.title}
+                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent"></div>
+                          
+                          {/* Upload Overlay */}
+                          <div className="absolute inset-0 bg-slate-900/90 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <div className="text-center">
+                              <Upload className="w-8 h-8 text-green-400 mx-auto mb-2" />
+                              <p className="text-green-400 text-sm">Click to upload custom image</p>
+                            </div>
+                          </div>
+                        </div>
 
-                    <h3 className="text-xl font-bold text-white mb-3 group-hover:text-green-400 transition-colors duration-300">
-                      {project.title}
-                    </h3>
-                    
-                    <p className="text-gray-300 mb-4 flex-grow leading-relaxed">
-                      {project.description}
-                    </p>
-                    
-                    <div className="flex flex-wrap gap-2 mb-6">
-                      {project.technologies.map((tech) => (
-                        <span
-                          key={tech}
-                          className="px-3 py-1 bg-green-500/10 text-green-400 text-xs rounded-full border border-green-500/20"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-                    
-                    <div className="flex gap-4">
-                      <a
-                        href={project.github}
-                        className="flex items-center gap-2 text-gray-400 hover:text-green-400 transition-colors duration-300 group/link"
-                      >
-                        <Github className="w-4 h-4 group-hover/link:rotate-12 transition-transform duration-300" />
-                        <span className="text-sm">Code</span>
-                      </a>
-                      <a
-                        href={project.live}
-                        className="flex items-center gap-2 text-gray-400 hover:text-green-400 transition-colors duration-300 group/link"
-                      >
-                        <ExternalLink className="w-4 h-4 group-hover/link:rotate-12 transition-transform duration-300" />
-                        <span className="text-sm">Live Demo</span>
-                      </a>
+                        <div className="p-6">
+                          {project.featured && (
+                            <div className="flex items-center gap-2 mb-4">
+                              <Star className="w-4 h-4 text-yellow-400 fill-current" />
+                              <span className="text-sm text-yellow-400 font-medium">Featured Project</span>
+                            </div>
+                          )}
+
+                          <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-green-400 transition-colors duration-300">
+                            {project.title}
+                          </h3>
+                          
+                          <p className="text-gray-300 mb-6 leading-relaxed">
+                            {project.description}
+                          </p>
+                          
+                          <div className="flex flex-wrap gap-2 mb-6">
+                            {project.technologies.map((tech) => (
+                              <span
+                                key={tech}
+                                className="px-3 py-1 bg-green-500/10 text-green-400 text-sm rounded-full border border-green-500/20"
+                              >
+                                {tech}
+                              </span>
+                            ))}
+                          </div>
+                          
+                          <div className="flex gap-4">
+                            <a
+                              href={project.github}
+                              className="flex items-center gap-2 text-gray-400 hover:text-green-400 transition-colors duration-300 group/link"
+                            >
+                              <Github className="w-5 h-5 group-hover/link:rotate-12 transition-transform duration-300" />
+                              <span>View Code</span>
+                            </a>
+                            <a
+                              href={project.live}
+                              className="flex items-center gap-2 text-gray-400 hover:text-green-400 transition-colors duration-300 group/link"
+                            >
+                              <ExternalLink className="w-5 h-5 group-hover/link:rotate-12 transition-transform duration-300" />
+                              <span>Live Demo</span>
+                            </a>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
+                ))}
               </div>
-            ))}
+            </div>
+
+            {/* Carousel Controls */}
+            <button
+              onClick={prevProject}
+              className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-6 w-12 h-12 bg-green-600 hover:bg-green-500 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-lg"
+            >
+              <ChevronLeft className="w-6 h-6 text-white" />
+            </button>
+            
+            <button
+              onClick={nextProject}
+              className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-6 w-12 h-12 bg-green-600 hover:bg-green-500 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-lg"
+            >
+              <ChevronRight className="w-6 h-6 text-white" />
+            </button>
+
+            {/* Carousel Indicators */}
+            <div className="flex justify-center gap-2 mt-8">
+              {projects.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentIndex(index)}
+                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                    index === currentIndex ? 'bg-green-400 scale-125' : 'bg-gray-600 hover:bg-gray-500'
+                  }`}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </div>
