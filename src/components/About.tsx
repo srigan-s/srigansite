@@ -59,9 +59,9 @@ const About = () => {
                   
                   {/* Profile Image Circle */}
                   <img
-                    src="https://via.placeholder.com/150"
+                    src="public/sriganPFP.jpg"
                     alt="Profile"
-                    className="w-28 h-28 rounded-full mx-auto mb-6 border-4 border-green-400 object-cover"
+                    className="w-48 h-48 rounded-full mx-auto mb-6 border-4 border-green-400 object-cover"
                   />
 
                   <h3 className="text-2xl font-bold text-white mb-4">
