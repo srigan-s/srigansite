@@ -32,8 +32,11 @@ const About = () => {
   return (
     <section ref={sectionRef} id="about" className="py-20 relative">
       <div className="container mx-auto px-6">
-        <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          
+        <div
+          className={`transition-all duration-1000 ${
+            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+          }`}
+        >
           {/* Baseball Field Lines */}
           <div className="absolute inset-0 opacity-5 pointer-events-none">
             <div className="absolute top-0 left-1/2 w-px h-full bg-green-400 transform -translate-x-0.5"></div>
@@ -48,12 +51,19 @@ const About = () => {
           </div>
 
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            
             {/* Profile Section */}
             <div className="space-y-6">
               <div className="relative">
                 <div className="absolute -inset-1 bg-gradient-to-r from-green-400 to-emerald-500 rounded-lg blur opacity-25"></div>
-                <div className="relative bg-slate-800/80 backdrop-blur-sm p-8 rounded-lg border border-green-500/20">
+                <div className="relative bg-slate-800/80 backdrop-blur-sm p-8 rounded-lg border border-green-500/20 text-center">
+                  
+                  {/* Profile Image Circle */}
+                  <img
+                    src="https://via.placeholder.com/150"
+                    alt="Profile"
+                    className="w-28 h-28 rounded-full mx-auto mb-6 border-4 border-green-400 object-cover"
+                  />
+
                   <h3 className="text-2xl font-bold text-white mb-4">
                     Passionate Developer & Team Player
                   </h3>
@@ -70,7 +80,9 @@ const About = () => {
               {skills.map((skill, index) => (
                 <div
                   key={skill.name}
-                  className={`group transform transition-all duration-500 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'}`}
+                  className={`group transform transition-all duration-500 ${
+                    isVisible ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'
+                  }`}
                   style={{ transitionDelay: `${index * 150}ms` }}
                 >
                   <div className="relative">
