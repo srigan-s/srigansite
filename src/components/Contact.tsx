@@ -25,8 +25,11 @@ const Contact = () => {
   return (
     <section ref={sectionRef} id="contact" className="py-20 relative">
       <div className="container mx-auto px-6">
-        <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          
+        <div
+          className={`transition-all duration-1000 ${
+            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+          }`}
+        >
           {/* Baseball Home Plate */}
           <div className="absolute bottom-10 left-10 opacity-5 pointer-events-none">
             <div className="w-16 h-16 bg-green-400 transform rotate-45"></div>
@@ -53,7 +56,7 @@ const Contact = () => {
               <Linkedin className="w-6 h-6 group-hover:rotate-12 transition-transform duration-300" />
               <span className="text-lg">LinkedIn</span>
             </a>
-            
+
             <a
               href="https://github.com/srigan-s"
               target="_blank"
@@ -63,7 +66,7 @@ const Contact = () => {
               <Github className="w-6 h-6 group-hover:rotate-12 transition-transform duration-300" />
               <span className="text-lg">GitHub</span>
             </a>
-            
+
             <a
               href="mailto:your.email@example.com"
               className="group flex items-center gap-4 bg-green-600 hover:bg-green-500 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-green-500/25"
@@ -71,7 +74,7 @@ const Contact = () => {
               <Mail className="w-6 h-6 group-hover:rotate-12 transition-transform duration-300" />
               <span className="text-lg">Email</span>
             </a>
-            
+
             <a
               href="https://instagram.com/your_username"
               target="_blank"
@@ -82,11 +85,10 @@ const Contact = () => {
               <span className="text-lg">Instagram</span>
             </a>
           </div>
+        </div>
       </div>
     </section>
   );
 };
 
 export default Contact;
-  )
-}
