@@ -25,11 +25,13 @@ function App() {
     <>
       {isLoading && <BaseballSwingLoader onComplete={handleLoadingComplete} />}
       
+      {/* The header is now only rendered when showContent is true */}
+      {showContent && <Header />}
+
       <div className={`min-h-screen bg-gradient-to-br from-slate-900 via-green-900 to-emerald-900 relative overflow-x-hidden transition-all duration-1000 ${
         showContent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
       }`}>
         <AnimatedBaseballs />
-        <Header />
         <Hero />
         <About />
         <Education />

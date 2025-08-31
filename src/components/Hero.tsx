@@ -29,7 +29,7 @@ const Hero = () => {
           </h1>
           
           <p className="text-xl md:text-2xl text-green-200 mb-8 max-w-3xl mx-auto leading-relaxed">
-            Full Stack Developer & Baseball Enthusiast
+            Software Developer & Baseball Enthusiast
           </p>
           
           <p className="text-lg text-gray-300 mb-12 max-w-2xl mx-auto">
