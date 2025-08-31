@@ -1,5 +1,4 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -15,17 +14,31 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [showContent, setShowContent] = useState(false);
 
-  const handleLoadingComplete = () => {
-    setIsLoading(false);
-    // Delay content appearance for smooth transition
-    setTimeout(() => setShowContent(true), 100);
-  };
+  useEffect(() => {
+    const handleLoadingComplete = () => {
+      setIsLoading(false);
+      // Delay content appearance for smooth transition
+      setTimeout(() => setShowContent(true), 100);
+    };
+
+    // Automatically scroll down the page when the component mounts
+    window.scrollTo({
+      top: 51, // Scroll down 51 pixels
+      behavior: 'smooth'
+    });
+
+    if (isLoading) {
+      // This is to prevent the loader from starting again on subsequent renders
+      // of the component in a dev environment.
+      const loaderTimeout = setTimeout(handleLoadingComplete, 2600);
+      return () => clearTimeout(loaderTimeout);
+    }
+  }, [isLoading]);
 
   return (
     <>
-      {isLoading && <BaseballSwingLoader onComplete={handleLoadingComplete} />}
+      {isLoading && <BaseballSwingLoader onComplete={() => setIsLoading(false)} />}
       
-      {/* The header is now only rendered when showContent is true */}
       {showContent && <Header />}
 
       <div className={`min-h-screen bg-gradient-to-br from-slate-900 via-green-900 to-emerald-900 relative overflow-x-hidden transition-all duration-1000 ${
