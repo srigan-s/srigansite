@@ -123,7 +123,7 @@ const Projects = () => {
                     <div className="relative group">
                       <div className="absolute -inset-1 bg-gradient-to-r from-green-400 to-emerald-500 rounded-xl blur opacity-0 group-hover:opacity-25 transition-opacity duration-300"></div>
                       <div className="relative bg-slate-800/80 backdrop-blur-sm rounded-xl border border-green-500/20 hover:border-green-400/40 transition-all duration-300 overflow-hidden">
-                        
+                  
                         {/* Project Image */}
                         <div className="relative h-48 bg-slate-700/50 overflow-hidden group">
                           <img 
@@ -132,14 +132,8 @@ const Projects = () => {
                             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                           />
                           <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent"></div>
+
                           
-                          {/* Upload Overlay */}
-                          <div className="absolute inset-0 bg-slate-900/90 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                            <div className="text-center">
-                              <Upload className="w-8 h-8 text-green-400 mx-auto mb-2" />
-                              <p className="text-green-400 text-sm">Click to upload custom image</p>
-                            </div>
-                          </div>
                         </div>
 
                         <div className="p-6">

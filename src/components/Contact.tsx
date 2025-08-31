@@ -68,7 +68,7 @@ const Contact = () => {
             </a>
 
             <a
-              href="mailto:your.email@example.com"
+              href="mailto:srigan.siva@gmail.com"
               className="floating group flex items-center gap-4 bg-green-600 hover:bg-green-500 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-green-500/25"
             >
               <Mail className="w-6 h-6 group-hover:rotate-12 transition-transform duration-300" />
@@ -76,7 +76,7 @@ const Contact = () => {
             </a>
 
             <a
-              href="https://instagram.com/your_username"
+              href="https://instagram.com/srigan_s"
               target="_blank"
               rel="noopener noreferrer"
               className="floating group flex items-center gap-4 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-400 hover:to-purple-500 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-pink-500/25"

@@ -50,7 +50,7 @@ const Education = () => {
                   <div className="flex-shrink-0">
                     <div className="w-32 h-32 bg-slate-700/50 rounded-xl border border-green-500/20 flex items-center justify-center overflow-hidden">
                       <img 
-                        src="https://images.pexels.com/photos/207692/pexels-photo-207692.jpeg?auto=compress&cs=tinysrgb&w=400"
+                        src="/waterloo.png"
                         alt="University of Waterloo"
                         className="w-full h-full object-cover"
                       />
@@ -82,7 +82,7 @@ const Education = () => {
 
                     <div className="mt-6 p-4 bg-green-500/10 rounded-lg border border-green-500/20">
                       <p className="text-green-200 text-sm italic">
-                        "Engineering the future, one algorithm at a time ⚡"
+                        Relevant Courses: ECE150(C++), ECE198(Project Studio), ECE105(Classical Mechanics) 
                       </p>
                     </div>
                   </div>

@@ -24,9 +24,9 @@ const About = () => {
 
   const skills = [
     { icon: Code, name: 'Frontend Development', description: 'React, TypeScript, Vue.js' },
-    { icon: Database, name: 'Backend Development', description: 'Node.js, Python, PostgreSQL, Java, C++' },
+    { icon: Database, name: 'Backend Development', description: 'Node.js, Python, Java, C++, Pandas' },
     { icon: Globe, name: 'Web Technologies', description: 'HTML5, CSS3, JavaScript ES6+' },
-    { icon: Zap, name: 'Modern Tools', description: 'Git, Docker, AWS, CI/CD' }
+    { icon: Zap, name: 'Modern Tools', description: 'Git, VSCode, AWS, Stackblitz' }
   ];
 
   return (
@@ -61,14 +61,14 @@ const About = () => {
                   <img
                     src="/sriganPFP.jpg"
                     alt="Profile"
-                    className="w-48 h-48 rounded-full mx-auto mb-6 border-4 border-green-400 object-cover"
+                    className="w-52 h-52 rounded-full mx-auto mb-6 border-4 border-green-400 object-cover"
                   />
 
                   <h3 className="text-2xl font-bold text-white mb-4">
                     Passionate Developer & Team Player
                   </h3>
                   <p className="text-gray-300 leading-relaxed">
-                    Passionate developer who approaches every project with the dedication of a player stepping up to the plate. 
+                    Software developer who approaches every project with the dedication of a player stepping up to the plate. 
                     I create innovative solutions with the same focus and determination that defines great athletes.
                   </p>
                 </div>
