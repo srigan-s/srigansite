@@ -71,7 +71,7 @@ const Contact = () => {
               href="mailto:srigan.siva@gmail.com"
               className="floating group flex items-center gap-4 bg-green-600 hover:bg-green-500 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-green-500/25"
             >
-              <Mail className="w-6 h-6 group-hover:rotate-12 transition-transform duration-300" />
+              <Mail className="w-6 h-6 group-hover:rotate-12 transition-transform duration-300"  />
               <span className="text-lg">Email</span>
             </a>
 
