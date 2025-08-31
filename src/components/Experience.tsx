@@ -96,8 +96,9 @@ const Experience = () => {
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}
         >
-          <div className="text-center mb-12 sm:mb-16">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 sm:mb-6">
+          {/* Heading */}
+          <div className="text-center mb-12 sm:mb-16 relative z-10">
+            <h2 className="text-3xl sm:text-5xl font-bold text-white mb-4 sm:mb-6">
               Professional <span className="text-green-400">Experience</span>
             </h2>
             <div className="w-20 sm:w-24 h-1 bg-green-400 mx-auto mb-6 sm:mb-8"></div>
@@ -106,9 +107,54 @@ const Experience = () => {
             </p>
           </div>
 
-          {/* Carousel */}
-          <div className="max-w-full sm:max-w-4xl mx-auto relative flex justify-center items-center">
-            <div className="relative w-full h-auto sm:h-[500px] flex justify-center items-center">
+          {/* MOBILE (scrollable) */}
+          <div className="sm:hidden flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4">
+            {experiences.map((exp, index) => (
+              <div
+                key={index}
+                className="snap-center shrink-0 w-[85%] bg-slate-800/80 backdrop-blur-sm p-6 rounded-xl border border-green-500/20"
+              >
+                <div className="flex flex-col gap-4">
+                  <div className="flex items-start gap-3">
+                    <div className="text-2xl">{exp.icon}</div>
+                    <div>
+                      <h3 className="text-lg font-bold text-white">{exp.title}</h3>
+                      <h4 className="text-green-400 font-semibold">{exp.company}</h4>
+                      <div className="flex items-center gap-2 text-xs text-gray-300 mt-1">
+                        <MapPin className="w-3 h-3 text-gray-400" />
+                        {exp.location}
+                      </div>
+                    </div>
+                  </div>
+                  <img
+                    src={exp.image}
+                    alt={exp.company}
+                    className="w-full h-40 object-cover rounded-md"
+                  />
+                  <p className="text-gray-300 text-sm">{exp.description}</p>
+                  <div>
+                    <h5 className="text-xs font-semibold text-green-400 uppercase mb-1">
+                      Skills
+                    </h5>
+                    <div className="flex flex-wrap gap-1">
+                      {exp.skills.map((skill) => (
+                        <span
+                          key={skill}
+                          className="px-2 py-0.5 bg-green-500/10 text-green-400 text-xs rounded-full border border-green-500/20"
+                        >
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* DESKTOP (carousel) */}
+          <div className="hidden sm:flex max-w-4xl mx-auto relative justify-center items-center">
+            <div className="relative w-full h-[500px] flex justify-center items-center">
               {experiences.map((exp, index) => {
                 let zIndex = 1;
                 let opacity = 'opacity-40';
@@ -120,16 +166,14 @@ const Experience = () => {
                 if (offset === 0) {
                   zIndex = 2;
                   opacity = 'opacity-100';
-                  scale = 'scale-100 sm:scale-110';
+                  scale = 'scale-110';
                   translate = 'translate-x-0';
                 } else if (offset === 1 || offset === -experiences.length + 1) {
-                  opacity = 'opacity-40';
-                  translate = 'translate-x-[55%] hidden sm:block';
+                  translate = 'translate-x-[55%]';
                 } else if (offset === -1 || offset === experiences.length - 1) {
-                  opacity = 'opacity-40';
-                  translate = '-translate-x-[55%] hidden sm:block';
+                  translate = '-translate-x-[55%]';
                 } else {
-                  opacity = 'opacity-0 hidden sm:block';
+                  opacity = 'opacity-0';
                 }
 
                 return (
@@ -139,45 +183,35 @@ const Experience = () => {
                     style={{ zIndex }}
                   >
                     <div className="relative h-full flex items-center justify-center">
-                      <div className="absolute -inset-0.5 bg-gradient-to-r from-green-400 to-emerald-500 rounded-xl blur-sm opacity-25"></div>
-                      <div className="relative bg-slate-800/80 backdrop-blur-sm p-6 sm:p-8 rounded-xl border border-green-500/20 w-full max-w-md sm:max-w-xl lg:w-[700px]">
-                        <div className="flex flex-col sm:flex-row gap-6 sm:gap-8 items-center sm:items-start">
-                          
-                          {/* Left side */}
-                          <div className="w-full sm:w-2/3">
-                            <div className="flex items-start gap-3 sm:gap-4 mb-4 sm:mb-6">
-                              <div className="text-3xl sm:text-4xl">{exp.icon}</div>
-                              <div className="flex-grow">
-                                <h3 className="text-xl sm:text-2xl font-bold text-white mb-1 sm:mb-2">{exp.title}</h3>
-                                <h4 className="text-lg sm:text-xl text-green-400 font-semibold mb-2 sm:mb-3">{exp.company}</h4>
-                                <div className="flex items-center gap-2 mb-3 sm:mb-4 text-sm sm:text-base">
-                                  <MapPin className="w-4 h-4 text-gray-400" />
-                                  <span className="text-gray-300">{exp.location}</span>
-                                </div>
-                              </div>
+                      <div className="relative bg-slate-800/80 backdrop-blur-sm p-8 rounded-xl border border-green-500/20 w-[700px]">
+                        <div className="flex gap-8 items-center">
+                          <div className="w-2/3">
+                            <h3 className="text-2xl font-bold text-white mb-2">{exp.title}</h3>
+                            <h4 className="text-xl text-green-400 font-semibold mb-3">{exp.company}</h4>
+                            <div className="flex items-center gap-2 mb-4">
+                              <MapPin className="w-4 h-4 text-gray-400" />
+                              <span className="text-gray-300">{exp.location}</span>
                             </div>
-                            <p className="text-gray-300 mb-4 sm:mb-6 leading-relaxed text-sm sm:text-base">{exp.description}</p>
-                            <div className="space-y-2 sm:space-y-3">
-                              <h5 className="text-xs sm:text-sm font-semibold text-green-400 uppercase tracking-wide">Skills Used</h5>
-                              <div className="flex flex-wrap gap-2">
-                                {exp.skills.map((skill) => (
-                                  <span
-                                    key={skill}
-                                    className="px-2 py-1 sm:px-3 sm:py-1 bg-green-500/10 text-green-400 text-xs sm:text-sm rounded-full border border-green-500/20"
-                                  >
-                                    {skill}
-                                  </span>
-                                ))}
-                              </div>
+                            <p className="text-gray-300 mb-6">{exp.description}</p>
+                            <h5 className="text-sm font-semibold text-green-400 uppercase tracking-wide">
+                              Skills Used
+                            </h5>
+                            <div className="flex flex-wrap gap-2 mt-2">
+                              {exp.skills.map((skill) => (
+                                <span
+                                  key={skill}
+                                  className="px-3 py-1 bg-green-500/10 text-green-400 text-sm rounded-full border border-green-500/20"
+                                >
+                                  {skill}
+                                </span>
+                              ))}
                             </div>
                           </div>
-
-                          {/* Right side image */}
-                          <div className="w-full sm:w-1/3 flex-shrink-0">
+                          <div className="w-1/3 flex-shrink-0">
                             <img
                               src={exp.image}
-                              alt={`Image for ${exp.company}`}
-                              className="w-full h-48 sm:h-full object-cover rounded-md"
+                              alt={exp.company}
+                              className="w-full aspect-square object-cover rounded-md"
                             />
                           </div>
                         </div>
@@ -189,33 +223,20 @@ const Experience = () => {
             </div>
           </div>
 
-          {/* Controls */}
-          <div className="flex justify-center mt-8 sm:mt-12 gap-6 sm:gap-8">
+          {/* Desktop Controls */}
+          <div className="hidden sm:flex justify-center mt-12 gap-8">
             <button
               onClick={prevExperience}
-              className="w-10 h-10 sm:w-12 sm:h-12 bg-green-600 hover:bg-green-500 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-lg"
+              className="w-12 h-12 bg-green-600 hover:bg-green-500 rounded-full flex items-center justify-center transition-all"
             >
-              <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+              <ChevronLeft className="w-6 h-6 text-white" />
             </button>
             <button
               onClick={nextExperience}
-              className="w-10 h-10 sm:w-12 sm:h-12 bg-green-600 hover:bg-green-500 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-lg"
+              className="w-12 h-12 bg-green-600 hover:bg-green-500 rounded-full flex items-center justify-center transition-all"
             >
-              <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+              <ChevronRight className="w-6 h-6 text-white" />
             </button>
-          </div>
-
-          {/* Indicators */}
-          <div className="flex justify-center gap-2 mt-6 sm:mt-8">
-            {experiences.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrentIndex(index)}
-                className={`w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full transition-all duration-300 ${
-                  index === currentIndex ? 'bg-green-400 scale-125' : 'bg-gray-600 hover:bg-gray-500'
-                }`}
-              />
-            ))}
           </div>
         </div>
       </div>
