@@ -25,57 +25,57 @@ const Projects = () => {
 
   const projects = [
     {
-      title: "Baseball Analytics Dashboard",
-      description: "A comprehensive web application for tracking baseball statistics and player performance with real-time data visualization.",
-      technologies: ["React", "TypeScript", "D3.js", "Node.js"],
+      title: "ColourMashAI",
+      description: "nteractive web application designed to help individuals with Alzheimer’s and dementia improve memory and cognitive skills through pattern recognition.",
+      technologies: ["Next.js","React", "OpenAI API", "Tensorflow.js"],
       featured: true,
-      github: "#",
-      live: "#",
-      image: "https://images.pexels.com/photos/1370296/pexels-photo-1370296.jpeg?auto=compress&cs=tinysrgb&w=600"
+      github: "https://github.com/srigan-s/ColourMash",
+      live: "https://colourmash.netlify.app/",
+      image: "/colourmash.png"
     },
     {
-      title: "E-Commerce Platform",
-      description: "Full-stack e-commerce solution with modern UI/UX, payment integration, and inventory management system.",
-      technologies: ["Vue.js", "Express.js", "MongoDB", "Stripe"],
-      featured: false,
-      github: "#",
-      live: "#",
-      image: "https://images.pexels.com/photos/230544/pexels-photo-230544.jpeg?auto=compress&cs=tinysrgb&w=600"
-    },
-    {
-      title: "Task Management App",
-      description: "Collaborative project management tool with real-time updates, team collaboration features, and advanced filtering.",
-      technologies: ["React", "Firebase", "Tailwind CSS", "PWA"],
-      featured: false,
-      github: "#",
-      live: "#",
-      image: "https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=600"
-    },
-    {
-      title: "Weather Forecast API",
-      description: "RESTful API service providing accurate weather forecasts with machine learning-based predictions and historical data analysis.",
-      technologies: ["Python", "FastAPI", "PostgreSQL", "Docker"],
-      featured: false,
-      github: "#",
-      live: "#",
-      image: "https://images.pexels.com/photos/1118873/pexels-photo-1118873.jpeg?auto=compress&cs=tinysrgb&w=600"
-    },
-    {
-      title: "Social Media Dashboard",
-      description: "Analytics dashboard for social media management with content scheduling, engagement tracking, and performance insights.",
-      technologies: ["Next.js", "Prisma", "PostgreSQL", "Chart.js"],
+      title: "RecruterCallAI",
+      description: "AI-powered technical interview preparation platform that simulates realistic recruiter-style interviews. It leverages GPT-4.1 to generate customized technical interview questions, provide feedback, and help users practice in a more authentic setting.",
+      technologies: ["Typescript", "OpenAI API", "React", "PostgresSQL"],
       featured: true,
-      github: "#",
-      live: "#",
-      image: "https://images.pexels.com/photos/267350/pexels-photo-267350.jpeg?auto=compress&cs=tinysrgb&w=600"
+      github: "https://github.com/srigan-s/RecruiterCallAI",
+      live: "https://recruitercallgan.netlify.app/",
+      image: "/recruitercall.png"
     },
     {
-      title: "Mobile Fitness Tracker",
-      description: "Cross-platform mobile app for fitness tracking with workout plans, progress monitoring, and social features.",
-      technologies: ["React Native", "Redux", "Firebase", "Expo"],
+      title: "120 Years of Olympic Data - ML",
+      description: "This project explores 120 years of Olympic athlete data to uncover trends in participation, demographics, and performance, and predicts medal success using machine learning.",
+      technologies: ["Python", "Pandas", "Scikit-Learn", "Seaborn"],
+      featured: true,
+      github: "https://github.com/srigan-s/UWaterlooDataScienceClub-EDA",
+      live: "https://github.com/srigan-s/UWaterlooDataScienceClub-EDA/blob/main/olympics.ipynb",
+      image: "/ml.png"
+    },
+    {
+      title: "MiniAI Web App",
+      description: "Full-Stack platform that helps young learners explore artificial intelligence in an enjoyable, gamified environment. Through a journey of mini-games, projects, and prompts, kids build core AI intuition like prompt crafting, logic thinking, and basic ML principles.",
+      technologies: ["Next.js", "React", "PostgreSQL", "CSS"],
       featured: false,
-      github: "#",
-      live: "#",
+      github: "https://github.com/srigan-s/MiniAIWebApp",
+      live: "https://miniai-learn.netlify.app/",
+      image: "/learn.png"
+    },
+
+    {
+      title: "4-Way Traffic Signal",
+      description: "The project makes a 4-way intersection and a street lamp. Using Arduino (C++) to create functional traffic lights.This project is a functional intersection model built on a cardboard base with Arduino-controlled traffic lights and a street lamp, using LEDs, popsicle sticks, straws, and precise wiring to simulate a real-life 15-second light cycle and automatic night lighting.",
+      technologies: ["C++", "Arduino", "Soldering", "Voltage Regulation"],
+      featured: false,
+      github: "https://github.com/srigan-s/EuropeanClash",
+      image: "/c++.jpg"
+    },
+  
+    {
+      title: "Library Management Software",
+      description: "Full Backend implemented with Object-Oriented Programming (OOP) principles, leveraging encapsulation, inheritance, and polymorphism to manage books, users, transactions, and inventory, providing efficient handling of borrowing, returns, and data consistency.",
+      technologies: ["Java", "SQL"],
+      featured: false,
+      github: "https://github.com/srigan-s/Library-Management-Software",
       image: "https://images.pexels.com/photos/4164418/pexels-photo-4164418.jpeg?auto=compress&cs=tinysrgb&w=600"
     }
   ];
