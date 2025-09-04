@@ -34,10 +34,44 @@ const Experience = () => {
       icon: "🤖",
       image: "/miniAi.png",
     },
-    // add more experiences as needed...
+    {
+      title: "Firmware Engineering Lead",
+      company: "FIRST Robotics",
+      location: "Toronto (In person)",
+      description: "Implementing firmware solutions for the robot's cameras, sensors, drivers and routers 🔌",
+      skills: ["Java", "AutoCAD"],
+      icon: "🤖",
+      image: "/firstcube.jpg",
+    },
+    {
+      title: "Student Researcher",
+      company: "The University of Waterloo",
+      location: "Waterloo (Hybrid)",
+      description: "Researching Quantum Algorithms and Software with PHD Students and Professors 🔬",
+      skills: ["Qiskit", "Python"],
+      icon: "🔬",
+      image: "/waterloo.png",
+    },
+    {
+      title: "Robotics Instructor",
+      company: "The City of Vaughan",
+      location: "Vaughan (In Person)",
+      description: "Teaching robotics using Arduino(C++), and real-world problem-solving ⭐",
+      skills: ["Java", "C++"],
+      icon: "🎓",
+      image: "/vaughan.jpg",
+    },
+    {
+      title: "Software Developer",
+      company: "Waterloo Data Science Club",
+      location: "Waterloo (In Person)",
+      description: "Full stack Development of Hackathon Sign Up Page⭐",
+      skills: ["React", "HTML", "CSS", "Tailwind.css"],
+      icon: "📈",
+      image: "/uwdsc.png",
+    },
   ];
 
-  // Intersection Observer for fade-in animation
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -52,7 +86,6 @@ const Experience = () => {
     };
   }, []);
 
-  // Carousel navigation
   const nextExperience = () => setCurrentIndex((prev) => (prev + 1) % experiences.length);
   const prevExperience = () =>
     setCurrentIndex((prev) => (prev - 1 + experiences.length) % experiences.length);
@@ -146,20 +179,6 @@ const Experience = () => {
                   </div>
                 );
               })}
-
-              {/* Controls */}
-              <button
-                onClick={prevExperience}
-                className="absolute left-0 top-1/2 -translate-y-1/2 w-12 h-12 bg-green-600 hover:bg-green-500 rounded-full flex items-center justify-center shadow-lg"
-              >
-                <ChevronLeft className="w-6 h-6 text-white" />
-              </button>
-              <button
-                onClick={nextExperience}
-                className="absolute right-0 top-1/2 -translate-y-1/2 w-12 h-12 bg-green-600 hover:bg-green-500 rounded-full flex items-center justify-center shadow-lg"
-              >
-                <ChevronRight className="w-6 h-6 text-white" />
-              </button>
             </div>
 
             {/* Mobile Carousel (scrollable) */}
@@ -199,19 +218,35 @@ const Experience = () => {
                 </div>
               ))}
             </div>
-          </div>
 
-          {/* Desktop Indicators */}
-          <div className="hidden md:flex justify-center gap-2 mt-6">
-            {experiences.map((_, index) => (
+            {/* Controls and Indicators (bottom for both desktop & mobile) */}
+            <div className="flex justify-center items-center gap-4 mt-6">
               <button
-                key={index}
-                onClick={() => setCurrentIndex(index)}
-                className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                  index === currentIndex ? "bg-green-400 scale-125" : "bg-gray-600 hover:bg-gray-500"
-                }`}
-              />
-            ))}
+                onClick={prevExperience}
+                className="w-10 h-10 bg-green-600 hover:bg-green-500 rounded-full flex items-center justify-center shadow-lg"
+              >
+                <ChevronLeft className="w-5 h-5 text-white" />
+              </button>
+              <div className="flex gap-2">
+                {experiences.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentIndex(index)}
+                    className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                      index === currentIndex
+                        ? "bg-green-400 scale-125"
+                        : "bg-gray-600 hover:bg-gray-500"
+                    }`}
+                  />
+                ))}
+              </div>
+              <button
+                onClick={nextExperience}
+                className="w-10 h-10 bg-green-600 hover:bg-green-500 rounded-full flex items-center justify-center shadow-lg"
+              >
+                <ChevronRight className="w-5 h-5 text-white" />
+              </button>
+            </div>
           </div>
         </div>
       </div>
