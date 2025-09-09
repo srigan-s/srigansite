@@ -26,7 +26,7 @@ const Projects = () => {
   const projects = [
     {
       title: "ColourMashAI",
-      description: "nteractive web application designed to help individuals with Alzheimer’s and dementia improve memory and cognitive skills through pattern recognition.",
+      description: "Interactive web application designed to help individuals with Alzheimer’s and dementia improve memory and cognitive skills through pattern recognition.",
       technologies: ["Next.js","React", "OpenAI API", "Tensorflow.js"],
       featured: true,
       github: "https://github.com/srigan-s/ColourMash",
