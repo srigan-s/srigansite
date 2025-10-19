@@ -34,6 +34,15 @@ const Projects = () => {
       image: "/colourmash.png"
     },
     {
+      title: "4-Way Traffic Signal",
+      description: "The project makes a 4-way intersection and a street lamp. Using Arduino (C++) to create functional traffic lights.This project is a functional intersection model built on a cardboard base with Arduino-controlled traffic lights and a street lamp, using LEDs, popsicle sticks, straws, and precise wiring to simulate a real-life 15-second light cycle and automatic night lighting.",
+      technologies: ["C++", "Arduino", "Soldering", "Voltage Regulation"],
+      featured: false,
+      github: "https://github.com/srigan-s/EuropeanClash",
+      image: "/c++.jpg"
+    },
+
+    {
       title: "RecruterCallAI",
       description: "AI-powered technical interview preparation platform that simulates realistic recruiter-style interviews. It leverages GPT-4.1 to generate customized technical interview questions, provide feedback, and help users practice in a more authentic setting.",
       technologies: ["Typescript", "OpenAI API", "React", "PostgresSQL"],
@@ -61,15 +70,6 @@ const Projects = () => {
       image: "/learn.png"
     },
 
-    {
-      title: "4-Way Traffic Signal",
-      description: "The project makes a 4-way intersection and a street lamp. Using Arduino (C++) to create functional traffic lights.This project is a functional intersection model built on a cardboard base with Arduino-controlled traffic lights and a street lamp, using LEDs, popsicle sticks, straws, and precise wiring to simulate a real-life 15-second light cycle and automatic night lighting.",
-      technologies: ["C++", "Arduino", "Soldering", "Voltage Regulation"],
-      featured: false,
-      github: "https://github.com/srigan-s/EuropeanClash",
-      image: "/c++.jpg"
-    },
-  
     {
       title: "Library Management Software",
       description: "Full Backend implemented with Object-Oriented Programming (OOP) principles, leveraging encapsulation, inheritance, and polymorphism to manage books, users, transactions, and inventory, providing efficient handling of borrowing, returns, and data consistency.",
