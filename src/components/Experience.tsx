@@ -28,7 +28,7 @@ const Experience = () => {
     {
       title: "Founding AI Software Engineer",
       company: "MiniAI",
-      location: "Toronto (In person)",
+      location: "Toronto (In-person)",
       description: "Founder & CEO while spearheading the MiniAI Educational Web App 🧑🏽‍💻",
       skills: ["React.js", "SQL", "Node.js", "C#", "MongoDB", "C++", "HTML", "CSS"],
       icon: "🤖",
@@ -37,12 +37,21 @@ const Experience = () => {
     {
       title: "Firmware Engineering Lead",
       company: "FIRST Robotics",
-      location: "Toronto (In person)",
+      location: "Toronto (In-Person)",
       description: "Implementing firmware solutions for the robot's cameras, sensors, drivers and routers 🔌",
       skills: ["Java", "AutoCAD"],
       icon: "🤖",
       image: "/firstcube.jpg",
     },
+    {
+      title: "Electrical Engineer",
+      company: "WATonomous",
+      location: "Waterloo (In-Person)",
+      description: "Developing the windshield wiper control system, focusing on PCB wiring and circuit validation, improving power efficiency ⚡",
+      skills: ["PCB Design", "Circuit Testing", "Soldering", "Multimeter", "Oscilloscope"],
+      icon: "🚘",
+      image: "/wato.jpeg",
+    },    
     {
       title: "Student Researcher",
       company: "The University of Waterloo",
@@ -55,7 +64,7 @@ const Experience = () => {
     {
       title: "Robotics Instructor",
       company: "The City of Vaughan",
-      location: "Vaughan (In Person)",
+      location: "Vaughan (In-Person)",
       description: "Teaching robotics using Arduino(C++), and real-world problem-solving ⭐",
       skills: ["Java", "C++"],
       icon: "🎓",
@@ -64,7 +73,7 @@ const Experience = () => {
     {
       title: "Software Developer",
       company: "Waterloo Data Science Club",
-      location: "Waterloo (In Person)",
+      location: "Waterloo (In-Person)",
       description: "Full stack Development of Hackathon Sign Up Page⭐",
       skills: ["React", "HTML", "CSS", "Tailwind.css"],
       icon: "📈",
