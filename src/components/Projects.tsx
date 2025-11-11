@@ -25,6 +25,16 @@ const Projects = () => {
 
   const projects = [
     {
+      title: "Arduino BeatSync",
+      description: "An Arduino-based project that plays a song while synchronizing LED patterns to the rhythm. Audio was carefully spliced and processed using audio splicing software to isolate beats and transitions, enabling precise timing between light effects and the music. The result is an immersive display that visually represents sound through real-time beat association.",
+      technologies: ["Arduino", "C++", "Audio Splicing Software", "LED Control", "PWM Timing"],
+      featured: true,
+      github: "https://github.com/srigan-s/ArduinoBeatSync",
+      live: "https://github.com/srigan-s/ArduinoBeatSync",
+      image: "/arduino.jpg"
+    },
+    
+    {
       title: "ColourMashAI",
       description: "Interactive web application designed to help individuals with Alzheimer’s and dementia improve memory and cognitive skills through pattern recognition.",
       technologies: ["Next.js","React", "OpenAI API", "Tensorflow.js"],
