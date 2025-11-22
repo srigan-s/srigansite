@@ -8,6 +8,25 @@ const Experience = () => {
 
   const experiences = [
     {
+      title: "Robotics Engineering Intern",
+      company: "Wiz Robotics",
+      location: "Toronto (In-Person)",
+        description: "IoT Software & Management",
+        skills: 
+          ["Sensor Evaluation",
+          "Hardware–Software Integration",
+          "Control Systems",
+          "OpenCV",
+          "TensorFlow",
+          "AI Vision/Perception",
+          "Arduino",
+          "Embedded IoT Systems",
+          "Microcontrollers"],
+        icon: "🚀",
+      
+      image: "/wizrobotics.webp",
+    },
+    {
       title: "Software Engineer Intern",
       company: "Baycrest Hospital",
       location: "Toronto (Remote)",
@@ -15,15 +34,6 @@ const Experience = () => {
       skills: ["React.js", "MongoDB", "TypeScript", "Node.js", "SQL", "HTML", "CSS"],
       icon: "🏥",
       image: "/bay.png",
-    },
-    {
-      title: "Software Test Engineer",
-      company: "Majestyk",
-      location: "New York City (Remote)",
-      description: "Creating and implementing test cases for iOS Apps 📱",
-      skills: ["Figma", "Test Engineering", "Swift"],
-      icon: "🧪",
-      image: "/majestykapps.jpg",
     },
     {
       title: "Founding AI Software Engineer",

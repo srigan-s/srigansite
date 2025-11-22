@@ -33,7 +33,7 @@ const Hero = () => {
           </p>
           
           <p className="text-lg text-gray-300 mb-12 max-w-2xl mx-auto">
-            Crafting digital experiences with the precision of a perfect pitch and the strategy of a championship team.
+          Engineering solutions with the precision of a perfect pitch and the strategy of a championship team.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16">

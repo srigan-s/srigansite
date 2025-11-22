@@ -65,10 +65,10 @@ const About = () => {
                   />
 
                   <h3 className="text-2xl font-bold text-white mb-4">
-                    Passionate Developer & Team Player
+                    Engineer & Team Player
                   </h3>
                   <p className="text-gray-300 leading-relaxed">
-                    Software developer who approaches every project with the dedication of a player stepping up to the plate. 
+                    Engineer who approaches every project with the dedication of a player stepping up to the plate. 
                     I create innovative solutions with the same focus and determination that defines great athletes.
                   </p>
                 </div>
