@@ -61,7 +61,7 @@ const About = () => {
                   <img
                     src="/sriganBlue.jpeg"
                     alt="Profile"
-                    className="w-52 h-52 rounded-full mx-auto mb-6 border-4 border-green-400 object-cover"
+                    className="w-53 h-53 rounded-full mx-auto mb-6 border-4 border-green-400 object-cover"
                   />
 
                   <h3 className="text-2xl font-bold text-white mb-4">
