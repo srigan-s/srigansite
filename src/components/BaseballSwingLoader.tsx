@@ -24,7 +24,7 @@ const BaseballSwingLoader = ({ onComplete }: { onComplete: () => void }) => {
 
   return (
     <div
-      className={`fixed inset-0 z-50 bg-gradient-to-br from-slate-900 via-green-900 to-emerald-900 flex items-center justify-center transition-opacity duration-500 ${
+      className={`fixed inset-0 z-50 flex items-center justify-center bg-[radial-gradient(circle_at_top_left,rgba(232,169,106,0.18),transparent_24%),linear-gradient(135deg,#080808_0%,#111111_55%,#17120f_100%)] transition-opacity duration-500 ${
         phase === "complete" ? "opacity-0 pointer-events-none" : "opacity-100"
       }`}
     >
@@ -87,7 +87,7 @@ const BaseballSwingLoader = ({ onComplete }: { onComplete: () => void }) => {
               {Array.from({ length: 5 }).map((_, i) => (
                 <div
                   key={i}
-                  className="absolute rounded-full border-6 border-green-300 opacity-60 animate-[ripple_1.8s_ease-out_forwards]"
+                  className="absolute rounded-full border-4 border-[rgba(245,215,183,0.8)] opacity-60 animate-[ripple_1.8s_ease-out_forwards]"
                   style={{
                     animationDelay: `${i * 0.15}s`,
                     width: `${40 + i * 15}px`,
@@ -102,7 +102,7 @@ const BaseballSwingLoader = ({ onComplete }: { onComplete: () => void }) => {
               {Array.from({ length: 50 }).map((_, i) => (
                 <div
                   key={i}
-                  className="absolute w-2 h-2 bg-yellow-300 rounded-full opacity-90 animate-[burst_1.2s_ease-out_forwards]"
+                  className="absolute h-2 w-2 rounded-full bg-[color:var(--accent)] opacity-90 animate-[burst_1.2s_ease-out_forwards]"
                   style={{
                     top: "50%",
                     left: "50%",
@@ -112,18 +112,21 @@ const BaseballSwingLoader = ({ onComplete }: { onComplete: () => void }) => {
               ))}
             </div>
 
-            <div className="absolute w-32 h-32 bg-orange-400 rounded-full opacity-70 animate-[expandAndFade_0.8s_ease-out_forwards]" />
+            <div className="absolute h-32 w-32 rounded-full bg-[color:var(--accent)] opacity-70 animate-[expandAndFade_0.8s_ease-out_forwards]" />
           </>
         )}
 
         {/* Text */}
         {(phase === "swing" || phase === "hit") && (
           <div className="absolute bottom-1/4 text-center">
-            <div className="text-6xl font-extrabold text-white mb-4 animate-text-pop-in">
-              Batter Up!
+            <div
+              className="mb-4 text-6xl font-extrabold text-white animate-text-pop-in"
+              style={{ fontFamily: 'Syne, sans-serif' }}
+            >
+              Loading the story
             </div>
-            <div className="text-xl text-green-200 animate-pulse-strong">
-              Swinging for the fences...
+            <div className="text-xl text-[color:var(--accent-soft)] animate-pulse-strong">
+              Adding a little more motion...
             </div>
           </div>
         )}

@@ -1,120 +1,60 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Menu, X, FileText } from 'lucide-react';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [headerVisible, setHeaderVisible] = useState(false);
 
   useEffect(() => {
-    const initialVisibilityTimer = setTimeout(() => {
-      setHeaderVisible(true);
-    }, 100);
-
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
+    const handleScroll = () => setScrolled(window.scrollY > 24);
     window.addEventListener('scroll', handleScroll);
-    
-    return () => {
-      clearTimeout(initialVisibilityTimer);
-      window.removeEventListener('scroll', handleScroll);
-    };
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const navItems = [
-    { href: '#home', label: 'Home' },
     { href: '#about', label: 'About' },
     { href: '#education', label: 'Education' },
     { href: '#experience', label: 'Experience' },
     { href: '#projects', label: 'Projects' },
-    { href: '#contact' }
+    { href: '#contact', label: 'Contact' },
   ];
 
   const scrollToSection = (href: string) => {
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
+    document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
     setIsMenuOpen(false);
   };
 
   return (
-    <header
-      className={`sticky top-0 w-full z-50 transition-all duration-300 ${
-        scrolled
-          ? 'backdrop-blur-md shadow-lg border-b border-green-500/20'
-          : 'bg-slate-900' // Changed from 'bg-transparent'
-      } ${headerVisible ? 'opacity-100' : 'opacity-0'}`}
-      style={{ overflow: 'hidden' }}
-    >
-      {/* Animated Liquid Metal Background (only on scroll) */}
-      <div 
-        className={`absolute inset-0 bg-gradient-to-r from-slate-900 via-green-900 to-emerald-900 bg-size-200-200 animate-gradient-shift transition-opacity duration-300 ${
-          scrolled ? 'opacity-100' : 'opacity-0'
+    <header className="fixed inset-x-0 top-0 z-50 px-4 py-4 md:px-8">
+      <div
+        className={`mx-auto max-w-7xl rounded-full border transition-all duration-500 ${
+          scrolled
+            ? 'border-white/10 bg-black/55 shadow-ambient backdrop-blur-2xl'
+            : 'border-white/0 bg-transparent'
         }`}
-        aria-hidden="true" 
-      />
-
-      <nav className="container mx-auto px-6 py-4 relative z-10">
-        <div className="flex justify-between items-center">
-          {/* Logo */}
-          <div 
-            className={`text-2xl font-bold text-white transition-all duration-500 ${
-              headerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-            }`}
-            style={{ transitionDelay: '0.2s' }}
-          >
-            <span className="text-yellow-400">⚾</span> Srigan S.
-          </div>
-
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            {navItems.map((item, index) => (
-              <button
-                key={item.href}
-                onClick={() => scrollToSection(item.href)}
-                className={`text-white hover:text-green-300 transition-all duration-500 relative group
-                  ${headerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
-                style={{ transitionDelay: `${0.3 + index * 0.1}s` }}
-              >
-                {item.label}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-green-300 transition-all duration-300 group-hover:w-full"></span>
-              </button>
-            ))}
-            <a
-              href="https://drive.google.com/drive/u/0/folders/1Krbx7DbU7BJvlMt0zsL7BW4rIW90jJy-"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded-full font-semibold transition-all duration-500 transform hover:scale-105
-                ${headerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
-              style={{ transitionDelay: `${0.3 + navItems.length * 0.1 + 0.1}s` }}
-            >
-              <FileText className="w-4 h-4" />
-              View Resume
-            </a>
-          </div>
-
-          {/* Mobile Menu Button */}
+      >
+        <nav className="flex items-center justify-between px-5 py-3 md:px-7">
           <button
-            className={`md:hidden text-white transition-all duration-500 ${
-              headerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-            }`}
-            style={{ transitionDelay: '0.6s' }}
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            onClick={() => scrollToSection('#home')}
+            className="flex items-center gap-3 text-left"
           >
-            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            <span className="accent-pill">SS</span>
+            <div>
+              <div
+                className="text-sm font-semibold uppercase tracking-[0.35em] text-white/75"
+                style={{ fontFamily: 'Syne, sans-serif' }}
+              >
+                Srigan
+              </div>
+            </div>
           </button>
-        </div>
 
-        {/* Mobile Navigation */}
-        {isMenuOpen && (
-          <div className="md:hidden mt-4 py-4 bg-slate-950/90 backdrop-blur-md rounded-lg">
+          <div className="hidden items-center gap-7 md:flex">
             {navItems.map((item) => (
               <button
                 key={item.href}
                 onClick={() => scrollToSection(item.href)}
-                className="block w-full text-left px-4 py-2 text-white hover:text-green-300 transition-colors duration-300"
+                className="text-sm font-medium text-white/78 transition-colors duration-300 hover:text-[color:var(--accent-soft)]"
               >
                 {item.label}
               </button>
@@ -123,26 +63,46 @@ const Header = () => {
               href="https://drive.google.com/drive/u/0/folders/1Krbx7DbU7BJvlMt0zsL7BW4rIW90jJy-"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 bg-green-700 hover:bg-green-600 text-white px-4 py-2 rounded-full font-semibold transition-all duration-300 mx-4 mt-2"
+              className="inline-flex items-center gap-2 rounded-full border border-[color:var(--line)] bg-white/5 px-4 py-2 text-sm font-semibold text-white transition-all duration-300 hover:-translate-y-0.5 hover:border-[color:var(--accent)] hover:bg-white/10"
             >
-              <FileText className="w-4 h-4" />
-              View Resume
+              <FileText className="h-4 w-4" />
+              Resume
             </a>
           </div>
-        )}
-      </nav>
 
-      {/* Keyframes for animations */}
-      <style>{`
-        .bg-size-200-200 {
-          background-size: 200% 200%;
-        }
-        @keyframes gradient-shift {
-          0% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
-          100% { background-position: 0% 50%; }
-        }
-      `}</style>
+          <button
+            className="rounded-full border border-white/10 p-2 text-white md:hidden"
+            onClick={() => setIsMenuOpen((value) => !value)}
+          >
+            {isMenuOpen ? <X size={18} /> : <Menu size={18} />}
+          </button>
+        </nav>
+
+        {isMenuOpen && (
+          <div className="mx-3 mb-3 rounded-[1.5rem] border border-white/10 bg-black/85 p-4 backdrop-blur-xl md:hidden">
+            <div className="flex flex-col gap-3">
+              {navItems.map((item) => (
+                <button
+                  key={item.href}
+                  onClick={() => scrollToSection(item.href)}
+                  className="rounded-2xl px-4 py-3 text-left text-sm font-medium text-white/85 transition-colors duration-300 hover:bg-white/5 hover:text-[color:var(--accent-soft)]"
+                >
+                  {item.label}
+                </button>
+              ))}
+              <a
+                href="https://drive.google.com/drive/u/0/folders/1Krbx7DbU7BJvlMt0zsL7BW4rIW90jJy-"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-[color:var(--line)] bg-white/5 px-4 py-3 text-sm font-semibold text-white"
+              >
+                <FileText className="h-4 w-4" />
+                Resume
+              </a>
+            </div>
+          </div>
+        )}
+      </div>
     </header>
   );
 };

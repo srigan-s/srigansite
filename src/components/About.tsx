@@ -6,93 +6,69 @@ const About = () => {
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.1 }
-    );
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) setIsVisible(true);
+    }, { threshold: 0.18 });
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
+    const current = sectionRef.current;
+    if (current) observer.observe(current);
     return () => observer.disconnect();
   }, []);
 
   const skills = [
-    { icon: Code, name: 'Frontend Development', description: 'React, TypeScript, Vue.js' },
-    { icon: Database, name: 'Backend Development', description: 'Node.js, Python, Java, C++, Pandas' },
-    { icon: Globe, name: 'Web Technologies', description: 'HTML5, CSS3, JavaScript ES6+' },
-    { icon: Zap, name: 'Modern Tools', description: 'Git, VSCode, AWS, Stackblitz' }
+    { icon: Code, name: 'Frontend systems', description: 'React, TypeScript, Vue, animation-rich UI' },
+    { icon: Database, name: 'Product engineering', description: 'Node.js, Python, Java, C++, data workflows' },
+    { icon: Globe, name: 'Web architecture', description: 'Responsive builds, APIs, accessibility, polish' },
+    { icon: Zap, name: 'Hands-on making', description: 'AWS, Git, OpenCV, embedded tooling, rapid prototyping' },
   ];
 
   return (
-    <section ref={sectionRef} id="about" className="py-20 relative">
-      <div className="container mx-auto px-6">
-        <div
-          className={`transition-all duration-1000 ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-          }`}
-        >
-          {/* Baseball Field Lines */}
-          <div className="absolute inset-0 opacity-5 pointer-events-none">
-            <div className="absolute top-0 left-1/2 w-px h-full bg-green-400 transform -translate-x-0.5"></div>
-            <div className="absolute top-1/2 left-0 w-full h-px bg-green-400 transform -translate-y-0.5"></div>
+    <section ref={sectionRef} id="about" className="section-shell">
+      <div className="mx-auto max-w-7xl px-6 md:px-10">
+        <div className={`reveal ${isVisible ? 'reveal-visible' : 'reveal-hidden'}`}>
+          <div className="section-intro grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-end">
+            <div>
+              <span className="section-kicker">About</span>
+              <h2 className="section-title">A builder who likes clarity, energy, and strong visual rhythm.</h2>
+            </div>
+            <p className="section-copy max-w-none">
+              I approach products the same way I approach engineering work: understand the system,
+              find the friction, and make the final experience feel effortless. That means clean
+              implementation, thoughtful pacing, and details that make the page feel alive.
+            </p>
           </div>
 
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              About <span className="text-green-400">Me</span>
-            </h2>
-            <div className="w-24 h-1 bg-green-400 mx-auto mb-8"></div>
-          </div>
-
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Profile Section */}
-            <div className="space-y-6">
-              <div className="relative">
-                <div className="absolute -inset-1 bg-gradient-to-r from-green-400 to-emerald-500 rounded-lg blur opacity-25"></div>
-                <div className="relative bg-slate-800/80 backdrop-blur-sm p-8 rounded-lg border border-green-500/20 text-center">
-                  
-                  {/* Profile Image Circle */}
-                  <img
-                    src="/sriganBlue.jpeg"
-                    alt="Profile"
-                    className="w-53 h-53 rounded-full mx-auto mb-6 border-4 border-green-400 object-cover"
-                  />
-
-                  <h3 className="text-2xl font-bold text-white mb-4">
-                    Engineer & Team Player
-                  </h3>
-                  <p className="text-gray-300 leading-relaxed">
-                    Engineer who approaches every project with the dedication of a player stepping up to the plate. 
-                    I create innovative solutions with the same focus and determination that defines great athletes.
+          <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
+            <div className="section-card relative overflow-hidden">
+              <div className="absolute right-[-4rem] top-[-4rem] h-44 w-44 rounded-full bg-[color:var(--accent)]/10 blur-3xl" />
+              <div className="grid gap-8 md:grid-cols-[220px_1fr] md:items-center">
+                <img
+                  src="/sriganBlue.jpeg"
+                  alt="Srigan portrait"
+                  className="h-56 w-56 rounded-[1.75rem] object-cover shadow-ambient"
+                />
+                <div>
+                  <span className="accent-pill">Engineer • Teammate • Fast learner</span>
+                  <p className="mt-6 text-lg leading-8 text-[color:var(--muted)]">
+                    I&apos;m currently studying Electrical and Computer Engineering at the University
+                    of Waterloo and spending my time across software, robotics, and AI projects. I
+                    care a lot about momentum: interfaces that move well, code that scales cleanly,
+                    and collaboration that feels easy.
                   </p>
                 </div>
               </div>
             </div>
 
-            {/* Skills Grid */}
-            <div className="grid sm:grid-cols-2 gap-6">
+            <div className="grid gap-4 sm:grid-cols-2">
               {skills.map((skill, index) => (
                 <div
                   key={skill.name}
-                  className={`group transform transition-all duration-500 ${
-                    isVisible ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'
-                  }`}
-                  style={{ transitionDelay: `${index * 150}ms` }}
+                  className="section-card transition-transform duration-300 hover:-translate-y-1"
+                  style={{ animation: isVisible ? `slide-up 700ms ease ${index * 120}ms both` : 'none' }}
                 >
-                  <div className="relative">
-                    <div className="absolute -inset-1 bg-gradient-to-r from-green-400 to-emerald-500 rounded-lg blur opacity-0 group-hover:opacity-25 transition-opacity duration-300"></div>
-                    <div className="relative bg-slate-800/60 backdrop-blur-sm p-6 rounded-lg border border-green-500/20 hover:border-green-400/40 transition-all duration-300 h-full">
-                      <skill.icon className="w-10 h-10 text-green-400 mb-4 group-hover:scale-110 transition-transform duration-300" />
-                      <h4 className="text-lg font-semibold text-white mb-2">{skill.name}</h4>
-                      <p className="text-gray-400 text-sm">{skill.description}</p>
-                    </div>
-                  </div>
+                  <skill.icon className="h-9 w-9 text-[color:var(--accent)]" />
+                  <h3 className="mt-5 text-xl font-bold text-white">{skill.name}</h3>
+                  <p className="mt-3 text-sm leading-7 text-[color:var(--muted)]">{skill.description}</p>
                 </div>
               ))}
             </div>
