@@ -1,5 +1,19 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { ExternalLink, Github, Star, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ExternalLink, Github, Star, ChevronLeft, ChevronRight, ArrowUpRight } from 'lucide-react';
+import { navigateTo } from '../lib/navigation';
+
+type Project = {
+  title: string;
+  description: string;
+  technologies: string[];
+  featured: boolean;
+  github: string;
+  live: string;
+  image?: string;
+  video?: string;
+  internal?: boolean;
+  spotlight?: boolean;
+};
 
 const Projects = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -17,7 +31,32 @@ const Projects = () => {
     return () => observer.disconnect();
   }, []);
 
-  const projects = [
+  const projects: Project[] = [
+    {
+      title: 'Turret Auto Align',
+      description:
+        'A featured FRC vision project that aligned the turret using Java, Limelight values, AprilTag readings, and a Python ML tuning pipeline trained from robot logs.',
+      technologies: ['Java', 'Limelight', 'AprilTag', 'Python', 'Scikit-Learn', 'NumPy'],
+      featured: true,
+      github: 'https://github.com/srigan-s/ML-PID-Tuner',
+      live: '/projects/turret-auto-align',
+      video: '/turret-auto-align-field.mov',
+      internal: true,
+      spotlight: true,
+    },
+    {
+      title: 'MiniAI Web App',
+      description:
+        'A live gamified learning platform for younger students exploring AI, now serving hundreds of monthly active users.',
+      technologies: ['Next.js', 'React', 'PostgreSQL', 'Live Product', 'Education'],
+      featured: true,
+      github: 'https://github.com/srigan-s/MiniAIWebApp',
+      live: '/projects/miniai-web-app',
+      video: '/miniai-preview.mov',
+      internal: true,
+      spotlight: true,
+    },
+    
     {
       title: 'Arduino BeatSync',
       description: 'An Arduino system that syncs LED behavior to music timing for a physical audiovisual experience.',
@@ -27,6 +66,7 @@ const Projects = () => {
       live: 'https://github.com/srigan-s/ArduinoBeatSync',
       image: '/arduino.jpg',
     },
+    
     {
       title: 'ColourMashAI',
       description: 'A cognitive support web app designed to help users with Alzheimer’s and dementia through pattern recognition games.',
@@ -62,15 +102,6 @@ const Projects = () => {
       github: 'https://github.com/srigan-s/UWaterlooDataScienceClub-EDA',
       live: 'https://github.com/srigan-s/UWaterlooDataScienceClub-EDA/blob/main/olympics.ipynb',
       image: '/ml.png',
-    },
-    {
-      title: 'MiniAI Web App',
-      description: 'A gamified learning product that helps younger students build intuition for AI through play and prompts.',
-      technologies: ['Next.js', 'React', 'PostgreSQL', 'CSS'],
-      featured: false,
-      github: 'https://github.com/srigan-s/MiniAIWebApp',
-      live: 'https://miniai-learn.netlify.app/',
-      image: '/learn.png',
     },
     {
       title: 'Library Management Software',
@@ -132,17 +163,34 @@ const Projects = () => {
             >
               {projects.map((project) => (
                 <article key={project.title} className="w-full flex-shrink-0">
-                  <div className="section-card relative grid gap-8 overflow-hidden lg:grid-cols-[1.05fr_0.95fr]">
+                  <div
+                    className={`section-card relative grid gap-8 overflow-hidden lg:grid-cols-[1.05fr_0.95fr] ${
+                      project.spotlight ? 'border-[color:var(--accent)] shadow-[0_24px_80px_rgba(64,212,106,0.16)]' : ''
+                    }`}
+                  >
                     <div
                       className="absolute inset-0 bg-gradient-to-r from-[color:var(--accent)]/6 via-transparent to-white/5"
                       style={{ animation: 'card-glow 8s ease-in-out infinite' }}
                     />
                     <div className="relative overflow-hidden rounded-[1.75rem]">
-                      <img
-                        src={project.image}
-                        alt={project.title}
-                        className="h-80 w-full object-cover transition-transform duration-1000 hover:scale-105 lg:h-full"
-                      />
+                      {project.video ? (
+                        <video
+                          className="h-80 w-full object-cover lg:h-full"
+                          src={project.video}
+                          autoPlay
+                          muted
+                          loop
+                          playsInline
+                          controls
+                          preload="metadata"
+                        />
+                      ) : (
+                        <img
+                          src={project.image}
+                          alt={project.title}
+                          className="h-80 w-full object-cover transition-transform duration-1000 hover:scale-105 lg:h-full"
+                        />
+                      )}
                     </div>
 
                     <div className="relative flex flex-col justify-center">
@@ -154,7 +202,7 @@ const Projects = () => {
                           </span>
                         )}
                         <span className="text-xs uppercase tracking-[0.28em] text-[color:var(--muted)]">
-                          Selected build
+                          {project.spotlight ? 'Full case study' : 'Selected build'}
                         </span>
                       </div>
 
@@ -184,15 +232,26 @@ const Projects = () => {
                           <Github className="h-4 w-4" />
                           View Code
                         </a>
-                        <a
-                          href={project.live}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-3 rounded-full bg-[color:var(--accent)] px-5 py-3 text-sm font-extrabold uppercase tracking-[0.15em] text-black transition-all duration-300 hover:-translate-y-1"
-                        >
-                          <ExternalLink className="h-4 w-4" />
-                          Live Link
-                        </a>
+
+                        {project.internal ? (
+                          <button
+                            onClick={() => navigateTo(project.live)}
+                            className="inline-flex items-center gap-3 rounded-full bg-[color:var(--accent)] px-5 py-3 text-sm font-extrabold uppercase tracking-[0.15em] text-black transition-all duration-300 hover:-translate-y-1"
+                          >
+                            <ArrowUpRight className="h-4 w-4" />
+                            Open Project
+                          </button>
+                        ) : (
+                          <a
+                            href={project.live}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-3 rounded-full bg-[color:var(--accent)] px-5 py-3 text-sm font-extrabold uppercase tracking-[0.15em] text-black transition-all duration-300 hover:-translate-y-1"
+                          >
+                            <ExternalLink className="h-4 w-4" />
+                            Live Link
+                          </a>
+                        )}
                       </div>
                     </div>
                   </div>

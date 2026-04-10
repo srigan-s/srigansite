@@ -9,10 +9,13 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 import AnimatedBaseballs from './components/AnimatedBaseballs';
 import BaseballSwingLoader from './components/BaseballSwingLoader';
+import TurretAutoAlignPage from './components/TurretAutoAlignPage';
+import MiniAIPage from './components/MiniAIPage';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [showContent, setShowContent] = useState(false);
+  const [pathname, setPathname] = useState(window.location.pathname);
 
   useEffect(() => {
     if (!isLoading) {
@@ -21,10 +24,23 @@ function App() {
     }
   }, [isLoading]);
 
+  useEffect(() => {
+    const onPopState = () => {
+      setPathname(window.location.pathname);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    window.addEventListener('popstate', onPopState);
+    return () => window.removeEventListener('popstate', onPopState);
+  }, []);
+
+  const isTurretPage = pathname === '/projects/turret-auto-align';
+  const isMiniAIPage = pathname === '/projects/miniai-web-app';
+
   return (
     <>
       {isLoading && <BaseballSwingLoader onComplete={() => setIsLoading(false)} />}
-      {showContent && <Header />}
+      {showContent && <Header pathname={pathname} />}
 
       <div
         className={`site-shell transition-all duration-1000 ${
@@ -33,12 +49,20 @@ function App() {
       >
         <AnimatedBaseballs />
         <div className="relative z-10">
-          <Hero />
-          <About />
-          <Education />
-          <Experience />
-          <Projects />
-          <Contact />
+          {isTurretPage ? (
+            <TurretAutoAlignPage />
+          ) : isMiniAIPage ? (
+            <MiniAIPage />
+          ) : (
+            <>
+              <Hero />
+              <About />
+              <Education />
+              <Experience />
+              <Projects />
+              <Contact />
+            </>
+          )}
           <Footer />
         </div>
       </div>

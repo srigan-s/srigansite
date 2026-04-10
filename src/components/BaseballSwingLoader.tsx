@@ -123,10 +123,10 @@ const BaseballSwingLoader = ({ onComplete }: { onComplete: () => void }) => {
               className="mb-4 text-6xl font-extrabold text-white animate-text-pop-in"
               style={{ fontFamily: 'Syne, sans-serif' }}
             >
-              Loading the story
+              Game On !
             </div>
             <div className="text-xl text-[color:var(--accent-soft)] animate-pulse-strong">
-              Adding a little more motion...
+              Adding a little more spin...
             </div>
           </div>
         )}

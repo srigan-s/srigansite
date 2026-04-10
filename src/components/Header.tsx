@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Menu, X, FileText } from 'lucide-react';
+import { Menu, X, FileText, ArrowLeft } from 'lucide-react';
+import { navigateTo } from '../lib/navigation';
 
-const Header = () => {
+const Header = ({ pathname }: { pathname: string }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const isProjectPage =
+    pathname === '/projects/turret-auto-align' || pathname === '/projects/miniai-web-app';
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 24);
@@ -20,6 +23,15 @@ const Header = () => {
   ];
 
   const scrollToSection = (href: string) => {
+    if (isProjectPage) {
+      navigateTo('/');
+      window.setTimeout(() => {
+        document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
+      }, 50);
+      setIsMenuOpen(false);
+      return;
+    }
+
     document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
     setIsMenuOpen(false);
   };
@@ -35,7 +47,7 @@ const Header = () => {
       >
         <nav className="flex items-center justify-between px-5 py-3 md:px-7">
           <button
-            onClick={() => scrollToSection('#home')}
+            onClick={() => (isProjectPage ? navigateTo('/') : scrollToSection('#home'))}
             className="flex items-center gap-3 text-left"
           >
             <span className="accent-pill">SS</span>
@@ -50,6 +62,15 @@ const Header = () => {
           </button>
 
           <div className="hidden items-center gap-7 md:flex">
+            {isProjectPage && (
+              <button
+                onClick={() => navigateTo('/')}
+                className="inline-flex items-center gap-2 text-sm font-medium text-white/78 transition-colors duration-300 hover:text-[color:var(--accent-soft)]"
+              >
+                <ArrowLeft className="h-4 w-4" />
+                Home
+              </button>
+            )}
             {navItems.map((item) => (
               <button
                 key={item.href}
@@ -81,6 +102,14 @@ const Header = () => {
         {isMenuOpen && (
           <div className="mx-3 mb-3 rounded-[1.5rem] border border-white/10 bg-black/85 p-4 backdrop-blur-xl md:hidden">
             <div className="flex flex-col gap-3">
+              {isProjectPage && (
+                <button
+                  onClick={() => navigateTo('/')}
+                  className="rounded-2xl px-4 py-3 text-left text-sm font-medium text-white/85 transition-colors duration-300 hover:bg-white/5 hover:text-[color:var(--accent-soft)]"
+                >
+                  Home
+                </button>
+              )}
               {navItems.map((item) => (
                 <button
                   key={item.href}
