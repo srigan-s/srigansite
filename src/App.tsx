@@ -11,6 +11,7 @@ import AnimatedBaseballs from './components/AnimatedBaseballs';
 import BaseballSwingLoader from './components/BaseballSwingLoader';
 import TurretAutoAlignPage from './components/TurretAutoAlignPage';
 import MiniAIPage from './components/MiniAIPage';
+import ROS2GNSSNavPage from './components/ROS2GNSSNavPage';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -36,6 +37,7 @@ function App() {
 
   const isTurretPage = pathname === '/projects/turret-auto-align';
   const isMiniAIPage = pathname === '/projects/miniai-web-app';
+  const isROS2GNSSPage = pathname === '/projects/ros2-gnss-nav-demo';
 
   return (
     <>
@@ -53,6 +55,8 @@ function App() {
             <TurretAutoAlignPage />
           ) : isMiniAIPage ? (
             <MiniAIPage />
+          ) : isROS2GNSSPage ? (
+            <ROS2GNSSNavPage />
           ) : (
             <>
               <Hero />

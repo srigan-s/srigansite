@@ -6,7 +6,9 @@ const Header = ({ pathname }: { pathname: string }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const isProjectPage =
-    pathname === '/projects/turret-auto-align' || pathname === '/projects/miniai-web-app';
+    pathname === '/projects/turret-auto-align' ||
+    pathname === '/projects/miniai-web-app' ||
+    pathname === '/projects/ros2-gnss-nav-demo';
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 24);

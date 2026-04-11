@@ -33,6 +33,18 @@ const Projects = () => {
 
   const projects: Project[] = [
     {
+      title: 'ROS2 GNSS RC Car Navigation Demo',
+      description:
+        'A software-only ROS2 Jazzy simulation of an RC-car robot running an autonomous waypoint mission with noisy GNSS and IMU data, RViz2 visualization, telemetry logs, and validation plots.',
+      technologies: ['ROS2 Jazzy', 'Ubuntu Linux', 'Python', 'GNSS/PNT', 'RViz2', 'TF2'],
+      featured: true,
+      github: 'https://github.com/srigan-s',
+      live: '/projects/ros2-gnss-nav-demo',
+      video: '/ros2-gnss-nav-demo.mov',
+      internal: true,
+      spotlight: true,
+    },
+    {
       title: 'Turret Auto Align',
       description:
         'A featured FRC vision project that aligned the turret using Java, Limelight values, AprilTag readings, and a Python ML tuning pipeline trained from robot logs.',
