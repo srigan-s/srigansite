@@ -38,7 +38,7 @@ const Projects = () => {
         'A software-only ROS2 Jazzy simulation of an RC-car robot running an autonomous waypoint mission with noisy GNSS and IMU data, RViz2 visualization, telemetry logs, and validation plots.',
       technologies: ['ROS2 Jazzy', 'Ubuntu Linux', 'Python', 'GNSS/PNT', 'RViz2', 'TF2'],
       featured: true,
-      github: 'https://github.com/srigan-s',
+      github: 'https://github.com/srigan-s/rc-car-calian',
       live: '/projects/ros2-gnss-nav-demo',
       video: '/ros2-gnss-nav-demo.mov',
       internal: true,
@@ -68,7 +68,7 @@ const Projects = () => {
       internal: true,
       spotlight: true,
     },
-    
+
     {
       title: 'Arduino BeatSync',
       description: 'An Arduino system that syncs LED behavior to music timing for a physical audiovisual experience.',
