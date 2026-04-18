@@ -46,22 +46,22 @@ export function NavRobot() {
   return (
     <div
       aria-label="Mouse-tracking robot"
-      className="relative hidden h-16 w-16 md:block"
+      className="relative block h-10 w-10 md:h-16 md:w-16"
       data-cursor="hover"
       ref={robotRef}
       role="img"
       style={{ perspective: '420px' }}
     >
       <span
-        className="absolute left-1/2 top-0 h-3 w-3 -translate-x-1/2 rounded-full"
+        className="absolute left-1/2 top-0 h-2 w-2 -translate-x-1/2 rounded-full md:h-3 md:w-3"
         style={{ background: 'var(--accent)', animation: 'robot-blink 1.8s ease-in-out infinite' }}
       />
       <span
-        className="absolute left-1/2 top-2 h-4 w-px -translate-x-1/2"
+        className="absolute left-1/2 top-1.5 h-3 w-px -translate-x-1/2 md:top-2 md:h-4"
         style={{ background: 'var(--line-strong)' }}
       />
       <div
-        className="absolute left-1/2 top-5 h-8 w-11 -translate-x-1/2 rounded-md border p-1.5"
+        className="absolute left-1/2 top-4 h-5 w-8 -translate-x-1/2 rounded-md border p-1 md:top-5 md:h-8 md:w-11 md:p-1.5"
         style={{
           borderColor: 'var(--line)',
           background: 'var(--bg-elevated)',
@@ -69,10 +69,10 @@ export function NavRobot() {
           transition: 'transform 100ms ease-out',
         }}
       >
-        <div className="grid grid-cols-2 gap-1.5">
+        <div className="grid grid-cols-2 gap-1 md:gap-1.5">
           {[0, 1].map((eye) => (
             <span
-              className="h-4 overflow-hidden rounded-[3px] border"
+              className="h-2.5 overflow-hidden rounded-[3px] border md:h-4"
               key={eye}
               style={{
                 background: 'var(--bg-muted)',
@@ -81,7 +81,7 @@ export function NavRobot() {
               }}
             >
               <span
-                className="block h-2.5 w-2.5 rounded-full"
+                className="block h-1.5 w-1.5 rounded-full md:h-2.5 md:w-2.5"
                 style={{
                   background: 'var(--accent)',
                   boxShadow: '0 0 10px var(--accent)',
@@ -92,14 +92,14 @@ export function NavRobot() {
             </span>
           ))}
         </div>
-        <span className="mx-auto mt-1.5 block h-0.5 w-5 rounded-sm" style={{ background: 'var(--accent)' }} />
+        <span className="mx-auto mt-1 block h-0.5 w-4 rounded-sm md:mt-1.5 md:w-5" style={{ background: 'var(--accent)' }} />
       </div>
       <div
-        className="absolute bottom-0 left-1/2 h-5 w-8 -translate-x-1/2 rounded-md border"
+        className="absolute bottom-0 left-1/2 h-3.5 w-6 -translate-x-1/2 rounded-md border md:h-5 md:w-8"
         style={{ borderColor: 'var(--line)', background: 'var(--bg-muted)', animation: 'robot-bob 3s ease-in-out infinite' }}
       />
-      <span className="absolute bottom-1 left-2 h-6 w-2 rounded-sm border" style={{ borderColor: 'var(--line)', background: 'var(--bg-muted)', animation: 'robot-wave-left 2.4s ease-in-out infinite' }} />
-      <span className="absolute bottom-1 right-2 h-6 w-2 rounded-sm border" style={{ borderColor: 'var(--line)', background: 'var(--bg-muted)', animation: 'robot-wave-right 2.4s ease-in-out infinite' }} />
+      <span className="absolute bottom-1 left-1.5 h-4 w-1.5 rounded-sm border md:left-2 md:h-6 md:w-2" style={{ borderColor: 'var(--line)', background: 'var(--bg-muted)', animation: 'robot-wave-left 2.4s ease-in-out infinite' }} />
+      <span className="absolute bottom-1 right-1.5 h-4 w-1.5 rounded-sm border md:right-2 md:h-6 md:w-2" style={{ borderColor: 'var(--line)', background: 'var(--bg-muted)', animation: 'robot-wave-right 2.4s ease-in-out infinite' }} />
     </div>
   );
 }

@@ -44,7 +44,7 @@ export function TrackingRobot() {
   }, []);
 
   return (
-    <div aria-hidden="true" className="robot-playfield pointer-events-none fixed inset-x-0 top-24 z-40 hidden h-72 md:block">
+    <div aria-hidden="true" className="robot-playfield pointer-events-none fixed inset-x-0 top-24 z-40 hidden h-72 lg:block">
       <div className="robot-swapper robot-swapper-left" ref={robotRef} style={{ perspective: '500px' }}>
         <RobotFigure pose={pose} />
       </div>

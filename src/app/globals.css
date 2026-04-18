@@ -291,6 +291,7 @@ a {
 
   .robot-playfield {
     overflow: visible;
+    opacity: 0.72;
   }
 
   .robot-swapper {
@@ -303,17 +304,17 @@ a {
 
   .robot-swapper-left {
     left: 1.5rem;
-    animation: robot-swap-left 100s cubic-bezier(0.55, 0, 0.2, 1) infinite;
+    animation: robot-swap-left 45s cubic-bezier(0.55, 0, 0.2, 1) 10s infinite;
   }
 
   .robot-swapper-right {
     right: 1.5rem;
-    animation: robot-swap-right 100s cubic-bezier(0.55, 0, 0.2, 1) infinite;
+    animation: robot-swap-right 45s cubic-bezier(0.55, 0, 0.2, 1) 10s infinite;
   }
 
   .robot-figure {
     animation: robot-side-hover 3.4s ease-in-out infinite;
-    transform: scale(0.78);
+    transform: scale(0.62);
     transform-origin: center bottom;
   }
 
@@ -330,11 +331,11 @@ a {
   }
 
   .robot-swapper-left .robot-arm-right {
-    animation: robot-left-high-five-arm 100s ease-in-out infinite;
+    animation: robot-left-high-five-arm 45s ease-in-out 10s infinite;
   }
 
   .robot-swapper-right .robot-arm-left {
-    animation: robot-right-high-five-arm 100s ease-in-out infinite;
+    animation: robot-right-high-five-arm 45s ease-in-out 10s infinite;
   }
 
   .terminal-intro {
