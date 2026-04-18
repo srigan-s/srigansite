@@ -31,7 +31,7 @@ export function RobotIntro() {
           style={{ background: 'var(--bg)' }}
         >
           <motion.div
-            className="terminal-intro panel relative w-[min(34rem,calc(100vw-2rem))] overflow-hidden p-4"
+            className="terminal-intro panel relative w-[min(34rem,calc(100vw-2rem))] overflow-visible p-4"
             exit={{ scale: 0.96, y: -12 }}
             initial={{ scale: 0.96, y: 18 }}
             animate={{ scale: 1, y: 0 }}
@@ -43,20 +43,28 @@ export function RobotIntro() {
               animate={{ x: '100%' }}
               transition={{ duration: 2.2, ease: 'linear', repeat: Infinity }}
             />
-            <motion.div
-              className="intro-robot-ghost"
-              initial={{ opacity: 0, y: 8, scale: 0.96 }}
-              animate={{ opacity: 0.26, y: 0, scale: 1 }}
-              transition={{ delay: 0.45, duration: 0.6, ease: 'easeOut' }}
-            >
-              <span className="intro-robot-antenna" />
-              <span className="intro-robot-dot" />
-              <div className="intro-robot-head">
-                <span className="intro-robot-eye" />
-                <span className="intro-robot-eye" />
-                <span className="intro-robot-mouth" />
+            <div className="intro-smash-robot">
+              <span className="intro-smash-antenna" />
+              <span className="intro-smash-dot" />
+              <div className="intro-smash-head">
+                <span className="intro-smash-eye" />
+                <span className="intro-smash-eye" />
+                <span className="intro-smash-mouth" />
               </div>
-            </motion.div>
+              <span className="intro-smash-arm intro-smash-arm-left" />
+              <span className="intro-smash-arm intro-smash-arm-right" />
+              <div className="intro-smash-body">
+                <span />
+                <span />
+                <span />
+                <span />
+                <span />
+                <span />
+              </div>
+              <span className="intro-smash-leg intro-smash-leg-left" />
+              <span className="intro-smash-leg intro-smash-leg-right" />
+            </div>
+            <span className="intro-terminal-impact" />
             <div className="mb-4 flex items-center justify-between border-b pb-3 hairline">
               <div className="flex gap-1.5">
                 <span className="h-2.5 w-2.5 rounded-full" style={{ background: 'var(--accent)' }} />

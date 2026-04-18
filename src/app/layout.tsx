@@ -26,7 +26,10 @@ export default function RootLayout({
             __html: `(() => {
   try {
     const stored = localStorage.getItem('theme');
-    if (stored === 'light') {
+    const hour = new Date().getHours();
+    const timeTheme = hour >= 7 && hour < 19 ? 'light' : 'dark';
+    const theme = stored === 'light' || stored === 'dark' ? stored : timeTheme;
+    if (theme === 'light') {
       document.documentElement.classList.remove('dark');
     } else {
       document.documentElement.classList.add('dark');

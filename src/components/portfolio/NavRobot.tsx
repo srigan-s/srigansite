@@ -13,6 +13,8 @@ const clamp = (value: number, min: number, max: number) => Math.min(Math.max(val
 
 export function NavRobot() {
   const robotRef = useRef<HTMLDivElement | null>(null);
+  const bounceTimer = useRef<number | null>(null);
+  const [isBouncing, setIsBouncing] = useState(false);
   const [pose, setPose] = useState<RobotPose>({
     rotateX: 0,
     rotateY: 0,
@@ -43,11 +45,34 @@ export function NavRobot() {
     return () => window.removeEventListener('pointermove', updatePose);
   }, []);
 
+  const triggerBounce = () => {
+    setIsBouncing(false);
+
+    window.requestAnimationFrame(() => {
+      setIsBouncing(true);
+
+      if (bounceTimer.current) {
+        window.clearTimeout(bounceTimer.current);
+      }
+
+      bounceTimer.current = window.setTimeout(() => setIsBouncing(false), 560);
+    });
+  };
+
+  useEffect(() => {
+    return () => {
+      if (bounceTimer.current) {
+        window.clearTimeout(bounceTimer.current);
+      }
+    };
+  }, []);
+
   return (
     <div
       aria-label="Mouse-tracking robot"
-      className="relative block h-10 w-10 md:h-16 md:w-16"
+      className={`nav-robot relative block h-10 w-10 md:h-16 md:w-16${isBouncing ? ' nav-robot-bounce' : ''}`}
       data-cursor="hover"
+      onPointerDown={triggerBounce}
       ref={robotRef}
       role="img"
       style={{ perspective: '420px' }}

@@ -2,6 +2,7 @@
 
 import { ArrowDown } from 'lucide-react';
 import { motion } from 'framer-motion';
+import type { Variants } from 'framer-motion';
 import { profile } from '@/data/portfolio';
 import { HeroPortrait } from './HeroPortrait';
 import { PersonalPhotoCarousel } from './PersonalPhotoCarousel';
@@ -12,43 +13,45 @@ import { ThemeToggle } from './ThemeToggle';
 
 const nameLines = profile.name.split(' ');
 
-const nameContainerVariants = {
+const nameEase = [0.16, 1, 0.3, 1] as const;
+
+const nameContainerVariants: Variants = {
   hidden: {},
   visible: {
     transition: {
-      delayChildren: 2.2,
-      staggerChildren: 0.14,
-    },
-  },
-  hover: {
-    transition: {
-      staggerChildren: 0.04,
+      delayChildren: 3.8,
+      staggerChildren: 0.08,
     },
   },
 };
 
-const nameLineVariants = {
+const nameLineVariants: Variants = {
   hidden: {
-    opacity: 0,
-    y: 24,
-    filter: 'blur(10px)',
+    opacity: 1,
   },
   visible: {
     opacity: 1,
-    y: 0,
-    filter: 'blur(0px)',
-  },
-  hover: {
     transition: {
-      staggerChildren: 0.018,
+      staggerChildren: 0.045,
     },
   },
 };
 
-const nameLetterVariants = {
-  hover: {
-    y: -4,
-    color: 'var(--accent)',
+const nameLetterVariants: Variants = {
+  hidden: {
+    opacity: 0,
+    y: 10,
+    filter: 'blur(7px)',
+  },
+  visible: {
+    opacity: [0, 1, 0.25, 1, 0.55, 1],
+    y: [10, -2, 0, 1, 0, 0],
+    filter: ['blur(7px)', 'blur(0px)', 'blur(2px)', 'blur(0px)', 'blur(1px)', 'blur(0px)'],
+    transition: {
+      duration: 0.58,
+      ease: nameEase,
+      times: [0, 0.24, 0.42, 0.62, 0.78, 1],
+    },
   },
 };
 
@@ -76,7 +79,6 @@ export function Hero() {
             data-cursor="hover"
             initial="hidden"
             animate="visible"
-            whileHover="hover"
             variants={nameContainerVariants}
           >
             {nameLines.map((line, lineIndex) => (
@@ -85,7 +87,6 @@ export function Hero() {
                 className="animated-name-line"
                 key={line}
                 variants={nameLineVariants}
-                transition={{ duration: 0.52, ease: [0.16, 1, 0.3, 1] }}
               >
                 {line.split('').map((letter, letterIndex) => (
                   <motion.span
@@ -93,7 +94,7 @@ export function Hero() {
                     data-cursor="hover"
                     key={`${letter}-${lineIndex}-${letterIndex}`}
                     style={{ animationDelay: `${letterIndex * 34}ms` }}
-                    transition={{ duration: 0.46, ease: [0.16, 1, 0.3, 1] }}
+                    transition={{ duration: 0.46, ease: nameEase }}
                     variants={nameLetterVariants}
                   >
                     {letter}

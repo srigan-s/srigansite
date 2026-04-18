@@ -5,13 +5,18 @@ import { useEffect, useState } from 'react';
 
 type Theme = 'light' | 'dark';
 
+const getTimeBasedTheme = (): Theme => {
+  const hour = new Date().getHours();
+  return hour >= 7 && hour < 19 ? 'light' : 'dark';
+};
+
 const getPreferredTheme = (): Theme => {
   if (typeof window === 'undefined') return 'dark';
 
   const storedTheme = window.localStorage.getItem('theme');
   if (storedTheme === 'light' || storedTheme === 'dark') return storedTheme;
 
-  return 'dark';
+  return getTimeBasedTheme();
 };
 
 export function ThemeToggle() {
@@ -29,7 +34,6 @@ export function ThemeToggle() {
     if (!mounted) return;
 
     document.documentElement.classList.toggle('dark', theme === 'dark');
-    window.localStorage.setItem('theme', theme);
   }, [mounted, theme]);
 
   const nextTheme = theme === 'dark' ? 'light' : 'dark';
@@ -40,7 +44,10 @@ export function ThemeToggle() {
       aria-label={`Switch to ${nextTheme} mode`}
       className="link-button h-10 w-10 p-0"
       data-cursor="hover"
-      onClick={() => setTheme(nextTheme)}
+      onClick={() => {
+        window.localStorage.setItem('theme', nextTheme);
+        setTheme(nextTheme);
+      }}
       type="button"
     >
       <Icon className="h-4 w-4" />
