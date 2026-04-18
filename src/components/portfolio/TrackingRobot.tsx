@@ -7,6 +7,7 @@ type RobotPose = {
   rotateY: number;
   eyeX: number;
   eyeY: number;
+  trackY: number;
 };
 
 const clamp = (value: number, min: number, max: number) => Math.min(Math.max(value, min), max);
@@ -18,6 +19,7 @@ export function TrackingRobot() {
     rotateY: 0,
     eyeX: 0,
     eyeY: 0,
+    trackY: 0,
   });
 
   useEffect(() => {
@@ -36,6 +38,7 @@ export function TrackingRobot() {
         rotateY: clamp(dx / 32, -18, 18),
         eyeX: clamp(dx / 48, -13, 13),
         eyeY: clamp(dy / 58, -8, 8),
+        trackY: clamp((event.clientY / window.innerHeight - 0.5) * 150, -70, 70),
       });
     };
 
@@ -46,7 +49,7 @@ export function TrackingRobot() {
   return (
     <div aria-hidden="true" className="robot-playfield pointer-events-none fixed inset-x-0 top-24 z-40 hidden h-72 lg:block">
       <div className="robot-swapper robot-swapper-left" ref={robotRef} style={{ perspective: '500px' }}>
-        <RobotFigure pose={pose} />
+        <RobotFigure pose={pose} trackMultiplier={1} />
       </div>
       <div className="robot-swapper robot-swapper-right" style={{ perspective: '500px' }}>
         <RobotFigure
@@ -55,16 +58,19 @@ export function TrackingRobot() {
             rotateY: pose.rotateY * -0.75,
             eyeX: pose.eyeX * -0.75,
             eyeY: pose.eyeY * 0.75,
+            trackY: pose.trackY,
           }}
+          trackMultiplier={1}
         />
       </div>
     </div>
   );
 }
 
-function RobotFigure({ pose }: { pose: RobotPose }) {
+function RobotFigure({ pose, trackMultiplier }: { pose: RobotPose; trackMultiplier: number }) {
   return (
-    <div className="robot-figure relative h-72 w-52">
+    <div className="robot-figure-shell" style={{ transform: `translateY(${pose.trackY * trackMultiplier}px)` }}>
+      <div className="robot-figure relative h-72 w-52">
       <div
         className="absolute left-1/2 top-0 h-10 w-px -translate-x-1/2"
         style={{ background: 'var(--line-strong)', animation: 'robot-bob 3.4s ease-in-out infinite' }}
@@ -150,6 +156,7 @@ function RobotFigure({ pose }: { pose: RobotPose }) {
       </div>
       <div className="absolute bottom-0 left-[4.6rem] h-14 w-7 rounded-md border" style={{ borderColor: 'var(--line)', background: 'var(--bg-muted)', animation: 'robot-step-left 2.9s ease-in-out infinite' }} />
       <div className="absolute bottom-0 right-[4.6rem] h-14 w-7 rounded-md border" style={{ borderColor: 'var(--line)', background: 'var(--bg-muted)', animation: 'robot-step-right 2.9s ease-in-out infinite' }} />
+      </div>
     </div>
   );
 }

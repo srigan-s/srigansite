@@ -312,14 +312,20 @@ a {
     animation: robot-swap-right 45s cubic-bezier(0.55, 0, 0.2, 1) 10s infinite;
   }
 
+  .robot-figure-shell {
+    transition: transform 180ms ease-out;
+    will-change: transform;
+  }
+
   .robot-figure {
-    animation: robot-side-hover 3.4s ease-in-out infinite;
+    animation: robot-side-hover 1.85s ease-in-out infinite;
     transform: scale(0.62);
     transform-origin: center bottom;
+    will-change: transform;
   }
 
   .robot-swapper-right .robot-figure {
-    animation-delay: -1.7s;
+    animation-delay: -0.92s;
   }
 
   .robot-arm-left {
@@ -352,6 +358,85 @@ a {
     width: 40%;
     background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--accent) 10%, transparent), transparent);
     pointer-events: none;
+  }
+
+  .intro-robot-ghost {
+    position: absolute;
+    right: 1rem;
+    bottom: 1rem;
+    width: 5.25rem;
+    height: 5.5rem;
+    pointer-events: none;
+    animation: intro-robot-float 2.2s ease-in-out infinite;
+  }
+
+  .intro-robot-antenna {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    height: 1rem;
+    width: 1px;
+    transform: translateX(-50%);
+    background: var(--accent);
+  }
+
+  .intro-robot-dot {
+    position: absolute;
+    left: 50%;
+    top: -0.15rem;
+    height: 0.45rem;
+    width: 0.45rem;
+    border-radius: 999px;
+    transform: translateX(-50%);
+    background: var(--accent);
+    box-shadow: 0 0 14px color-mix(in srgb, var(--accent) 65%, transparent);
+  }
+
+  .intro-robot-head {
+    position: absolute;
+    left: 50%;
+    top: 1rem;
+    display: grid;
+    width: 4.25rem;
+    height: 3.1rem;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.45rem;
+    transform: translateX(-50%);
+    border: 1px solid color-mix(in srgb, var(--accent) 55%, var(--line));
+    border-radius: 8px;
+    padding: 0.55rem;
+    background: color-mix(in srgb, var(--bg-elevated) 70%, transparent);
+  }
+
+  .intro-robot-eye {
+    position: relative;
+    height: 1rem;
+    overflow: hidden;
+    border: 1px solid color-mix(in srgb, var(--accent) 38%, var(--line));
+    border-radius: 4px;
+  }
+
+  .intro-robot-eye::after {
+    content: '';
+    position: absolute;
+    left: 0.35rem;
+    top: 0.25rem;
+    width: 0.38rem;
+    height: 0.38rem;
+    border-radius: 999px;
+    background: var(--accent);
+    box-shadow: 0 0 10px var(--accent);
+    animation: intro-robot-eye-scan 1.6s ease-in-out infinite;
+  }
+
+  .intro-robot-mouth {
+    grid-column: 1 / -1;
+    justify-self: center;
+    width: 1.8rem;
+    height: 0.18rem;
+    border-radius: 999px;
+    background: var(--accent);
+    opacity: 0.8;
   }
 
   .terminal-line {
@@ -461,10 +546,16 @@ a {
 
 @keyframes robot-side-hover {
   0%, 100% {
-    transform: translateY(0) scale(0.78);
+    transform: translateY(0) scale(0.62);
+  }
+  18% {
+    transform: translateY(-22px) scale(0.64);
   }
   50% {
-    transform: translateY(-10px) scale(0.78);
+    transform: translateY(-34px) scale(0.62);
+  }
+  78% {
+    transform: translateY(-12px) scale(0.64);
   }
 }
 
@@ -492,6 +583,24 @@ a {
   }
   46%, 100% {
     opacity: 0;
+  }
+}
+
+@keyframes intro-robot-float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes intro-robot-eye-scan {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(0.55rem);
   }
 }
 

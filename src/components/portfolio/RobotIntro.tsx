@@ -43,6 +43,20 @@ export function RobotIntro() {
               animate={{ x: '100%' }}
               transition={{ duration: 2.2, ease: 'linear', repeat: Infinity }}
             />
+            <motion.div
+              className="intro-robot-ghost"
+              initial={{ opacity: 0, y: 8, scale: 0.96 }}
+              animate={{ opacity: 0.26, y: 0, scale: 1 }}
+              transition={{ delay: 0.45, duration: 0.6, ease: 'easeOut' }}
+            >
+              <span className="intro-robot-antenna" />
+              <span className="intro-robot-dot" />
+              <div className="intro-robot-head">
+                <span className="intro-robot-eye" />
+                <span className="intro-robot-eye" />
+                <span className="intro-robot-mouth" />
+              </div>
+            </motion.div>
             <div className="mb-4 flex items-center justify-between border-b pb-3 hairline">
               <div className="flex gap-1.5">
                 <span className="h-2.5 w-2.5 rounded-full" style={{ background: 'var(--accent)' }} />
