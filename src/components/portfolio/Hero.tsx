@@ -4,19 +4,104 @@ import { ArrowDown } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { profile } from '@/data/portfolio';
 import { HeroPortrait } from './HeroPortrait';
+import { PersonalPhotoCarousel } from './PersonalPhotoCarousel';
 import { PrevInternCard } from './PrevInternCard';
+import { PrevProjectCard } from './PrevProjectCard';
+import { TechnicalSkillsWheel } from './TechnicalSkillsWheel';
+import { ThemeToggle } from './ThemeToggle';
+
+const nameLines = profile.name.split(' ');
+
+const nameContainerVariants = {
+  hidden: {},
+  visible: {
+    transition: {
+      delayChildren: 2.2,
+      staggerChildren: 0.14,
+    },
+  },
+  hover: {
+    transition: {
+      staggerChildren: 0.04,
+    },
+  },
+};
+
+const nameLineVariants = {
+  hidden: {
+    opacity: 0,
+    y: 24,
+    filter: 'blur(10px)',
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    filter: 'blur(0px)',
+  },
+  hover: {
+    transition: {
+      staggerChildren: 0.018,
+    },
+  },
+};
+
+const nameLetterVariants = {
+  hover: {
+    y: -4,
+    color: 'var(--accent)',
+  },
+};
+
+const heroLinks = [
+  profile.links.find((link) => link.label === 'Resume'),
+  profile.links.find((link) => link.label === 'LinkedIn'),
+  profile.links.find((link) => link.label === 'GitHub'),
+  profile.links.find((link) => link.label === 'Email'),
+].filter(Boolean) as typeof profile.links;
 
 export function Hero() {
   return (
     <section className="content-shell flex min-h-screen items-center pt-24" id="home">
       <div className="grid w-full gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
         <motion.div
+          className="min-w-0"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
         >
           <p className="eyebrow">Robotics / Controls / Software</p>
-          <h1 className="display-title mt-5">{profile.name}</h1>
+          <motion.h1
+            aria-label={profile.name}
+            className="display-title animated-name mt-5"
+            data-cursor="hover"
+            initial="hidden"
+            animate="visible"
+            whileHover="hover"
+            variants={nameContainerVariants}
+          >
+            {nameLines.map((line, lineIndex) => (
+              <motion.span
+                aria-hidden="true"
+                className="animated-name-line"
+                key={line}
+                variants={nameLineVariants}
+                transition={{ duration: 0.52, ease: [0.16, 1, 0.3, 1] }}
+              >
+                {line.split('').map((letter, letterIndex) => (
+                  <motion.span
+                    className="animated-name-letter"
+                    data-cursor="hover"
+                    key={`${letter}-${lineIndex}-${letterIndex}`}
+                    style={{ animationDelay: `${letterIndex * 34}ms` }}
+                    transition={{ duration: 0.46, ease: [0.16, 1, 0.3, 1] }}
+                    variants={nameLetterVariants}
+                  >
+                    {letter}
+                  </motion.span>
+                ))}
+              </motion.span>
+            ))}
+          </motion.h1>
           <p className="mt-5 max-w-xl text-lg font-medium muted-copy md:text-xl">{profile.title}</p>
           <p className="mt-4 max-w-2xl text-base leading-7 muted-copy">{profile.line}</p>
 
@@ -34,18 +119,14 @@ export function Hero() {
                 </div>
               </div>
             </div>
-            <div className="quiet-panel min-h-[7.75rem] p-3">
-              <p className="text-[11px] font-semibold uppercase muted-copy">Focus</p>
-              <p className="mt-2 text-sm font-medium">Robotics, controls, embedded</p>
-              <p className="mt-2 text-xs leading-5 muted-copy">Hardware-aware software for systems that move.</p>
-            </div>
+            <PrevProjectCard />
             <PrevInternCard />
           </div>
 
           <div className="mt-8 flex flex-wrap gap-3">
-            {profile.links.map((link) => (
+            {heroLinks.map((link) => (
               <a
-                className={link.label === 'GitHub' ? 'accent-button' : 'link-button'}
+                className={link.label === 'Resume' ? 'accent-button' : 'link-button'}
                 data-cursor="hover"
                 href={link.href}
                 key={link.label}
@@ -56,9 +137,12 @@ export function Hero() {
                 {link.label}
               </a>
             ))}
+            <ThemeToggle />
           </div>
+          <TechnicalSkillsWheel />
+          <PersonalPhotoCarousel />
 
-          <div className="mt-16 flex items-center gap-3 text-sm muted-copy">
+          <div className="mt-10 flex items-center gap-3 text-sm muted-copy">
             <a
               className="link-button h-10 w-10 p-0"
               data-cursor="hover"

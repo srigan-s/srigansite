@@ -2,7 +2,7 @@ import { GitHubContributionCard } from './GitHubContributionCard';
 
 export function HeroPortrait() {
   return (
-    <div className="panel overflow-hidden p-3">
+    <div className="panel mx-auto w-full max-w-[28rem] overflow-hidden p-3">
       <div className="grid gap-3 md:grid-cols-[0.85fr_1.15fr] lg:grid-cols-1">
         <div className="overflow-hidden rounded-md border hairline">
           <img

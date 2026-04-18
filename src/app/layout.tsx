@@ -7,6 +7,10 @@ export const metadata: Metadata = {
   title: 'Srigan Sivagnanenthirarajah',
   description:
     'Electrical Engineering portfolio for Srigan Sivagnanenthirarajah, focused on robotics, controls, embedded systems, and software.',
+  icons: {
+    icon: [{ url: '/robot-favicon.svg', type: 'image/svg+xml' }],
+    shortcut: ['/robot-favicon.svg'],
+  },
 };
 
 export default function RootLayout({
@@ -15,15 +19,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html className="dark" lang="en" suppressHydrationWarning>
       <body>
         <script
           dangerouslySetInnerHTML={{
             __html: `(() => {
   try {
     const stored = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    if (stored === 'dark' || (!stored && prefersDark)) {
+    if (stored === 'light') {
+      document.documentElement.classList.remove('dark');
+    } else {
       document.documentElement.classList.add('dark');
     }
   } catch (_) {}

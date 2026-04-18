@@ -32,10 +32,10 @@ export function TrackingRobot() {
       const dy = event.clientY - centerY;
 
       setPose({
-        rotateX: clamp(-dy / 36, -12, 12),
-        rotateY: clamp(dx / 34, -16, 16),
-        eyeX: clamp(dx / 70, -5, 5),
-        eyeY: clamp(dy / 90, -3, 3),
+        rotateX: clamp(-dy / 34, -14, 14),
+        rotateY: clamp(dx / 32, -18, 18),
+        eyeX: clamp(dx / 48, -13, 13),
+        eyeY: clamp(dy / 58, -8, 8),
       });
     };
 
@@ -44,22 +44,37 @@ export function TrackingRobot() {
   }, []);
 
   return (
-    <div
-      aria-hidden="true"
-      className="pointer-events-none fixed right-5 top-24 z-40 hidden h-44 w-32 md:block"
-      ref={robotRef}
-      style={{ perspective: '500px' }}
-    >
+    <div aria-hidden="true" className="robot-playfield pointer-events-none fixed inset-x-0 top-24 z-40 hidden h-72 md:block">
+      <div className="robot-swapper robot-swapper-left" ref={robotRef} style={{ perspective: '500px' }}>
+        <RobotFigure pose={pose} />
+      </div>
+      <div className="robot-swapper robot-swapper-right" style={{ perspective: '500px' }}>
+        <RobotFigure
+          pose={{
+            rotateX: pose.rotateX * 0.75,
+            rotateY: pose.rotateY * -0.75,
+            eyeX: pose.eyeX * -0.75,
+            eyeY: pose.eyeY * 0.75,
+          }}
+        />
+      </div>
+    </div>
+  );
+}
+
+function RobotFigure({ pose }: { pose: RobotPose }) {
+  return (
+    <div className="robot-figure relative h-72 w-52">
       <div
-        className="absolute left-1/2 top-0 h-7 w-px -translate-x-1/2"
+        className="absolute left-1/2 top-0 h-10 w-px -translate-x-1/2"
         style={{ background: 'var(--line-strong)', animation: 'robot-bob 3.4s ease-in-out infinite' }}
       />
       <div
-        className="absolute left-1/2 top-0 h-3 w-3 -translate-x-1/2 rounded-full"
+        className="absolute left-1/2 top-0 h-5 w-5 -translate-x-1/2 rounded-full"
         style={{ background: 'var(--accent)', animation: 'robot-blink 1.8s ease-in-out infinite' }}
       />
       <div
-        className="panel absolute left-1/2 top-7 h-20 w-24 -translate-x-1/2 p-3"
+        className="panel absolute left-1/2 top-10 h-32 w-40 -translate-x-1/2 p-4"
         style={{
           transform: `translateX(-50%) rotateX(${pose.rotateX}deg) rotateY(${pose.rotateY}deg)`,
           transformStyle: 'preserve-3d',
@@ -67,47 +82,50 @@ export function TrackingRobot() {
           animation: 'robot-bob 3.4s ease-in-out infinite',
         }}
       >
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-2 gap-4">
           {[0, 1].map((eye) => (
             <div
-              className="h-8 rounded-md border"
+              className="h-16 overflow-hidden rounded-md border"
               key={eye}
-              style={{ borderColor: 'var(--line)', background: 'var(--bg-muted)' }}
+              style={{
+                borderColor: 'color-mix(in srgb, var(--accent) 42%, var(--line))',
+                background: 'var(--bg-muted)',
+                boxShadow: 'inset 0 0 20px color-mix(in srgb, var(--accent) 16%, transparent)',
+              }}
             >
               <span
-                className="block h-2.5 w-2.5 rounded-full"
+                className="block h-8 w-8 rounded-full"
                 style={{
                   background: 'var(--accent)',
-                  transform: `translate(${pose.eyeX + 8}px, ${pose.eyeY + 10}px)`,
+                  boxShadow: '0 0 18px var(--accent), 0 0 34px color-mix(in srgb, var(--accent) 45%, transparent)',
+                  transform: `translate(${pose.eyeX + 20}px, ${pose.eyeY + 16}px)`,
                   transition: 'transform 80ms ease-out',
                 }}
               />
             </div>
           ))}
         </div>
-        <div className="mx-auto mt-4 h-1.5 w-10 rounded-sm" style={{ background: 'var(--accent)' }} />
+        <div className="mx-auto mt-6 h-2 w-16 rounded-sm" style={{ background: 'var(--accent)' }} />
       </div>
 
       <div
-        className="absolute left-1 top-[6.6rem] h-16 w-5 rounded-md border"
+        className="robot-arm robot-arm-left absolute left-4 top-[10.8rem] h-24 w-7 rounded-md border"
         style={{
           borderColor: 'var(--line)',
           background: 'var(--bg-muted)',
           transformOrigin: 'top center',
-          animation: 'robot-wave-left 2.7s ease-in-out infinite',
         }}
       />
       <div
-        className="absolute right-1 top-[6.6rem] h-16 w-5 rounded-md border"
+        className="robot-arm robot-arm-right absolute right-4 top-[10.8rem] h-24 w-7 rounded-md border"
         style={{
           borderColor: 'var(--line)',
           background: 'var(--bg-muted)',
           transformOrigin: 'top center',
-          animation: 'robot-wave-right 2.7s ease-in-out infinite',
         }}
       />
       <div
-        className="absolute left-1/2 top-[6.7rem] h-16 w-16 -translate-x-1/2 rounded-md border p-2"
+        className="absolute left-1/2 top-[10.8rem] h-24 w-24 -translate-x-1/2 rounded-md border p-3"
         style={{
           borderColor: 'var(--line)',
           background: 'var(--bg-muted)',
@@ -130,8 +148,8 @@ export function TrackingRobot() {
           ))}
         </div>
       </div>
-      <div className="absolute bottom-0 left-[2.65rem] h-10 w-5 rounded-md border" style={{ borderColor: 'var(--line)', background: 'var(--bg-muted)', animation: 'robot-step-left 2.9s ease-in-out infinite' }} />
-      <div className="absolute bottom-0 right-[2.65rem] h-10 w-5 rounded-md border" style={{ borderColor: 'var(--line)', background: 'var(--bg-muted)', animation: 'robot-step-right 2.9s ease-in-out infinite' }} />
+      <div className="absolute bottom-0 left-[4.6rem] h-14 w-7 rounded-md border" style={{ borderColor: 'var(--line)', background: 'var(--bg-muted)', animation: 'robot-step-left 2.9s ease-in-out infinite' }} />
+      <div className="absolute bottom-0 right-[4.6rem] h-14 w-7 rounded-md border" style={{ borderColor: 'var(--line)', background: 'var(--bg-muted)', animation: 'robot-step-right 2.9s ease-in-out infinite' }} />
     </div>
   );
 }

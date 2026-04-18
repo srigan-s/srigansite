@@ -23,7 +23,7 @@ export function CustomCursor() {
 
     const updateHoverState = (event: PointerEvent) => {
       const target = event.target as HTMLElement | null;
-      setIsHovering(Boolean(target?.closest('a, button, [data-cursor="hover"]')));
+      setIsHovering(Boolean(target?.closest('a, button, article, .panel, .quiet-panel, [data-cursor="hover"]')));
     };
 
     const hideCursor = () => setIsVisible(false);
@@ -47,23 +47,19 @@ export function CustomCursor() {
   return (
     <motion.div
       aria-hidden="true"
-      className="pointer-events-none fixed left-0 top-0 z-[90] hidden h-6 w-6 rounded-full border md:block"
+      className="pointer-events-none fixed left-0 top-0 z-[90] hidden h-4 w-4 rounded-[2px] border md:block"
       style={{
         x: springX,
         y: springY,
         translateX: '-50%',
         translateY: '-50%',
         borderColor: 'var(--accent)',
-        backgroundColor: isHovering ? 'color-mix(in srgb, var(--accent) 18%, transparent)' : 'transparent',
+        backgroundColor: isHovering ? 'color-mix(in srgb, var(--accent) 10%, transparent)' : 'transparent',
+        boxShadow: 'none',
         opacity: isVisible ? 1 : 0,
         scale: isHovering ? 1.85 : 1,
       }}
       transition={{ duration: 0.18, ease: 'easeOut' }}
-    >
-      <span
-        className="absolute left-1/2 top-1/2 block h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full"
-        style={{ background: 'var(--accent)' }}
-      />
-    </motion.div>
+    />
   );
 }
