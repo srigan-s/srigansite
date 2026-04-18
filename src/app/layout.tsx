@@ -6,7 +6,7 @@ import './globals.css';
 export const metadata: Metadata = {
   title: 'Srigan Sivagnanenthirarajah',
   description:
-    'Electrical Engineering portfolio for Srigan Sivagnanenthirarajah, focused on robotics, controls, embedded systems, and software.',
+    'Engineering portfolio for Srigan Sivagnanenthirarajah, focused on robotics, controls, embedded systems, and software.',
   icons: {
     icon: [{ url: '/robot-favicon.svg', type: 'image/svg+xml' }],
     shortcut: ['/robot-favicon.svg'],
