@@ -57,7 +57,7 @@ export type ExperienceItem = {
 export const experiences: ExperienceItem[] = [
   {
     id: 'wiz-robotics',
-    role: 'Robotics Engineering Intern',
+    role: 'Robotics Software Engineering Intern',
     company: 'Wiz Robotics',
     // TODO: Replace with the exact internship date range from your resume.
     date: 'January 2026 - April 2026',
