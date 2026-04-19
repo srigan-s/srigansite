@@ -4,6 +4,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { experiences } from '@/data/portfolio';
+import { HERO_CAROUSEL_INTERVAL_MS } from './carouselTiming';
 
 const internItems = experiences.slice(0, 4);
 
@@ -14,7 +15,7 @@ export function PrevInternCard() {
   useEffect(() => {
     const timer = window.setInterval(() => {
       setIndex((current) => (current + 1) % internItems.length);
-    }, 2800);
+    }, HERO_CAROUSEL_INTERVAL_MS);
 
     return () => window.clearInterval(timer);
   }, []);

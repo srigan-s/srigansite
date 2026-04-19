@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { projects } from '@/data/portfolio';
+import { HERO_CAROUSEL_INTERVAL_MS } from './carouselTiming';
 
 const projectItems = projects.slice(0, 4);
 
@@ -15,7 +16,7 @@ export function PrevProjectCard() {
   useEffect(() => {
     const timer = window.setInterval(() => {
       setIndex((current) => (current + 1) % projectItems.length);
-    }, 3200);
+    }, HERO_CAROUSEL_INTERVAL_MS);
 
     return () => window.clearInterval(timer);
   }, []);

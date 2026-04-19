@@ -3,6 +3,7 @@
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
+import { HERO_CAROUSEL_INTERVAL_MS } from './carouselTiming';
 
 const personalPhotos = [
   {
@@ -21,11 +22,6 @@ const personalPhotos = [
     label: 'E7',
   },
   {
-    src: '/steak.jpeg',
-    alt: 'Steak dinner',
-    label: 'Steak',
-  },
-  {
     src: '/sky.jpeg',
     alt: 'Sky personal photo',
     label: 'Sky',
@@ -41,7 +37,7 @@ export function PersonalPhotoCarousel() {
   useEffect(() => {
     const timer = window.setInterval(() => {
       setIndex((current) => (current + 1) % personalPhotos.length);
-    }, 3000);
+    }, HERO_CAROUSEL_INTERVAL_MS);
 
     return () => window.clearInterval(timer);
   }, []);

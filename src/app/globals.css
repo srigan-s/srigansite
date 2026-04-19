@@ -240,7 +240,7 @@ a {
     display: flex;
     width: max-content;
     gap: 0.5rem;
-    animation: skills-wheel-scroll 28s linear infinite;
+    animation: skills-wheel-scroll 47s linear infinite;
     will-change: transform;
   }
 
