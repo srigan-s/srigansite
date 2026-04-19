@@ -116,7 +116,8 @@ export function Hero() {
                 />
                 <div>
                   <p className="text-[11px] font-semibold uppercase muted-copy">School</p>
-                  <p className="mt-2 text-sm font-medium">University of Waterloo ECE</p>
+                  <p className="mt-2 text-sm font-medium">University of Waterloo</p>
+                  <p className="mt-2 text-sm font-medium">Electrical & Computer Engineering</p>
                 </div>
               </div>
             </div>

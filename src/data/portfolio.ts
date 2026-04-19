@@ -57,7 +57,7 @@ export type ExperienceItem = {
 export const experiences: ExperienceItem[] = [
   {
     id: 'wiz-robotics',
-    role: 'Robotics Software Engineering Intern',
+    role: 'Robotics Software Engineer Intern',
     company: 'Wiz Robotics',
     // TODO: Replace with the exact internship date range from your resume.
     date: 'January 2026 - April 2026',
@@ -74,6 +74,16 @@ export const experiences: ExperienceItem[] = [
     impact: "Shipped full-stack product work for a hospital volunteer team of 100+ with usability and reliability in focus.",
     image: '/bay.png',
     tags: ['React', 'TypeScript', 'MongoDB', "Gemini API"],
+  },
+  {
+    id: 'learnit',
+    role: 'Robotics Engineer Consultant',
+    company: 'Learnit',
+    date: 'April 2026 - Present',
+    impact:
+      'Providing insight for robotics workshops exploring ESP32s, sensors, AI, and more, while aiding curriculum development through industry experience.',
+    image: '/learnitcanada_logo.jpeg',
+    tags: ['Robotics', 'ESP32', 'Sensors', 'AI', 'Curriculum'],
   },
   {
     id: 'miniai',

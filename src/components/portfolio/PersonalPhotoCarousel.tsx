@@ -5,16 +5,23 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { HERO_CAROUSEL_INTERVAL_MS } from './carouselTiming';
 
-const personalPhotos = [
+type PersonalPhoto = {
+  src: string;
+  alt: string;
+  label: string;
+  objectPosition?: string;
+};
+
+const personalPhotos: PersonalPhoto[] = [
   {
     src: '/waterlootrek.jpeg',
     alt: 'Waterloo trek personal photo',
     label: 'Waterloo trek',
   },
   {
-    src: '/winter.jpeg',
-    alt: 'Winter personal photo',
-    label: 'Winter',
+    src: '/firstmentor.jpeg',
+    alt: 'FIRST mentor personal photo',
+    label: 'FirstMentor',
   },
   {
     src: '/e7.jpeg',
@@ -22,9 +29,10 @@ const personalPhotos = [
     label: 'E7',
   },
   {
-    src: '/sky.jpeg',
-    alt: 'Sky personal photo',
-    label: 'Sky',
+    src: '/smartPillow.jpeg',
+    alt: 'SmartPillow project photo',
+    label: 'SmartPillow',
+    objectPosition: 'center 18%',
   },
 ];
 
@@ -69,6 +77,7 @@ export function PersonalPhotoCarousel() {
                   return next;
                 })
               }
+              style={{ objectPosition: active.objectPosition ?? 'center' }}
               src={active.src}
             />
           )}
