@@ -76,26 +76,6 @@ export const experiences: ExperienceItem[] = [
     tags: ['React', 'TypeScript', 'MongoDB', "Gemini API"],
   },
   {
-    id: 'learnit',
-    role: 'Robotics Engineer Consultant',
-    company: 'Learnit',
-    date: 'April 2026 - Present',
-    impact:
-      'Providing insight for robotics workshops exploring ESP32s, sensors, AI, and more, while aiding curriculum development through industry experience.',
-    image: '/learnitcanada_logo.jpeg',
-    tags: ['Robotics', 'ESP32', 'Sensors', 'AI', 'Curriculum'],
-  },
-  {
-    id: 'miniai',
-    role: 'Founding Engineer',
-    company: 'MiniAI',
-    // TODO: Replace with the exact role date range from your resume.
-    date: 'February 2024 - Present',
-    impact: 'Led engineering for a gamified AI learning platform for younger students.',
-    image: '/miniAi.png',
-    tags: ['AI', 'Product', 'Full-stack'],
-  },
-  {
     id: 'watonomous',
     role: 'Hardware Test Engineer',
     company: 'WATonomous',
@@ -104,6 +84,26 @@ export const experiences: ExperienceItem[] = [
     impact: 'Developed and validated vehicle control hardware for autonomous systems work.',
     image: '/wato.jpeg',
     tags: ['Controls', 'PCB', 'Testing'],
+  },
+  {
+    id: 'miniai',
+    role: 'Founding Engineer (AI Software)',
+    company: 'MiniAI',
+    // TODO: Replace with the exact role date range from your resume.
+    date: 'February 2024 - Present',
+    impact: 'Led engineering for a gamified AI learning platform for younger students.',
+    image: '/miniAi.png',
+    tags: ['AI', 'Product', 'Full-stack'],
+  },
+  {
+    id: 'learnit',
+    role: 'Robotics Engineer Consultant',
+    company: 'Learnit',
+    date: 'April 2026 - Present',
+    impact:
+      'Providing insight for robotics workshops exploring ESP32s, sensors, AI, and more, while aiding curriculum development through industry experience.',
+    image: '/learnitcanada_logo.jpeg',
+    tags: ['Robotics', 'ESP32', 'Sensors', 'AI', 'Curriculum'],
   },
   {
     id: 'uwaterloo-research',
@@ -167,6 +167,18 @@ export const projects: ProjectItem[] = [
       type: 'video',
       src: '/miniai-preview.mov',
       alt: 'MiniAI web app preview',
+    },
+  },
+  {
+    id: 'cad-turret-build',
+    name: 'Custom Turret CAD Build',
+    description: 'Designed and built a turret in Onshape with physics-based iteration, goBILDA motor tuning, CNC plates, and 3D printed mounts.',
+    stack: ['Onshape', 'CAD', 'goBILDA', 'CNC', '3D Printing', 'Mechanics'],
+    demo: 'https://cad.onshape.com/documents/a19be521f238979b5c8bcd0f/w/52bc6631464a58f3948e8ccc/e/cc89d384c3c5cbe2717bc0b5?renderMode=0&uiState=6a0a5eaa6b77a2ef443cba0e',
+    media: {
+      type: 'image',
+      src: '/onshape.png',
+      alt: 'Onshape turret CAD preview',
     },
   },
   {
@@ -239,6 +251,8 @@ for label in LABEL_COLUMNS:
     model.fit(X_train, y_train)
     print(label, mean_absolute_error(y_test, model.predict(X_test)))`;
 
+const projectById = (id: string) => projects.find((project) => project.id === id)!;
+
 export type ProjectDetail = ProjectItem & {
   eyebrow: string;
   summary: string;
@@ -257,6 +271,11 @@ export type ProjectDetail = ProjectItem & {
     title: string;
     src: string;
   }>;
+  images?: Array<{
+    title: string;
+    src: string;
+    alt: string;
+  }>;
   code?: {
     label: string;
     snippet: string;
@@ -265,42 +284,42 @@ export type ProjectDetail = ProjectItem & {
 
 export const projectDetails: ProjectDetail[] = [
   {
-    ...projects[0],
+    ...projectById('ros2-gnss-nav-demo'),
     eyebrow: 'ROS2 / GNSS / Linux Robotics',
-    year: '2025',
+    year: '2026',
     role: 'Robotics systems demo',
     summary:
-      'A software-only ROS2 Jazzy simulation of an RC-car-style robot running an autonomous waypoint mission with noisy GNSS and IMU data.',
+      'A full ROS2 Jazzy navigation demo built around an RC-car-style robot that plans waypoint missions, ingests noisy GNSS and IMU measurements, and exposes the entire autonomy loop through RViz2 and post-run telemetry.',
     heroVideo: '/ros2-gnss-nav-demo.mov',
     highlights: [
       {
         title: 'GNSS / PNT',
-        copy: 'Simulates noisy GNSS measurements and validates navigation performance against true path data.',
+        copy: 'Injects realistic GNSS noise into the navigation stack, then compares the estimated trajectory against ground truth so localization error is visible instead of hidden.',
       },
       {
         title: 'Mission Planning',
-        copy: 'Runs autonomous waypoint following with active target selection, route state, and mission telemetry.',
+        copy: 'Executes waypoint progression, active-target selection, heading updates, and mission-state transitions in one loop rather than treating motion and visualization as separate demos.',
       },
       {
         title: 'Observability',
-        copy: 'Shows transforms, sensor noise, estimated path, true path, obstacles, and post-run validation plots.',
+        copy: 'Surfaces transforms, obstacle overlays, estimated versus true paths, sensor frames, and run summaries so the system can be debugged like a real robotics stack.',
       },
     ],
     sections: [
       {
         title: 'RViz2 system view',
         copy:
-          'The demo opens into a visual robotics scene with the RC car body, numbered waypoints, planned route, active target, GNSS and IMU frames, obstacle overlays, and mission status text.',
+          'The main scene shows the vehicle body, numbered waypoints, current goal, estimated and true trajectories, frame transforms, and obstacle boundaries. It is designed so a reviewer can understand what the robot thinks is happening at every moment.',
       },
       {
         title: 'Telemetry-first workflow',
         copy:
-          'The system records CSV and JSON telemetry so each run can be inspected after the mission. That makes it useful as both a robotics demo and a validation artifact.',
+          'Each run exports structured CSV and JSON telemetry, making it easy to inspect path error, mission progress, and state transitions after the demo ends. That turns the project into both a visual showcase and a validation tool.',
       },
       {
         title: 'Stack',
         copy:
-          'Ubuntu 24.04 VM, ROS2 Jazzy, Python/rclpy, standard ROS messages, tf2_ros, RViz2, Matplotlib, and a local dashboard layer.',
+          'The stack uses Ubuntu 24.04, ROS2 Jazzy, Python with rclpy, tf2_ros, standard ROS messages, RViz2, Matplotlib, and a lightweight dashboard layer for run outputs.',
       },
     ],
     videos: [
@@ -311,37 +330,37 @@ export const projectDetails: ProjectDetail[] = [
     ],
   },
   {
-    ...projects[1],
+    ...projectById('turret-auto-align'),
     eyebrow: 'FRC / Vision / Controls',
-    year: '2024',
+    year: '2026',
     role: 'Controls and ML tuning',
     summary:
-      'A vision-assisted FRC turret alignment system using Java control logic, Limelight values, AprilTag readings, and a Python tuning pipeline.',
+      'A vision-assisted FRC turret alignment system that combines Java robot logic, Limelight targeting, AprilTag measurements, and a Python tuning pipeline to keep the turret centered while the robot is moving.',
     heroVideo: '/turret-auto-align-field.mov',
     highlights: [
       {
         title: 'Vision Pipeline',
-        copy: 'Fused Limelight targeting values with AprilTag readings to estimate angle error and keep the turret centered.',
+        copy: 'Combined Limelight values with AprilTag-based measurements to estimate target offset and maintain a stable lock under changing field conditions.',
       },
       {
         title: 'Java Control Loop',
-        copy: 'Structured the robot loop around sensor updates, PID correction, and safe fallback behavior when targets were lost.',
+        copy: 'Structured the robot loop around sensor refresh, PID correction, and fallback handling so the turret behaved predictably when targets dropped out.',
       },
       {
         title: 'ML-assisted Tuning',
-        copy: 'Converted robot logs into response features and trained regressors to suggest better PID multipliers.',
+        copy: 'Turned robot log data into response features and trained regressors that suggested improved PID multipliers from observed motion quality.',
       },
     ],
     sections: [
       {
         title: 'What it did',
         copy:
-          'The turret used target readings to choose a lock, correct angle error, and stay centered while the drivetrain was moving.',
+          'The turret continuously selected a target, computed angular error, and corrected aim while the rest of the robot was in motion. The goal was not just static accuracy, but stable tracking under realistic match movement.',
       },
       {
         title: 'How tuning worked',
         copy:
-          'I exported robot logs, extracted rise time, settling time, overshoot, steady-state error, and oscillation features, then trained separate regressors for P, I, and D multipliers.',
+          'I exported drivetrain and turret logs, extracted rise time, settling time, overshoot, steady-state error, and oscillation metrics, then trained separate regressors for P, I, and D multipliers. That gave the controls workflow a repeatable data loop instead of pure manual tuning.',
       },
     ],
     videos: [
@@ -364,37 +383,37 @@ export const projectDetails: ProjectDetail[] = [
     },
   },
   {
-    ...projects[2],
+    ...projectById('miniai-web-app'),
     eyebrow: 'Live Product / AI Education',
-    year: '2024',
+    year: '2026',
     role: 'Founding AI software engineer',
     summary:
-      'A live gamified learning platform that helps younger students explore artificial intelligence through lessons, mini-games, and guided prompts.',
+      'A live AI learning platform for younger students, built around guided lessons, mini-games, and prompt-based interactions that make abstract AI ideas feel concrete and approachable.',
     heroVideo: '/miniai-preview.mov',
     highlights: [
       {
         title: 'Live Users',
-        copy: 'Built as a real product rather than a static prototype, with product decisions shaped by ongoing usage.',
+        copy: 'Shaped as a live product with real learners in mind, so the engineering work had to support clarity, usability, and iteration instead of just a one-off demo.',
       },
       {
         title: 'Gamified Onboarding',
-        copy: 'Designed approachable flows for younger learners to build intuition for prompting, logic, and core AI concepts.',
+        copy: 'Introduced prompting, logic, and AI concepts through short guided flows that felt playful without losing educational structure.',
       },
       {
         title: 'Learning-first UX',
-        copy: 'Balanced playful interactions with enough structure to teach durable mental models.',
+        copy: 'Balanced bright, game-like interactions with enough scaffolding to help students build durable mental models instead of clicking through content.',
       },
     ],
     sections: [
       {
         title: 'Product story',
         copy:
-          'MiniAI was designed so kids can explore AI through structured experiences instead of a blank chat box. The product had to feel approachable, clear, and fast.',
+          'MiniAI was built so students could explore AI through structured experiences rather than being dropped into a blank prompt box. The product needed to feel safe, fast, and understandable from the first screen.',
       },
       {
         title: 'Engineering focus',
         copy:
-          'Because it was live, I had to think beyond the demo: retention, content flow, load performance, and how understandable the interface felt for younger users.',
+          'Because it was live, the engineering focus extended beyond feature delivery. I had to think about onboarding friction, content pacing, responsiveness, and whether the interface actually made AI easier to understand for younger users.',
       },
     ],
     videos: [
@@ -405,104 +424,195 @@ export const projectDetails: ProjectDetail[] = [
     ],
   },
   {
-    ...projects[3],
+    ...projectById('cad-turret-build'),
+    eyebrow: 'CAD / Fabrication / Mechanisms',
+    year: '2026',
+    role: 'Mechanical and systems builder',
+    summary:
+      'A custom turret designed in Onshape and carried through fabrication, assembly, and repeated testing. The build combined CAD, physics calculations, goBILDA motor tuning, CNC-machined plates, and 3D printed mounts to reach a reliable final mechanism.',
+    heroVideo: '/turret-auto-align-field.mov',
+    highlights: [
+      {
+        title: 'CAD-first design',
+        copy: 'Modeled the full turret in Onshape, using CAD to reason about plate geometry, bearing spacing, mounting locations, and assembly constraints before cutting material.',
+      },
+      {
+        title: 'Motor and flywheel tuning',
+        copy: 'Matched the goBILDA motor behavior to the flywheel material and overall mechanism response, tuning the system through repeated testing instead of assuming the first design would behave correctly.',
+      },
+      {
+        title: 'Fabrication workflow',
+        copy: 'Moved from digital design to physical build by CNC machining the main plates and 3D printing custom mounts, then iterating on fit, rigidity, and alignment after assembly.',
+      },
+    ],
+    sections: [
+      {
+        title: 'How the design came together',
+        copy:
+          'The turret started as a CAD problem, not just a parts problem. I used Onshape to lay out the rotating structure, plate interfaces, and mounting geometry so the final assembly would be manufacturable and mechanically consistent before fabrication began.',
+      },
+      {
+        title: 'Physics and mechanism iteration',
+        copy:
+          'To make the turret perform properly, I worked through the relationship between motor output, inertia, wheel behavior, and structural stiffness. That meant using calculations to guide the design, then validating those assumptions against real testing and adjusting the mechanism when the hardware disagreed.',
+      },
+      {
+        title: 'Fabrication and assembly',
+        copy:
+          'The main structural plates were CNC machined for repeatability and rigidity, while custom 3D printed mounts handled geometry that was easier to iterate quickly in printed form. That split let me keep the critical structure strong while still moving quickly on the interfaces and supporting parts.',
+      },
+      {
+        title: 'Why the tuning mattered',
+        copy:
+          'The goBILDA motor and the selected flywheel material had to be tuned together as one system. Small changes in wheel behavior, spin-up feel, and overall response affected how consistently the turret operated, so the final build came from repeated test cycles rather than a single pass design.',
+      },
+      {
+        title: 'CAD link',
+        copy:
+          'The Onshape model documents the assembly decisions directly, from plate layout to mount placement, and served as the reference point for fabrication and iteration throughout the build.',
+      },
+    ],
+    videos: [
+      {
+        title: 'Turret working on hardware',
+        src: '/turret-auto-align-field.mov',
+      },
+      {
+        title: 'Mechanism behavior pass',
+        src: '/turret-auto-align-copy.mov',
+      },
+      {
+        title: 'Targeting and actuation view',
+        src: '/turret-auto-align-screen-recording.mov',
+      },
+    ],
+    images: [
+      {
+        title: 'Main Onshape assembly',
+        src: '/onshape.png',
+        alt: 'Main Onshape assembly view of the custom turret',
+      },
+      {
+        title: 'Top assembly view',
+        src: '/onshapetop.png',
+        alt: 'Top Onshape view of the custom turret assembly',
+      },
+      {
+        title: 'Bottom assembly view',
+        src: '/onshapebottom.png',
+        alt: 'Bottom Onshape view of the custom turret assembly',
+      },
+      {
+        title: 'Plate layout',
+        src: '/onshapeplate.png',
+        alt: 'Onshape plate layout for the custom turret build',
+      },
+      {
+        title: 'Side plate geometry',
+        src: '/onshapesideplates.png',
+        alt: 'Onshape side plate geometry for the custom turret build',
+      },
+    ],
+  },
+  {
+    ...projectById('colourmash-ai'),
     eyebrow: 'Health / AI / Web',
-    year: '2024',
+    year: '2026',
     role: 'Full-stack builder',
     summary:
-      "A cognitive support web app for Alzheimer's and dementia users through lightweight pattern-recognition activities.",
+      "A cognitive support web application for Alzheimer's and dementia users, centered on lightweight pattern-recognition activities and low-friction interactions.",
     highlights: [
       {
         title: 'Accessible Flow',
-        copy: 'Kept interactions simple and visual so the experience could be used without heavy instruction.',
+        copy: 'Kept the interface visual, sparse, and easy to follow so the app could be approached with minimal explanation.',
       },
       {
         title: 'AI-assisted Support',
-        copy: 'Explored AI and browser-based ML as part of the support and interaction layer.',
+        copy: 'Explored where AI and browser-based ML could assist with interaction design while keeping the primary experience understandable and calm.',
       },
       {
         title: 'Fast Web Prototype',
-        copy: 'Shipped as a focused web product with a clean interface and low setup friction.',
+        copy: 'Shipped as a focused web product with low setup friction, making it easier to test and iterate on the core support experience.',
       },
     ],
     sections: [
       {
         title: 'What it explored',
         copy:
-          'ColourMashAI focuses on clear visual patterns, simple feedback, and approachable exercises for cognitive support contexts.',
+          'ColourMashAI explored how clear visual patterns, simple feedback, and lightweight interaction loops could support cognitive engagement without overwhelming the user.',
       },
       {
-        title: 'Edit this later',
+        title: 'Implementation focus',
         copy:
-          'TODO: Replace this placeholder with exact project metrics, user feedback, or implementation details from your final write-up.',
+          'The build emphasized accessible navigation, fast browser performance, and simple game-like loops that could be used repeatedly without a complicated learning curve.',
       },
     ],
   },
   {
-    ...projects[4],
+    ...projectById('arduino-beatsync'),
     eyebrow: 'Arduino / Embedded / Audio',
-    year: '2024',
+    year: '2026',
     role: 'Embedded systems builder',
     summary:
-      'A physical audiovisual project that uses Arduino control logic to sync LED behavior with music timing.',
+      'A physical audiovisual build that uses Arduino-based timing and control logic to synchronize LED behavior with music and rhythm changes.',
     highlights: [
       {
         title: 'Timing Logic',
-        copy: 'Used microcontroller timing patterns to coordinate LED behavior with audio rhythm.',
+        copy: 'Used microcontroller timing patterns and event handling to coordinate light behavior with changes in audio rhythm.',
       },
       {
         title: 'Physical Build',
-        copy: 'Connected software control to real LED output, wiring, and hardware constraints.',
+        copy: 'Connected software decisions to real hardware output, including LED behavior, wiring limitations, and power constraints.',
       },
       {
         title: 'Embedded C++',
-        copy: 'Implemented the control behavior with Arduino and C++ for a responsive physical interaction.',
+        copy: 'Implemented the logic in Arduino C++ so the interaction felt responsive and stable in a physical build, not just in simulation.',
       },
     ],
     sections: [
       {
         title: 'What it explored',
         copy:
-          'Arduino BeatSync connects code to a physical audiovisual experience, using timing and LED control to make music feel visible.',
+          'Arduino BeatSync explored how code can translate sound into a physical lighting response, turning rhythm into a visible, synchronized output.',
       },
       {
-        title: 'Edit this later',
+        title: 'System design',
         copy:
-          'TODO: Add exact circuit details, LED strip type, audio input approach, and demo results from the final build notes.',
+          'The project centered on the interaction between timing logic, LED control behavior, and embedded reliability so the final effect stayed in sync and visually readable.',
       },
     ],
   },
   {
-    ...projects[5],
+    ...projectById('recruitercall-ai'),
     eyebrow: 'AI / Interview Practice',
-    year: '2024',
+    year: '2026',
     role: 'Full-stack builder',
     summary:
-      'A technical interview simulator that generates recruiter-style prompts and feedback through AI-assisted flows.',
+      'A technical interview simulator that generates recruiter-style prompts, structures practice sessions, and returns feedback through AI-assisted flows.',
     highlights: [
       {
         title: 'Prompt Flow',
-        copy: 'Generated recruiter-style questions and feedback loops for practice sessions.',
+        copy: 'Generated recruiter-style questions and follow-up loops so each practice run felt closer to a guided interview than a blank chatbot exchange.',
       },
       {
         title: 'Product Shell',
-        copy: 'Structured the experience as a usable app rather than a one-off script.',
+        copy: 'Wrapped the AI behavior in a usable product shell with a clear session flow, making the tool feel like an application rather than a script.',
       },
       {
         title: 'Practice Feedback',
-        copy: 'Focused on quick iteration so users could practice, adjust, and retry.',
+        copy: 'Focused on fast iteration so users could answer, review, adjust, and retry without losing momentum between attempts.',
       },
     ],
     sections: [
       {
         title: 'What it does',
         copy:
-          'RecruiterCallAI packages interview practice into a guided flow with AI-generated prompts and response feedback.',
+          'RecruiterCallAI packages interview preparation into a guided flow where users receive prompts, respond, and get structured feedback instead of ad hoc AI output.',
       },
       {
-        title: 'Edit this later',
+        title: 'Engineering focus',
         copy:
-          'TODO: Replace this placeholder with the exact architecture, database model, or product metrics from your final project notes.',
+          'The engineering work centered on keeping the feedback loop quick, the prompt generation coherent, and the overall experience close to real interview practice.',
       },
     ],
   },

@@ -55,7 +55,6 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             <h1 className="mt-5 max-w-3xl text-4xl font-semibold leading-tight md:text-6xl">{project.name}</h1>
             <p className="mt-5 max-w-2xl text-lg leading-8 muted-copy">{project.summary}</p>
             <div className="mt-8 flex flex-wrap gap-2">
-              <span className="quiet-panel px-3 py-1.5 text-sm muted-copy">{project.year}</span>
               <span className="quiet-panel px-3 py-1.5 text-sm muted-copy">{project.role}</span>
               {project.stack.map((item) => (
                 <span className="quiet-panel px-3 py-1.5 text-sm muted-copy" key={item}>
@@ -80,7 +79,19 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           </div>
 
           <div className="panel overflow-hidden p-2">
-            {project.heroVideo ? (
+            {project.images?.length ? (
+              <div className="grid gap-2 md:grid-cols-2">
+                {project.images.map((image, index) => (
+                  <div className={index === 0 ? 'md:col-span-2' : ''} key={image.src}>
+                    <img
+                      alt={image.alt}
+                      className={index === 0 ? 'h-[22rem] w-full rounded-md object-cover md:h-[30rem]' : 'h-[14rem] w-full rounded-md object-cover md:h-[18rem]'}
+                      src={image.src}
+                    />
+                  </div>
+                ))}
+              </div>
+            ) : project.heroVideo ? (
               <video
                 autoPlay
                 className="h-[22rem] w-full rounded-md object-cover md:h-[30rem]"
@@ -132,7 +143,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             <div className="section-heading">
               <div>
                 <p className="eyebrow">Videos</p>
-                <h2 className="section-title mt-3">Original project media, restored in color.</h2>
+                <h2 className="section-title mt-3">Project demos and test footage.</h2>
               </div>
             </div>
             <div className="grid gap-4 lg:grid-cols-3">
