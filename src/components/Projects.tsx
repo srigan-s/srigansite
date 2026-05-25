@@ -7,7 +7,7 @@ type Project = {
   description: string;
   technologies: string[];
   featured: boolean;
-  github: string;
+  github?: string;
   live: string;
   image?: string;
   video?: string;
@@ -32,6 +32,17 @@ const Projects = () => {
   }, []);
 
   const projects: Project[] = [
+    {
+      title: 'TrackQA',
+      description:
+        'A full-stack engineering dashboard for debugging optical and electromagnetic 3D tracking integrations with Java WebSocket simulation, Three.js visualization, issue detection, Gemini diagnosis, CSV export, and Jira-style report generation.',
+      technologies: ['Java', 'WebSocket', 'React', 'TypeScript', 'Three.js', 'Gemini API'],
+      featured: true,
+      live: '/projects/trackqa',
+      video: '/trackqa-demo.mov',
+      internal: true,
+      spotlight: true,
+    },
     {
       title: 'ROS2 GNSS RC Car Navigation Demo',
       description:
@@ -235,15 +246,17 @@ const Projects = () => {
                       </div>
 
                       <div className="mt-8 flex flex-wrap gap-5">
-                        <a
-                          href={project.github}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-3 rounded-full border border-[color:var(--line)] px-5 py-3 text-sm font-semibold text-white transition-all duration-300 hover:-translate-y-1 hover:border-[color:var(--accent)]"
-                        >
-                          <Github className="h-4 w-4" />
-                          View Code
-                        </a>
+                        {project.github ? (
+                          <a
+                            href={project.github}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-3 rounded-full border border-[color:var(--line)] px-5 py-3 text-sm font-semibold text-white transition-all duration-300 hover:-translate-y-1 hover:border-[color:var(--accent)]"
+                          >
+                            <Github className="h-4 w-4" />
+                            View Code
+                          </a>
+                        ) : null}
 
                         {project.internal ? (
                           <button

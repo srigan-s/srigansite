@@ -133,6 +133,18 @@ export type ProjectItem = {
 
 export const projects: ProjectItem[] = [
   {
+    id: 'trackqa',
+    name: 'TrackQA',
+    description:
+      'Full-stack engineering dashboard for debugging optical and electromagnetic 3D tracking integrations with live 6D pose visualization.',
+    stack: ['Java', 'WebSocket', 'React', 'TypeScript', 'Three.js', 'Gemini API'],
+    media: {
+      type: 'video',
+      src: '/trackqa-demo.mov',
+      alt: 'TrackQA 3D tracking dashboard preview',
+    },
+  },
+  {
     id: 'ros2-gnss-nav-demo',
     name: 'ROS2 GNSS RC Car Navigation',
     description: 'Autonomous waypoint navigation simulation with noisy GNSS, IMU telemetry, RViz2, and validation plots.',
@@ -283,6 +295,65 @@ export type ProjectDetail = ProjectItem & {
 };
 
 export const projectDetails: ProjectDetail[] = [
+  {
+    ...projectById('trackqa'),
+    eyebrow: '3D Tracking / Java / Three.js',
+    year: '2026',
+    role: 'Full-stack engineering dashboard',
+    summary:
+      'TrackQA is a full-stack debugging workflow for OEM engineers integrating optical or electromagnetic 3D tracking systems. A Java backend simulates real-time 6D pose behavior, streams frames over WebSocket, and feeds a React + TypeScript dashboard that visualizes tracking state, detects integration issues, and generates engineering reports.',
+    heroVideo: '/trackqa-demo.mov',
+    highlights: [
+      {
+        title: '6D Pose Streaming',
+        copy:
+          'Built around a custom Java HTTP/WebSocket server that streams live position, orientation, RMS error, latency, dropped-frame, and tracking-state data into the dashboard.',
+      },
+      {
+        title: '3D Debug View',
+        copy:
+          'Uses Three.js and React Three Fiber to render the tracked tool, measurement volume, target point, coordinate axes, and live path trail so integration failures are visible in context.',
+      },
+      {
+        title: 'Diagnosis Workflow',
+        copy:
+          'Combines deterministic issue detection, Gemini-powered diagnosis, CSV export, and Markdown report generation for Jira, GitHub, or Confluence handoff.',
+      },
+    ],
+    sections: [
+      {
+        title: 'What it simulates',
+        copy:
+          'The backend models both optical and electromagnetic tracking behavior, including line-of-sight obstruction, dropped frames, EM distortion drift, RMS error changes, latency spikes, and measurement-volume warnings. Simulator state is configurable so each scenario can be reproduced instead of treated as a random demo artifact.',
+      },
+      {
+        title: 'Frontend engineering dashboard',
+        copy:
+          'The React, TypeScript, Vite, and TailwindCSS frontend is styled as a dark-mode engineering console with live metrics, configuration controls, issue detection, calibration results, AI diagnosis, and report generation. The 3D view makes the tracked tool, target, axes, and trail easy to inspect while the numeric panels expose the system health signals.',
+      },
+      {
+        title: 'Issue detection',
+        copy:
+          'TrackQA uses deterministic rules to classify integration problems such as LINE_OF_SIGHT_OBSTRUCTION, EM_DISTORTION, LATENCY_SPIKE, OUT_OF_VOLUME, and CALIBRATION_FAILED. This gives the dashboard predictable engineering behavior even when the AI diagnosis layer is disabled.',
+      },
+      {
+        title: 'Calibration and logging',
+        copy:
+          'The Java backend includes calibration logic, in-memory session logging, and CSV export endpoints for raw tracking frames. That lets an engineer move from live observation to reproducible evidence without leaving the tool.',
+      },
+      {
+        title: 'AI diagnosis and reports',
+        copy:
+          'Gemini API integration turns tracking metrics and detected issues into a root-cause diagnosis, suggested next steps, and a Jira-style issue summary. When no Gemini API key is configured, TrackQA falls back to a local mock diagnosis so the demo stays fully functional.',
+      },
+    ],
+    videos: [
+      {
+        title: 'TrackQA dashboard walkthrough',
+        src: '/trackqa-demo.mov',
+      },
+    ],
+  },
   {
     ...projectById('ros2-gnss-nav-demo'),
     eyebrow: 'ROS2 / GNSS / Linux Robotics',
