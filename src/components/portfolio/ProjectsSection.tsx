@@ -13,13 +13,16 @@ function ProjectMedia({ project }: { project: ProjectItem }) {
   }
 
   if (project.media.type === 'video') {
+    const shouldPlaySilently = project.id !== 'lightlink';
+
     return (
       <video
         aria-label={project.media.alt}
-        autoPlay
+        autoPlay={shouldPlaySilently}
         className="h-32 w-full border-b object-cover hairline"
+        controls={!shouldPlaySilently}
         loop
-        muted
+        muted={shouldPlaySilently}
         playsInline
         preload="metadata"
         src={project.media.src}

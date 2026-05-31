@@ -133,15 +133,15 @@ export type ProjectItem = {
 
 export const projects: ProjectItem[] = [
   {
-    id: 'trackqa',
-    name: 'TrackQA',
+    id: 'lightlink',
+    name: 'LightLink',
     description:
-      'Full-stack engineering dashboard for debugging optical and electromagnetic 3D tracking integrations with live 6D pose visualization.',
-    stack: ['Java', 'WebSocket', 'React', 'TypeScript', 'Three.js', 'Gemini API'],
+      'Browser-based optical modem firmware demo with BPSK modulation, noisy channel simulation, C++ DSP telemetry, and validation dashboards.',
+    stack: ['C++', 'FastAPI', 'React', 'DSP', 'BPSK', 'ASIC telemetry'],
     media: {
       type: 'video',
-      src: '/trackqa-demo.mov',
-      alt: 'TrackQA 3D tracking dashboard preview',
+      src: '/lightlink-dsp-firmware-simulator.mp4',
+      alt: 'LightLink optical modem firmware simulator dashboard preview',
     },
   },
   {
@@ -191,6 +191,18 @@ export const projects: ProjectItem[] = [
       type: 'image',
       src: '/onshape.png',
       alt: 'Onshape turret CAD preview',
+    },
+  },
+  {
+    id: 'trackqa',
+    name: 'TrackQA',
+    description:
+      'Full-stack engineering dashboard for debugging optical and electromagnetic 3D tracking integrations with live 6D pose visualization.',
+    stack: ['Java', 'WebSocket', 'React', 'TypeScript', 'Three.js', 'Gemini API'],
+    media: {
+      type: 'video',
+      src: '/trackqa-demo.mov',
+      alt: 'TrackQA 3D tracking dashboard preview',
     },
   },
   {
@@ -295,6 +307,65 @@ export type ProjectDetail = ProjectItem & {
 };
 
 export const projectDetails: ProjectDetail[] = [
+  {
+    ...projectById('lightlink'),
+    eyebrow: 'Optical DSP / C++ / FastAPI',
+    year: '2026',
+    role: 'Firmware simulation and full-stack dashboard',
+    summary:
+      'LightLink is a browser-based optical modem firmware demo that turns random bits into BPSK symbols, sends them through a noisy optical channel, and runs a C++ firmware-style DSP loop for gain control, FIR filtering, demodulation, SNR, BER, MSE, and ASIC-style lock detection.',
+    heroVideo: '/lightlink-dsp-firmware-simulator.mp4',
+    highlights: [
+      {
+        title: 'Firmware DSP Loop',
+        copy:
+          'The C++ simulator generates transmit bits, applies BPSK modulation, injects optical channel impairments, then runs gain control, FIR filtering, demodulation, and validation metrics.',
+      },
+      {
+        title: 'Lab Automation API',
+        copy:
+          'FastAPI wraps the simulator with endpoints for simulation, sweeps, heatmaps, auto-tuning, telemetry, and generated firmware configuration output.',
+      },
+      {
+        title: 'Validation Dashboard',
+        copy:
+          'The React dashboard visualizes waveforms, constellation plots, ASIC registers, channel stress presets, BER/SNR heatmaps, and a final PASS/FAIL report.',
+      },
+    ],
+    sections: [
+      {
+        title: 'What it simulates',
+        copy:
+          'LightLink works like a small optical modem validation bench. It generates random transmit bits, maps them into BPSK symbols, and pushes the signal through optical impairments such as Gaussian noise, attenuation, phase drift, and burst noise before recovery.',
+      },
+      {
+        title: 'C++ firmware engine',
+        copy:
+          'The core simulator reads simulated ASIC registers, applies RX gain or AGC, optionally uses fixed-point DSP, filters the received signal, demodulates recovered symbols, and computes SNR, BER, MSE, lock status, and error counters.',
+      },
+      {
+        title: 'Backend automation layer',
+        copy:
+          'A FastAPI backend builds or runs the C++ simulator and serves structured JSON results for single simulations, parameter sweeps, heatmaps, auto-tuning runs, and telemetry inspection.',
+      },
+      {
+        title: 'Frontend engineering display',
+        copy:
+          'The browser dashboard turns the telemetry into an interview-friendly lab view with pipeline animation, live signal charts, constellation diagrams, ASIC register monitoring, channel presets, and generated firmware configuration headers.',
+      },
+      {
+        title: 'Validation workflow',
+        copy:
+          'The final report combines measured SNR, BER, MSE, register state, lock detection, and error counters into a PASS/FAIL validation result so each run feels like a firmware bring-up check instead of a static visualization.',
+      },
+    ],
+    videos: [
+      {
+        title: 'LightLink firmware simulator walkthrough',
+        src: '/lightlink-dsp-firmware-simulator.mp4',
+      },
+    ],
+  },
   {
     ...projectById('trackqa'),
     eyebrow: '3D Tracking / Java / Three.js',

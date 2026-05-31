@@ -38,6 +38,8 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
   if (!project) notFound();
 
+  const shouldPlayHeroVideoSilently = project.id !== 'lightlink';
+
   return (
     <main className="page-shell pb-20 pt-8">
       <div className="content-shell">
@@ -93,11 +95,11 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               </div>
             ) : project.heroVideo ? (
               <video
-                autoPlay
+                autoPlay={shouldPlayHeroVideoSilently}
                 className="h-[22rem] w-full rounded-md object-cover md:h-[30rem]"
                 controls
                 loop
-                muted
+                muted={shouldPlayHeroVideoSilently}
                 playsInline
                 preload="metadata"
                 src={project.heroVideo}

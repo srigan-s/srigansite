@@ -33,13 +33,13 @@ const Projects = () => {
 
   const projects: Project[] = [
     {
-      title: 'TrackQA',
+      title: 'LightLink',
       description:
-        'A full-stack engineering dashboard for debugging optical and electromagnetic 3D tracking integrations with Java WebSocket simulation, Three.js visualization, issue detection, Gemini diagnosis, CSV export, and Jira-style report generation.',
-      technologies: ['Java', 'WebSocket', 'React', 'TypeScript', 'Three.js', 'Gemini API'],
+        'A browser-based optical modem firmware demo with BPSK modulation, noisy optical channel impairments, C++ DSP telemetry, ASIC-style lock detection, and a React validation dashboard.',
+      technologies: ['C++', 'FastAPI', 'React', 'DSP', 'BPSK', 'ASIC Telemetry'],
       featured: true,
-      live: '/projects/trackqa',
-      video: '/trackqa-demo.mov',
+      live: '/projects/lightlink',
+      video: '/lightlink-dsp-firmware-simulator.mp4',
       internal: true,
       spotlight: true,
     },
@@ -89,7 +89,17 @@ const Projects = () => {
       live: 'https://github.com/srigan-s/ArduinoBeatSync',
       image: '/arduino.jpg',
     },
-    
+    {
+      title: 'TrackQA',
+      description:
+        'A full-stack engineering dashboard for debugging optical and electromagnetic 3D tracking integrations with Java WebSocket simulation, Three.js visualization, issue detection, Gemini diagnosis, CSV export, and Jira-style report generation.',
+      technologies: ['Java', 'WebSocket', 'React', 'TypeScript', 'Three.js', 'Gemini API'],
+      featured: true,
+      live: '/projects/trackqa',
+      video: '/trackqa-demo.mov',
+      internal: true,
+      spotlight: true,
+    },
     {
       title: 'ColourMashAI',
       description: 'A cognitive support web app designed to help users with Alzheimer’s and dementia through pattern recognition games.',
@@ -200,8 +210,8 @@ const Projects = () => {
                         <video
                           className="h-80 w-full object-cover lg:h-full"
                           src={project.video}
-                          autoPlay
-                          muted
+                          autoPlay={project.title !== 'LightLink'}
+                          muted={project.title !== 'LightLink'}
                           loop
                           playsInline
                           controls
