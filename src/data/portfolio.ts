@@ -140,7 +140,7 @@ export const projects: ProjectItem[] = [
     stack: ['C++', 'FastAPI', 'React', 'DSP', 'BPSK', 'ASIC telemetry'],
     media: {
       type: 'video',
-      src: '/lightlink-dsp-firmware-simulator.mp4',
+      src: '/lightlink-dsp-firmware-simulator.mov',
       alt: 'LightLink optical modem firmware simulator dashboard preview',
     },
   },
@@ -314,7 +314,7 @@ export const projectDetails: ProjectDetail[] = [
     role: 'Firmware simulation and full-stack dashboard',
     summary:
       'LightLink is a browser-based optical modem firmware demo that turns random bits into BPSK symbols, sends them through a noisy optical channel, and runs a C++ firmware-style DSP loop for gain control, FIR filtering, demodulation, SNR, BER, MSE, and ASIC-style lock detection.',
-    heroVideo: '/lightlink-dsp-firmware-simulator.mp4',
+    heroVideo: '/lightlink-dsp-firmware-simulator.mov',
     highlights: [
       {
         title: 'Firmware DSP Loop',
@@ -362,7 +362,7 @@ export const projectDetails: ProjectDetail[] = [
     videos: [
       {
         title: 'LightLink firmware simulator walkthrough',
-        src: '/lightlink-dsp-firmware-simulator.mp4',
+        src: '/lightlink-dsp-firmware-simulator.mov',
       },
     ],
   },

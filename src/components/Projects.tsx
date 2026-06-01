@@ -39,7 +39,7 @@ const Projects = () => {
       technologies: ['C++', 'FastAPI', 'React', 'DSP', 'BPSK', 'ASIC Telemetry'],
       featured: true,
       live: '/projects/lightlink',
-      video: '/lightlink-dsp-firmware-simulator.mp4',
+      video: '/lightlink-dsp-firmware-simulator.mov',
       internal: true,
       spotlight: true,
     },
@@ -210,8 +210,8 @@ const Projects = () => {
                         <video
                           className="h-80 w-full object-cover lg:h-full"
                           src={project.video}
-                          autoPlay={project.title !== 'LightLink'}
-                          muted={project.title !== 'LightLink'}
+                          autoPlay
+                          muted
                           loop
                           playsInline
                           controls
