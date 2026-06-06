@@ -145,6 +145,18 @@ export const projects: ProjectItem[] = [
     },
   },
   {
+    id: 'kiwibot-hardware-health-monitor',
+    name: 'KiwiBot Hardware Health Monitor',
+    description:
+      'Full-stack robotics diagnostics dashboard for an autonomous mobile EV charging robot, with live telemetry, hardware faults, safety interlocks, and overnight dispatch planning.',
+    stack: ['React', 'TypeScript', 'Vite', 'Tailwind CSS', 'Recharts', 'Node.js', 'Express', 'A* Planning'],
+    media: {
+      type: 'video',
+      src: '/kiwibot-hardware-health-monitor.mov',
+      alt: 'KiwiBot hardware health monitor robotics diagnostics dashboard preview',
+    },
+  },
+  {
     id: 'ros2-gnss-nav-demo',
     name: 'ROS2 GNSS RC Car Navigation',
     description: 'Autonomous waypoint navigation simulation with noisy GNSS, IMU telemetry, RViz2, and validation plots.',
@@ -363,6 +375,65 @@ export const projectDetails: ProjectDetail[] = [
       {
         title: 'LightLink firmware simulator walkthrough',
         src: '/lightlink-dsp-firmware-simulator.mov',
+      },
+    ],
+  },
+  {
+    ...projectById('kiwibot-hardware-health-monitor'),
+    eyebrow: 'Robotics Diagnostics / EV Charging / Dispatch',
+    year: '2026',
+    role: 'Full-stack robotics simulation and operations dashboard',
+    summary:
+      'KiwiBot Hardware Health Monitor models the diagnostic and operations layer for an autonomous mobile EV charging robot. It simulates real-time hardware telemetry, fault injection, charging safety checks, and overnight parking-lot dispatch planning in one full-stack technical demo.',
+    heroVideo: '/kiwibot-hardware-health-monitor.mov',
+    highlights: [
+      {
+        title: 'Hardware Health Simulation',
+        copy:
+          'Simulates battery voltage, state of charge, DC-DC rail health, current draw, PCB temperature, CAN/I2C status, motor driver readiness, robot state, and charging interlocks.',
+      },
+      {
+        title: 'Fault and Safety Workflow',
+        copy:
+          'Models low battery, overcurrent, thermal fault, CAN heartbeat loss, I2C sensor failure, DC-DC rail sag, and motor driver failure so charging is blocked when safety checks fail.',
+      },
+      {
+        title: 'Overnight Dispatch Planner',
+        copy:
+          'Generates EV requests, scores route candidates, plans lane-aware A* paths, and animates the robot through charging, skipped, and missed vehicles under time and battery constraints.',
+      },
+    ],
+    sections: [
+      {
+        title: 'What it simulates',
+        copy:
+          'The dashboard behaves like a robotics operations console for a mobile EV charging robot. It continuously exposes robot telemetry, charging readiness, safety interlock state, diagnostic events, and active operating scenarios so the system can be inspected like real hardware under test.',
+      },
+      {
+        title: 'Backend simulator',
+        copy:
+          'A TypeScript Node.js and Express API maintains the simulator state in memory and exposes endpoints for telemetry, scenario selection, system reset, and fault injection. When a hardware fault is triggered, the robot enters a fault state, diagnostic events are logged, and unsafe charging behavior is prevented.',
+      },
+      {
+        title: 'Frontend diagnostics view',
+        copy:
+          'The React, TypeScript, Vite, TailwindCSS, Lucide, and Recharts frontend includes real-time metric cards, telemetry plots, a charging safety matrix, guided demo mode, pre-flight validation checks, diagnostic log export, and a visual power-path schematic.',
+      },
+      {
+        title: 'Safety validation workflow',
+        copy:
+          'Fault scenarios are designed to mirror embedded validation thinking: rail sag, overcurrent, thermal limits, sensor bus failures, heartbeat loss, and motor driver readiness all feed into a clear pass/fail charging readiness decision instead of remaining isolated metrics.',
+      },
+      {
+        title: 'Path Planner Beta',
+        copy:
+          'The overnight planner generates EV charging requests, estimates energy demand, considers deadlines, robot battery capacity, travel distance, charging time, and return-to-base requirements, then builds an optimized dispatch route through a mapped parking lot.',
+      },
+    ],
+    videos: [
+      {
+        title: 'KiwiBot diagnostics and dispatch walkthrough',
+        src: '/kiwibot-hardware-health-monitor.mov',
       },
     ],
   },
