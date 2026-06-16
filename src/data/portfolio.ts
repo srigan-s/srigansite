@@ -145,18 +145,6 @@ export const projects: ProjectItem[] = [
     },
   },
   {
-    id: 'kiwibot-hardware-health-monitor',
-    name: 'KiwiBot Hardware Health Monitor',
-    description:
-      'Full-stack robotics diagnostics dashboard for an autonomous mobile EV charging robot, with live telemetry, hardware faults, safety interlocks, and overnight dispatch planning.',
-    stack: ['React', 'TypeScript', 'Vite', 'Tailwind CSS', 'Recharts', 'Node.js', 'Express', 'A* Planning'],
-    media: {
-      type: 'video',
-      src: '/kiwibot-hardware-health-monitor.mov',
-      alt: 'KiwiBot hardware health monitor robotics diagnostics dashboard preview',
-    },
-  },
-  {
     id: 'ros2-gnss-nav-demo',
     name: 'ROS2 GNSS RC Car Navigation',
     description: 'Autonomous waypoint navigation simulation with noisy GNSS, IMU telemetry, RViz2, and validation plots.',
@@ -178,6 +166,19 @@ export const projects: ProjectItem[] = [
       type: 'video',
       src: '/turret-auto-align-field.mov',
       alt: 'Turret auto align field preview',
+    },
+  },
+  {
+    id: 'ai-robot-umpire',
+    name: 'AI Robot Umpire',
+    description:
+      "Computer-vision baseball umpire prototype that tracks a batter's pose, estimates a dynamic strike zone, simulates incoming pitches, and calls balls or strikes in real time.",
+    stack: ['FastAPI', 'OpenCV', 'MediaPipe', 'React', 'Computer Vision'],
+    github: 'https://github.com/srigan-s/AIRoboUmpire',
+    media: {
+      type: 'video',
+      src: '/ai-robot-umpire.mov',
+      alt: 'AI Robot Umpire webcam strike-zone prototype preview',
     },
   },
   {
@@ -228,6 +229,18 @@ export const projects: ProjectItem[] = [
       type: 'image',
       src: '/colourmash.png',
       alt: 'ColourMashAI interface preview',
+    },
+  },
+  {
+    id: 'kiwibot-hardware-health-monitor',
+    name: 'KiwiBot Hardware Health Monitor',
+    description:
+      'Full-stack robotics diagnostics dashboard for an autonomous mobile EV charging robot, with live telemetry, hardware faults, safety interlocks, and overnight dispatch planning.',
+    stack: ['React', 'TypeScript', 'Vite', 'Tailwind CSS', 'Recharts', 'Node.js', 'Express', 'A* Planning'],
+    media: {
+      type: 'video',
+      src: '/kiwibot-hardware-health-monitor.mov',
+      alt: 'KiwiBot hardware health monitor robotics diagnostics dashboard preview',
     },
   },
   {
@@ -594,6 +607,55 @@ export const projectDetails: ProjectDetail[] = [
       label: 'Python training backend',
       snippet: turretTrainingSnippet,
     },
+  },
+  {
+    ...projectById('ai-robot-umpire'),
+    eyebrow: 'Computer Vision / Baseball / FastAPI',
+    year: '2026',
+    role: 'Perception prototype and full-stack demo',
+    summary:
+      "AI Robot Umpire is a computer-vision prototype that uses a live webcam feed to estimate a batter's strike zone in real time, simulate incoming pitches, and deliver ball or strike calls with visual and audio umpire feedback.",
+    heroVideo: '/ai-robot-umpire.mov',
+    highlights: [
+      {
+        title: 'Pose-tracked Strike Zone',
+        copy:
+          "Uses MediaPipe pose landmarks to identify body reference points and generate a dynamic nipple-to-waist strike-zone overlay that follows the batter's stance.",
+      },
+      {
+        title: 'Vision Backend',
+        copy:
+          'A FastAPI, OpenCV, and MediaPipe backend processes webcam frames, detects body landmarks, and streams the annotated video feed back to the browser.',
+      },
+      {
+        title: 'Real-time Umpire Feedback',
+        copy:
+          'The React frontend simulates pitches entering from the left side of the frame, evaluates each crossing against the tracked zone, and calls balls or strikes instantly.',
+      },
+    ],
+    sections: [
+      {
+        title: 'What it does',
+        copy:
+          'The prototype turns a webcam into a lightweight umpire assistant. As a batter steps into frame, the system estimates the strike zone from tracked body landmarks, overlays the zone on the video, and keeps updating it as the stance changes.',
+      },
+      {
+        title: 'Backend perception loop',
+        copy:
+          'FastAPI serves the computer-vision pipeline while OpenCV handles frame capture and image processing. MediaPipe pose tracking provides the landmark data used to anchor the top and bottom of the zone, making the overlay responsive without requiring manual calibration.',
+      },
+      {
+        title: 'Frontend game loop',
+        copy:
+          'The React interface streams the processed feed, animates incoming pitches from the left side of the frame, compares the pitch path against the live zone, and presents the result with on-screen and audio umpire feedback.',
+      },
+    ],
+    videos: [
+      {
+        title: 'AI Robot Umpire webcam demo',
+        src: '/ai-robot-umpire.mov',
+      },
+    ],
   },
   {
     ...projectById('miniai-web-app'),
