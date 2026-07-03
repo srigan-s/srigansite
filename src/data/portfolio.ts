@@ -182,6 +182,18 @@ export const projects: ProjectItem[] = [
     },
   },
   {
+    id: 'martinrea-factorysight-qa',
+    name: 'Martinrea FactorySight QA',
+    description:
+      'Full-stack computer vision inspection station that captures webcam frames, runs an explainable OpenCV QA pipeline, stores results in SQLite, and displays live factory KPIs.',
+    stack: ['Python', 'OpenCV', 'FastAPI', 'SQLite', 'React', 'TypeScript', 'TailwindCSS'],
+    media: {
+      type: 'video',
+      src: '/martinrea-factorysight.mp4',
+      alt: 'Martinrea FactorySight QA computer vision inspection dashboard preview',
+    },
+  },
+  {
     id: 'miniai-web-app',
     name: 'MiniAI Web App',
     description: 'Gamified AI education platform for younger students, built as a live product experience.',
@@ -299,6 +311,18 @@ for label in LABEL_COLUMNS:
     model = RandomForestRegressor(n_estimators=200, max_depth=8)
     model.fit(X_train, y_train)
     print(label, mean_absolute_error(y_test, model.predict(X_test)))`;
+
+const factorySightInspectionSnippet = `if area_ratio < MIN_OBJECT_AREA_RATIO:
+    defects.append("undersized_or_too_far")
+    status = "FAIL"
+elif area_ratio > MAX_OBJECT_AREA_RATIO:
+    defects.append("oversized_or_too_close")
+    status = "FAIL"
+elif _object_touches_border(frame, detection):
+    defects.append("partial_part")
+    status = "REVIEW"
+else:
+    status = "PASS"`;
 
 const projectById = (id: string) => projects.find((project) => project.id === id)!;
 
@@ -656,6 +680,69 @@ export const projectDetails: ProjectDetail[] = [
         src: '/ai-robot-umpire.mov',
       },
     ],
+  },
+  {
+    ...projectById('martinrea-factorysight-qa'),
+    eyebrow: 'Manufacturing QA / Computer Vision / FastAPI',
+    year: '2026',
+    role: 'Full-stack computer vision inspection system',
+    summary:
+      'Martinrea FactorySight QA is a full-stack computer vision inspection system that simulates a factory quality-control station. It captures webcam frames, processes them through a Python and OpenCV pipeline, classifies each workpiece as PASS, FAIL, or REVIEW, stores inspection results in SQLite, and displays live KPIs in a React dashboard.',
+    heroVideo: '/martinrea-factorysight.mp4',
+    highlights: [
+      {
+        title: 'Explainable Vision Rules',
+        copy:
+          'Uses a deterministic OpenCV pipeline that segments the part, finds contours, measures size and position, detects shape and material-color cues, and applies readable QA rules.',
+      },
+      {
+        title: 'Factory-style Workflow',
+        copy:
+          'Models a controlled inspection station with webcam capture, pass/fail/review classification, defect labeling, inspection persistence, and live production metrics.',
+      },
+      {
+        title: 'Full-stack Dashboard',
+        copy:
+          'FastAPI and SQLite back the inspection loop while a React, TypeScript, and TailwindCSS dashboard exposes recent results, status distribution, and QA KPIs.',
+      },
+    ],
+    sections: [
+      {
+        title: 'Why I built it',
+        copy:
+          'I built FactorySight QA to show how edge computer vision can support automotive manufacturing quality control without needing a black-box model for every fixture. In a constrained station, rule-based inspection can be fast, explainable, and practical.',
+      },
+      {
+        title: 'Inspection pipeline',
+        copy:
+          'Each frame is processed through a Python and OpenCV pipeline that isolates the workpiece, extracts contours, computes the bounding box and center point, checks object scale, flags partial parts, and uses shape plus material-color cues to classify the inspection result.',
+      },
+      {
+        title: 'Pass, fail, or review',
+        copy:
+          'The system separates hard failures from review cases. Parts that are too small, too large, or incorrectly positioned can fail immediately, while ambiguous cases such as a part touching the frame border are marked for review instead of hidden behind a single confidence score.',
+      },
+      {
+        title: 'Data and KPI layer',
+        copy:
+          'Inspection results are stored in SQLite so the dashboard can show live factory-style KPIs, recent inspections, defect trends, and the operational state of the station. That makes the project feel like a production support tool rather than just a webcam demo.',
+      },
+      {
+        title: 'How it can extend',
+        copy:
+          'The architecture leaves room for YOLO or PyTorch defect models, PLC triggers, multi-camera inspection, fixture-specific calibration, and additional stations while keeping the first implementation transparent and easy to debug.',
+      },
+    ],
+    videos: [
+      {
+        title: 'FactorySight QA inspection walkthrough',
+        src: '/martinrea-factorysight.mp4',
+      },
+    ],
+    code: {
+      label: 'OpenCV inspection rule snippet',
+      snippet: factorySightInspectionSnippet,
+    },
   },
   {
     ...projectById('miniai-web-app'),
