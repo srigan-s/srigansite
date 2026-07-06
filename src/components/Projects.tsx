@@ -38,6 +38,7 @@ const Projects = () => {
         'A ROS 2 Jazzy autonomous mobile EV charging dock with Python rclpy simulation nodes, RViz visualization, a Rust safety supervisor, Server-Sent Events telemetry, and a React dashboard.',
       technologies: ['ROS 2 Jazzy', 'Rust', 'rclpy', 'RViz2', 'React', 'SSE'],
       featured: true,
+      github: 'https://github.com/srigan-s/KiwiDock',
       live: '/projects/kiwidock-ros2-ev-charging-dock',
       video: '/kiwidock.mp4',
       internal: true,

@@ -138,6 +138,7 @@ export const projects: ProjectItem[] = [
     description:
       'ROS 2 Jazzy autonomous mobile EV charging dock with RViz simulation, Rust safety supervision, live telemetry, and a React dashboard.',
     stack: ['ROS 2 Jazzy', 'Rust', 'rclpy', 'RViz2', 'React', 'SSE'],
+    github: 'https://github.com/srigan-s/KiwiDock',
     media: {
       type: 'video',
       src: '/kiwidock.mp4',
