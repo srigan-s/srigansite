@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ArrowLeft, ExternalLink, Github } from 'lucide-react';
 import { projectDetails } from '@/data/portfolio';
+import { KiwiDockDiagrams } from '@/components/projects/KiwiDockDiagrams';
 import { ThemeToggle } from '@/components/portfolio/ThemeToggle';
 
 type ProjectPageProps = {
@@ -137,6 +138,8 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             ))}
           </div>
         </section>
+
+        {project.id === 'kiwidock-ros2-ev-charging-dock' ? <KiwiDockDiagrams /> : null}
 
         {project.videos?.length ? (
           <section className="section-shell">

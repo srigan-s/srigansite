@@ -64,6 +64,14 @@ a {
   -webkit-tap-highlight-color: transparent;
 }
 
+video:fullscreen,
+video:-webkit-full-screen {
+  width: 100vw !important;
+  height: 100vh !important;
+  object-fit: contain !important;
+  background: #000;
+}
+
 @media (pointer: fine) {
   *,
   *::before,

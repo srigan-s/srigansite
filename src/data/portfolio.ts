@@ -133,15 +133,15 @@ export type ProjectItem = {
 
 export const projects: ProjectItem[] = [
   {
-    id: 'lightlink',
-    name: 'LightLink',
+    id: 'kiwidock-ros2-ev-charging-dock',
+    name: 'KiwiDock',
     description:
-      'Browser-based optical modem firmware demo with BPSK modulation, noisy channel simulation, C++ DSP telemetry, and validation dashboards.',
-    stack: ['C++', 'FastAPI', 'React', 'DSP', 'BPSK', 'ASIC telemetry'],
+      'ROS 2 Jazzy autonomous mobile EV charging dock with RViz simulation, Rust safety supervision, live telemetry, and a React dashboard.',
+    stack: ['ROS 2 Jazzy', 'Rust', 'rclpy', 'RViz2', 'React', 'SSE'],
     media: {
       type: 'video',
-      src: '/lightlink-dsp-firmware-simulator.mov',
-      alt: 'LightLink optical modem firmware simulator dashboard preview',
+      src: '/kiwidock.mp4',
+      alt: 'KiwiDock ROS 2 autonomous mobile EV charging dock simulation preview',
     },
   },
   {
@@ -241,6 +241,18 @@ export const projects: ProjectItem[] = [
       type: 'image',
       src: '/colourmash.png',
       alt: 'ColourMashAI interface preview',
+    },
+  },
+  {
+    id: 'lightlink',
+    name: 'LightLink',
+    description:
+      'Browser-based optical modem firmware demo with BPSK modulation, noisy channel simulation, C++ DSP telemetry, and validation dashboards.',
+    stack: ['C++', 'FastAPI', 'React', 'DSP', 'BPSK', 'ASIC telemetry'],
+    media: {
+      type: 'video',
+      src: '/lightlink-dsp-firmware-simulator.mov',
+      alt: 'LightLink optical modem firmware simulator dashboard preview',
     },
   },
   {
@@ -357,61 +369,66 @@ export type ProjectDetail = ProjectItem & {
 
 export const projectDetails: ProjectDetail[] = [
   {
-    ...projectById('lightlink'),
-    eyebrow: 'Optical DSP / C++ / FastAPI',
+    ...projectById('kiwidock-ros2-ev-charging-dock'),
+    eyebrow: 'ROS 2 Jazzy / Rust Safety Core / EV Charging Robotics',
     year: '2026',
-    role: 'Firmware simulation and full-stack dashboard',
+    role: 'Robotics stack, safety supervisor, simulation, and dashboard',
     summary:
-      'LightLink is a browser-based optical modem firmware demo that turns random bits into BPSK symbols, sends them through a noisy optical channel, and runs a C++ firmware-style DSP loop for gain control, FIR filtering, demodulation, SNR, BER, MSE, and ASIC-style lock detection.',
-    heroVideo: '/lightlink-dsp-firmware-simulator.mov',
+      'KiwiDock is a ROS 2 Jazzy robotics simulation for an autonomous mobile EV charging robot. The stack drives a robot from depot to dock, aligns an end effector with a Tesla Model 3-style charge port, verifies safety interlocks, and only enables charging when the system is safe.',
+    heroVideo: '/kiwidock.mp4',
     highlights: [
       {
-        title: 'Firmware DSP Loop',
+        title: 'Full Robotics Stack',
         copy:
-          'The C++ simulator generates transmit bits, applies BPSK modulation, injects optical channel impairments, then runs gain control, FIR filtering, demodulation, and validation metrics.',
+          'Built as a ROS 2 system with Python rclpy nodes, URDF/Xacro robot description, standard ROS messages, RViz2 world visualization, and live browser telemetry.',
       },
       {
-        title: 'Lab Automation API',
+        title: 'Rust Safety Supervisor',
         copy:
-          'FastAPI wraps the simulator with endpoints for simulation, sweeps, heatmaps, auto-tuning, telemetry, and generated firmware configuration output.',
+          'Safety-critical docking logic lives in Rust with a typed state machine, unicycle control, sensor freshness checks, battery reserve checks, and ROS-free unit tests.',
       },
       {
-        title: 'Validation Dashboard',
+        title: 'Human-zone SAFE_HOLD',
         copy:
-          'The React dashboard visualizes waveforms, constellation plots, ASIC registers, channel stress presets, BER/SNR heatmaps, and a final PASS/FAIL report.',
+          'A moving human actor crosses the docking area. When the zone is occupied, the robot publishes zero velocity, disables charging, enters SAFE_HOLD, and resumes automatically when clear.',
       },
     ],
     sections: [
       {
-        title: 'What it simulates',
+        title: 'Project overview',
         copy:
-          'LightLink works like a small optical modem validation bench. It generates random transmit bits, maps them into BPSK symbols, and pushes the signal through optical impairments such as Gaussian noise, attenuation, phase drift, and burst noise before recovery.',
+          'The demo starts the robot at a depot, routes it through a parking-lot scene, approaches a parked Tesla Model 3-style vehicle, aligns the end effector with the charging dock, verifies clearance, and enables charging only after the safety supervisor reaches a safe charging state.',
       },
       {
-        title: 'C++ firmware engine',
+        title: 'ROS 2 simulation nodes',
         copy:
-          'The core simulator reads simulated ASIC registers, applies RX gain or AGC, optionally uses fixed-point DSP, filters the received signal, demodulates recovered symbols, and computes SNR, BER, MSE, lock status, and error counters.',
+          'robot_sim.py applies a unicycle motion model from /cmd_vel and publishes /odom, /tf, and /robot_path. sensor_sim.py publishes LaserScan and BatteryState data with obstacle, stale-sensor, human-zone, and low-battery fault behavior. human_sim.py publishes the moving actor pose, path, presence, and safety-zone state.',
       },
       {
-        title: 'Backend automation layer',
+        title: 'World and supervisor bridge',
         copy:
-          'A FastAPI backend builds or runs the C++ simulator and serves structured JSON results for single simulations, parameter sweeps, heatmaps, auto-tuning runs, and telemetry inspection.',
+          'world_visualizer.py renders the parking lot, vehicle, dock target, safety zone, robot path, human actor, faults, and status labels in RViz. docking_supervisor_adapter.py bridges ROS telemetry into the Rust core, then publishes /cmd_vel, /dock_state, /safety_events, /charging_enabled, and /status_markers.',
       },
       {
-        title: 'Frontend engineering display',
+        title: 'Safety-critical Rust core',
         copy:
-          'The browser dashboard turns the telemetry into an interview-friendly lab view with pipeline animation, live signal charts, constellation diagrams, ASIC register monitoring, channel presets, and generated firmware configuration headers.',
+          'The Rust supervisor owns the docking state flow from IDLE through APPROACHING, FINE_ALIGNING, VERIFYING_CLEARANCE, DOCKED, CHARGING, and COMPLETE. Any obstacle, human-zone, stale sensor, low battery, pose tolerance, or yaw tolerance issue moves the system into SAFE_HOLD with charging disabled.',
       },
       {
-        title: 'Validation workflow',
+        title: 'Live dashboard telemetry',
         copy:
-          'The final report combines measured SNR, BER, MSE, register state, lock detection, and error counters into a PASS/FAIL validation result so each run feels like a firmware bring-up check instead of a static visualization.',
+          'dashboard_bridge.py converts ROS telemetry into JSON snapshots and Server-Sent Events for the React 19 dashboard. The browser view shows robot telemetry, battery state, obstacle range, human-zone status, docking state, connector gap, yaw error, and an SVG close-up of the end effector aligning with the charge port.',
+      },
+      {
+        title: 'Build and validation stack',
+        copy:
+          'The system targets Ubuntu 24.04 on WSL2, ROS 2 Jazzy, Python rclpy nodes, Cargo for Rust builds and tests, colcon for workspace builds, RViz2 visualization, Vite frontend tooling, HTML/CSS/SVG visualization, and a 60 Hz simulation and telemetry update target.',
       },
     ],
     videos: [
       {
-        title: 'LightLink firmware simulator walkthrough',
-        src: '/lightlink-dsp-firmware-simulator.mov',
+        title: 'KiwiDock autonomous docking and safety-hold walkthrough',
+        src: '/kiwidock.mp4',
       },
     ],
   },
@@ -907,6 +924,65 @@ export const projectDetails: ProjectDetail[] = [
         title: 'Implementation focus',
         copy:
           'The build emphasized accessible navigation, fast browser performance, and simple game-like loops that could be used repeatedly without a complicated learning curve.',
+      },
+    ],
+  },
+  {
+    ...projectById('lightlink'),
+    eyebrow: 'Optical DSP / C++ / FastAPI',
+    year: '2026',
+    role: 'Firmware simulation and full-stack dashboard',
+    summary:
+      'LightLink is a browser-based optical modem firmware demo that turns random bits into BPSK symbols, sends them through a noisy optical channel, and runs a C++ firmware-style DSP loop for gain control, FIR filtering, demodulation, SNR, BER, MSE, and ASIC-style lock detection.',
+    heroVideo: '/lightlink-dsp-firmware-simulator.mov',
+    highlights: [
+      {
+        title: 'Firmware DSP Loop',
+        copy:
+          'The C++ simulator generates transmit bits, applies BPSK modulation, injects optical channel impairments, then runs gain control, FIR filtering, demodulation, and validation metrics.',
+      },
+      {
+        title: 'Lab Automation API',
+        copy:
+          'FastAPI wraps the simulator with endpoints for simulation, sweeps, heatmaps, auto-tuning, telemetry, and generated firmware configuration output.',
+      },
+      {
+        title: 'Validation Dashboard',
+        copy:
+          'The React dashboard visualizes waveforms, constellation plots, ASIC registers, channel stress presets, BER/SNR heatmaps, and a final PASS/FAIL report.',
+      },
+    ],
+    sections: [
+      {
+        title: 'What it simulates',
+        copy:
+          'LightLink works like a small optical modem validation bench. It generates random transmit bits, maps them into BPSK symbols, and pushes the signal through optical impairments such as Gaussian noise, attenuation, phase drift, and burst noise before recovery.',
+      },
+      {
+        title: 'C++ firmware engine',
+        copy:
+          'The core simulator reads simulated ASIC registers, applies RX gain or AGC, optionally uses fixed-point DSP, filters the received signal, demodulates recovered symbols, and computes SNR, BER, MSE, lock status, and error counters.',
+      },
+      {
+        title: 'Backend automation layer',
+        copy:
+          'A FastAPI backend builds or runs the C++ simulator and serves structured JSON results for single simulations, parameter sweeps, heatmaps, auto-tuning runs, and telemetry inspection.',
+      },
+      {
+        title: 'Frontend engineering display',
+        copy:
+          'The browser dashboard turns the telemetry into an interview-friendly lab view with pipeline animation, live signal charts, constellation diagrams, ASIC register monitoring, channel presets, BER/SNR heatmaps, and generated firmware configuration headers.',
+      },
+      {
+        title: 'Validation workflow',
+        copy:
+          'The final report combines measured SNR, BER, MSE, register state, lock detection, and error counters into a PASS/FAIL validation result so each run feels like a firmware bring-up check instead of a static visualization.',
+      },
+    ],
+    videos: [
+      {
+        title: 'LightLink firmware simulator walkthrough',
+        src: '/lightlink-dsp-firmware-simulator.mov',
       },
     ],
   },

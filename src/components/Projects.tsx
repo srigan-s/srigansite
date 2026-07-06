@@ -33,13 +33,13 @@ const Projects = () => {
 
   const projects: Project[] = [
     {
-      title: 'LightLink',
+      title: 'KiwiDock',
       description:
-        'A browser-based optical modem firmware demo with BPSK modulation, noisy optical channel impairments, C++ DSP telemetry, ASIC-style lock detection, and a React validation dashboard.',
-      technologies: ['C++', 'FastAPI', 'React', 'DSP', 'BPSK', 'ASIC Telemetry'],
+        'A ROS 2 Jazzy autonomous mobile EV charging dock with Python rclpy simulation nodes, RViz visualization, a Rust safety supervisor, Server-Sent Events telemetry, and a React dashboard.',
+      technologies: ['ROS 2 Jazzy', 'Rust', 'rclpy', 'RViz2', 'React', 'SSE'],
       featured: true,
-      live: '/projects/lightlink',
-      video: '/lightlink-dsp-firmware-simulator.mov',
+      live: '/projects/kiwidock-ros2-ev-charging-dock',
+      video: '/kiwidock.mp4',
       internal: true,
       spotlight: true,
     },
@@ -108,6 +108,17 @@ const Projects = () => {
       github: 'https://github.com/srigan-s/ColourMash',
       live: 'https://colourmash.netlify.app/',
       image: '/colourmash.png',
+    },
+    {
+      title: 'LightLink',
+      description:
+        'A browser-based optical modem firmware demo with BPSK modulation, noisy optical channel impairments, C++ DSP telemetry, ASIC-style lock detection, and a React validation dashboard.',
+      technologies: ['C++', 'FastAPI', 'React', 'DSP', 'BPSK', 'ASIC Telemetry'],
+      featured: true,
+      live: '/projects/lightlink',
+      video: '/lightlink-dsp-firmware-simulator.mov',
+      internal: true,
+      spotlight: true,
     },
     {
       title: '4-Way Traffic Signal',
