@@ -116,6 +116,18 @@ export function KiwiDockDiagrams() {
       </div>
 
       <div className="grid gap-5">
+        <article className="panel overflow-hidden p-3">
+          <div className="border-b border-[color:var(--line)] px-2 pb-3">
+            <p className="eyebrow">Reference Architecture</p>
+            <h3 className="mt-2 text-xl font-semibold">KiwiDock full system architecture</h3>
+          </div>
+          <img
+            alt="KiwiDock system architecture diagram showing ROS 2 Python nodes, Rust safety core, dashboard bridge, React dashboard, key topics, URDF package, launch scripts, and build setup"
+            className="mt-3 max-h-[52rem] w-full rounded-md bg-white object-contain"
+            src="/kiwidock-system-architecture.png"
+          />
+        </article>
+
         <DiagramShell eyebrow="01 / System Architecture" title="ROS 2 simulation, Rust safety core, RViz, and React dashboard">
           <div className="grid gap-3 lg:grid-cols-4">
             {architectureGroups.map((group, index) => (
