@@ -375,11 +375,11 @@ export type ProjectDetail = ProjectItem & {
     src: string;
     alt: string;
   }>;
-  architectureImage?: {
+  architectureImages?: Array<{
     title: string;
     src: string;
     alt: string;
-  };
+  }>;
   code?: {
     label: string;
     snippet: string;
@@ -459,11 +459,18 @@ export const projectDetails: ProjectDetail[] = [
     summary:
       'A full ROS 2 and Gazebo robotics simulation that demonstrates an autonomous mobile manipulator completing a factory-style material handling workflow in real time. The robot starts with a payload in its gripper, performs an initial drop-off, follows a marked yellow route through an industrial workcell, and completes a second raised-bin delivery.',
     heroVideo: '/rockwell-mobile-manipulator.mp4',
-    architectureImage: {
-      title: 'ROS 2 system architecture',
-      src: '/rockwell-system-architecture.svg',
-      alt: 'Rockwell mobile manipulator ROS 2 system architecture showing navigation, docking, manipulation, health, telemetry, Gazebo, and RViz components',
-    },
+    architectureImages: [
+      {
+        title: 'Technical system breakdown',
+        src: '/rockwell-technical-breakdown.svg',
+        alt: 'Technical breakdown of the autonomous mobile manipulator factory simulation, including ROS 2 components, factory mission sequence, workspace layout, interfaces, demo modes, and fault recovery logic',
+      },
+      {
+        title: 'ROS 2 node graph',
+        src: '/rockwell-system-architecture.svg',
+        alt: 'Rockwell mobile manipulator ROS 2 system architecture showing navigation, docking, manipulation, health, telemetry, Gazebo, and RViz components',
+      },
+    ],
     highlights: [
       {
         title: 'Factory Mission Sequence',

@@ -139,22 +139,27 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           </div>
         </section>
 
-        {project.architectureImage ? (
+        {project.architectureImages?.length ? (
           <section className="section-shell">
             <div className="section-heading">
               <div>
                 <p className="eyebrow">Architecture</p>
-                <h2 className="section-title mt-3">{project.architectureImage.title}</h2>
+                <h2 className="section-title mt-3">System diagrams and technical breakdown.</h2>
               </div>
             </div>
-            <figure className="panel overflow-hidden p-2">
-              <img
-                alt={project.architectureImage.alt}
-                className="h-auto w-full rounded-md"
-                loading="lazy"
-                src={project.architectureImage.src}
-              />
-            </figure>
+            <div className="grid gap-6">
+              {project.architectureImages.map((image) => (
+                <figure className="panel overflow-hidden p-2" key={image.src}>
+                  <figcaption className="px-2 pb-3 pt-1 text-sm font-medium muted-copy">{image.title}</figcaption>
+                  <img
+                    alt={image.alt}
+                    className="h-auto w-full rounded-md"
+                    loading="lazy"
+                    src={image.src}
+                  />
+                </figure>
+              ))}
+            </div>
           </section>
         ) : null}
 
