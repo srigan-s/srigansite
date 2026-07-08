@@ -151,6 +151,7 @@ export const projects: ProjectItem[] = [
     description:
       'ROS 2 Jazzy and Gazebo factory simulation where a mobile manipulator follows a marked path, raises its arm, handles payloads, and completes two station drop-offs.',
     stack: ['ROS 2 Jazzy', 'Gazebo', 'rclpy', 'URDF', 'SDF', 'Docker'],
+    github: 'https://github.com/srigan-s/rockwell-demo',
     media: {
       type: 'video',
       src: '/rockwell-mobile-manipulator.mp4',
@@ -374,6 +375,11 @@ export type ProjectDetail = ProjectItem & {
     src: string;
     alt: string;
   }>;
+  architectureImage?: {
+    title: string;
+    src: string;
+    alt: string;
+  };
   code?: {
     label: string;
     snippet: string;
@@ -453,6 +459,11 @@ export const projectDetails: ProjectDetail[] = [
     summary:
       'A full ROS 2 and Gazebo robotics simulation that demonstrates an autonomous mobile manipulator completing a factory-style material handling workflow in real time. The robot starts with a payload in its gripper, performs an initial drop-off, follows a marked yellow route through an industrial workcell, and completes a second raised-bin delivery.',
     heroVideo: '/rockwell-mobile-manipulator.mp4',
+    architectureImage: {
+      title: 'ROS 2 system architecture',
+      src: '/rockwell-system-architecture.svg',
+      alt: 'Rockwell mobile manipulator ROS 2 system architecture showing navigation, docking, manipulation, health, telemetry, Gazebo, and RViz components',
+    },
     highlights: [
       {
         title: 'Factory Mission Sequence',

@@ -139,6 +139,25 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           </div>
         </section>
 
+        {project.architectureImage ? (
+          <section className="section-shell">
+            <div className="section-heading">
+              <div>
+                <p className="eyebrow">Architecture</p>
+                <h2 className="section-title mt-3">{project.architectureImage.title}</h2>
+              </div>
+            </div>
+            <figure className="panel overflow-hidden p-2">
+              <img
+                alt={project.architectureImage.alt}
+                className="h-auto w-full rounded-md"
+                loading="lazy"
+                src={project.architectureImage.src}
+              />
+            </figure>
+          </section>
+        ) : null}
+
         {project.id === 'kiwidock-ros2-ev-charging-dock' ? <KiwiDockDiagrams /> : null}
 
         {project.videos?.length ? (
