@@ -146,6 +146,18 @@ export const projects: ProjectItem[] = [
     },
   },
   {
+    id: 'autonomous-mobile-manipulator-factory-simulation',
+    name: 'Autonomous Mobile Manipulator Factory Simulation',
+    description:
+      'ROS 2 Jazzy and Gazebo factory simulation where a mobile manipulator follows a marked path, raises its arm, handles payloads, and completes two station drop-offs.',
+    stack: ['ROS 2 Jazzy', 'Gazebo', 'rclpy', 'URDF', 'SDF', 'Docker'],
+    media: {
+      type: 'video',
+      src: '/rockwell-mobile-manipulator.mp4',
+      alt: 'Autonomous mobile manipulator completing a Gazebo factory material handling workflow',
+    },
+  },
+  {
     id: 'ros2-gnss-nav-demo',
     name: 'ROS2 GNSS RC Car Navigation',
     description: 'Autonomous waypoint navigation simulation with noisy GNSS, IMU telemetry, RViz2, and validation plots.',
@@ -430,6 +442,70 @@ export const projectDetails: ProjectDetail[] = [
       {
         title: 'KiwiDock autonomous docking and safety-hold walkthrough',
         src: '/kiwidock.mp4',
+      },
+    ],
+  },
+  {
+    ...projectById('autonomous-mobile-manipulator-factory-simulation'),
+    eyebrow: 'ROS 2 Jazzy / Gazebo / Factory Automation Robotics',
+    year: '2026',
+    role: 'ROS 2 simulation, robot modeling, Gazebo world design, and mission orchestration',
+    summary:
+      'A full ROS 2 and Gazebo robotics simulation that demonstrates an autonomous mobile manipulator completing a factory-style material handling workflow in real time. The robot starts with a payload in its gripper, performs an initial drop-off, follows a marked yellow route through an industrial workcell, and completes a second raised-bin delivery.',
+    heroVideo: '/rockwell-mobile-manipulator.mp4',
+    highlights: [
+      {
+        title: 'Factory Mission Sequence',
+        copy:
+          'Scripted a complete material-handling demo from initial arm lift and payload release through path following, workcell navigation, final alignment, and second drop-off.',
+      },
+      {
+        title: 'Custom Mobile Manipulator',
+        copy:
+          'Modeled the robot in URDF with a differential-drive base, mounted arm links, simulated joints, gripper fingers, and a visible carried payload.',
+      },
+      {
+        title: 'ROS-Gazebo Integration',
+        copy:
+          'Used ros_gz_sim and ros_gz_bridge to connect Gazebo transport topics with ROS 2 velocity, odometry, joint command, camera, lidar, and state publication flows.',
+      },
+    ],
+    sections: [
+      {
+        title: 'Project overview',
+        copy:
+          'The simulation is built around a factory material-handling workflow rather than an isolated robot animation. The mobile manipulator begins with a payload in its gripper, raises the arm, drops into a receiving station, then drives through a marked factory route toward a second raised receiving box for another release cycle.',
+      },
+      {
+        title: 'Gazebo factory workcell',
+        copy:
+          'The SDF world includes an industrial floor layout, safety rails, workcell objects, raised bins, receiving stations, visual yellow path markings, Gazebo-modeled props, and Rockwell Automation branded signage integrated into the 3D scene.',
+      },
+      {
+        title: 'Robot model',
+        copy:
+          'The custom URDF captures the base, wheels, arm links, joints, gripper fingers, and carried payload so the robot reads as a single mobile manipulator system. robot_state_publisher and JointState messages keep the transforms and arm state visible throughout the demo.',
+      },
+      {
+        title: 'Mission control',
+        copy:
+          'A Python rclpy mission controller sequences the demo end to end, publishing geometry_msgs/Twist commands for the base while coordinating std_msgs/Float64 arm joint targets and gripper release timing for each payload handoff.',
+      },
+      {
+        title: 'Path following',
+        copy:
+          'Waypoint following logic was tuned for consistent movement along the marked factory path using nav_msgs/Odometry feedback, avoiding the complexity of a full Nav2 stack while still producing predictable autonomous motion through the scene.',
+      },
+      {
+        title: 'Packaging and repeatability',
+        copy:
+          'The project is organized as a ROS 2 Jazzy workspace with launch files, ament_python packaging, colcon builds, ROS-Gazebo topic bridges, and Docker/Compose support so the full factory demo can be started as a repeatable single-command simulation.',
+      },
+    ],
+    videos: [
+      {
+        title: 'Mobile manipulator factory material handling demo',
+        src: '/rockwell-mobile-manipulator.mp4',
       },
     ],
   },
