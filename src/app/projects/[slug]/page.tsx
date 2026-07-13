@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ArrowLeft, ExternalLink, Github } from 'lucide-react';
-import { projectDetails } from '@/data/portfolio';
+import { projectDetails, type ProjectDetail } from '@/data/portfolio';
 import { KiwiDockDiagrams } from '@/components/projects/KiwiDockDiagrams';
 import { ThemeToggle } from '@/components/portfolio/ThemeToggle';
 
@@ -10,6 +10,46 @@ type ProjectPageProps = {
     slug: string;
   }>;
 };
+
+function ArchitectureSection({ project }: { project: ProjectDetail }) {
+  if (!project.architectureImages?.length) return null;
+
+  return (
+    <section aria-labelledby={`${project.id}-architecture-title`} className="section-shell">
+      <div className="section-heading">
+        <div>
+          <p className="eyebrow">Architecture</p>
+          <h2 className="section-title mt-3" id={`${project.id}-architecture-title`}>
+            System architecture
+          </h2>
+          {project.architectureSummary ? (
+            <p className="mt-4 max-w-3xl text-sm leading-7 muted-copy">{project.architectureSummary}</p>
+          ) : null}
+        </div>
+      </div>
+      <div className="grid gap-6">
+        {project.architectureImages.map((architectureImage) => (
+          <figure className="panel overflow-hidden p-2" key={architectureImage.src}>
+            <picture>
+              {architectureImage.mobileSrc ? (
+                <source media="(max-width: 639px)" srcSet={architectureImage.mobileSrc} />
+              ) : null}
+              <img
+                alt={architectureImage.alt}
+                className="h-auto w-full rounded-md"
+                loading="lazy"
+                src={architectureImage.src}
+              />
+            </picture>
+            <figcaption className="px-2 pb-2 pt-3 text-xs leading-5 muted-copy md:text-sm">
+              {architectureImage.title}
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    </section>
+  );
+}
 
 export function generateStaticParams() {
   return projectDetails.map((project) => ({
@@ -113,6 +153,8 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           </div>
         </section>
 
+        {project.architecturePlacement === 'after-overview' ? <ArchitectureSection project={project} /> : null}
+
         <section className="section-shell">
           <div className="grid gap-4 md:grid-cols-3">
             {project.highlights.map((highlight) => (
@@ -139,29 +181,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           </div>
         </section>
 
-        {project.architectureImages?.length ? (
-          <section className="section-shell">
-            <div className="section-heading">
-              <div>
-                <p className="eyebrow">Architecture</p>
-                <h2 className="section-title mt-3">System diagrams and technical breakdown.</h2>
-              </div>
-            </div>
-            <div className="grid gap-6">
-              {project.architectureImages.map((image) => (
-                <figure className="panel overflow-hidden p-2" key={image.src}>
-                  <figcaption className="px-2 pb-3 pt-1 text-sm font-medium muted-copy">{image.title}</figcaption>
-                  <img
-                    alt={image.alt}
-                    className="h-auto w-full rounded-md"
-                    loading="lazy"
-                    src={image.src}
-                  />
-                </figure>
-              ))}
-            </div>
-          </section>
-        ) : null}
+        {project.architecturePlacement !== 'after-overview' ? <ArchitectureSection project={project} /> : null}
 
         {project.id === 'kiwidock-ros2-ev-charging-dock' ? <KiwiDockDiagrams /> : null}
 

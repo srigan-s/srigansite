@@ -133,6 +133,19 @@ export type ProjectItem = {
 
 export const projects: ProjectItem[] = [
   {
+    id: 'ferroclimb-magnetic-hexapod',
+    name: 'FerroClimb',
+    description:
+      'ROS 2 autonomy and safety testbed for an 18-DOF magnetic hexapod, with guarded gait transitions, finite-capacity adhesion, fault injection, and independent safety supervision.',
+    stack: ['ROS 2 Jazzy', 'Gazebo Harmonic', 'ros2_control', 'Xacro', 'Kinematics', 'Fault Injection'],
+    github: 'https://github.com/srigan-s/FerroClimb---Gram',
+    media: {
+      type: 'video',
+      src: '/ferroclimb-demo.mp4',
+      alt: 'FerroClimb magnetic hexapod autonomy testbed running in Gazebo Harmonic',
+    },
+  },
+  {
     id: 'kiwidock-ros2-ev-charging-dock',
     name: 'KiwiDock',
     description:
@@ -378,8 +391,11 @@ export type ProjectDetail = ProjectItem & {
   architectureImages?: Array<{
     title: string;
     src: string;
+    mobileSrc?: string;
     alt: string;
   }>;
+  architectureSummary?: string;
+  architecturePlacement?: 'after-overview' | 'after-notes';
   code?: {
     label: string;
     snippet: string;
@@ -387,6 +403,76 @@ export type ProjectDetail = ProjectItem & {
 };
 
 export const projectDetails: ProjectDetail[] = [
+  {
+    ...projectById('ferroclimb-magnetic-hexapod'),
+    eyebrow: 'ROS 2 Jazzy / Gazebo Harmonic / Safety-Critical Autonomy',
+    year: '2026',
+    role: 'Autonomy, control, fault management, safety architecture, and simulation',
+    summary:
+      'FerroClimb is a ROS 2 Jazzy autonomy and fault-management testbed for an 18-degree-of-freedom magnetic hexapod designed to operate on ferromagnetic structures. It combines guarded gait control, finite-capacity adhesion modeling, stability validation, and independent safety supervision in Gazebo Harmonic.',
+    heroVideo: '/ferroclimb-demo.mp4',
+    architecturePlacement: 'after-overview',
+    architectureSummary:
+      'FerroClimb separates simulation, autonomy, and safety into independently testable ROS 2 components. Solid paths show the primary control loop; dashed paths show monitoring, fault injection, and telemetry.',
+    architectureImages: [
+      {
+        title:
+          'FerroClimb’s closed-loop ROS 2 architecture. Estimation and adhesion state feed the stability validator, while an independent safety supervisor can slow, hold, recover, or stop the robot.',
+        src: '/ferroclimb-architecture.svg',
+        mobileSrc: '/ferroclimb-architecture-mobile.svg',
+        alt: 'Architecture diagram showing the Gazebo steel environment and hexapod feeding sensor data into estimation, stability validation, gait control, ros2_control, and the robot, with independent adhesion, mission, safety, fault injection, and telemetry systems',
+      },
+    ],
+    highlights: [
+      {
+        title: 'Guarded Locomotion',
+        copy:
+          'Analytical leg kinematics, quintic foot trajectories, tripod and ripple gaits, and a floor-to-wall transition state machine are gated by support-region and stability checks.',
+      },
+      {
+        title: 'Finite-Capacity Adhesion',
+        copy:
+          'Each magnetic foot tracks attachment, normal and shear load, utilization, slip, and reliability instead of being modeled as an unlimited fixed constraint.',
+      },
+      {
+        title: 'Fault-Aware Safety',
+        copy:
+          'An independent supervisor monitors stability, attitude, contacts, adhesion load, joint limits, data freshness, and heartbeat before slowing, holding, recovering, or stopping motion.',
+      },
+    ],
+    sections: [
+      {
+        title: '18-DOF robot and simulation',
+        copy:
+          'A modular Xacro model describes the six-legged robot and its 18 actuated joints. Gazebo Harmonic provides the steel floor-and-wall environment, ros2_control joint interfaces, IMU measurements, joint feedback, and foot-contact sensing used by the autonomy stack.',
+      },
+      {
+        title: 'Kinematics and gait control',
+        copy:
+          'The control package implements analytical inverse and forward kinematics for each leg, smooth quintic foot trajectories, tripod and ripple gait logic, and a guarded floor-to-wall transition state machine. A foot release is permitted only when the remaining contacts preserve a valid support region and sufficient stability margin.',
+      },
+      {
+        title: 'Stability and adhesion model',
+        copy:
+          'The adhesion manager reports attachment state, normal and shear loading, load utilization, slip detection, and reliability for every foot. Overloaded, slipping, or failed contacts are removed from the support calculation so stability decisions reflect the contacts that can still carry load.',
+      },
+      {
+        title: 'Independent safety supervision',
+        copy:
+          'A separate safety supervisor watches contact count, stability margin, robot attitude, adhesion utilization, joint limits, data freshness, and system heartbeat. Depending on severity, it can reduce speed, hold motion, initiate recovery, or latch an emergency stop.',
+      },
+      {
+        title: 'Fault injection and recovery',
+        copy:
+          'The mission manager coordinates the demonstration and deliberately disables one magnetic foot. The robot detects the failure, prevents additional foot releases, maintains support on the remaining contacts, and resumes only after recovery conditions are satisfied.',
+      },
+      {
+        title: 'Current validation boundary',
+        copy:
+          'The Gazebo demo uses a bounded model-level force for deterministic movement toward the wall. The autonomy, stability, safety, and fault-management components are executable and testable, but per-foot magnetic forces are not yet coupled into Gazebo physics; FerroClimb is therefore presented as an autonomy testbed, not a physically validated climbing simulation.',
+      },
+    ],
+  },
   {
     ...projectById('kiwidock-ros2-ev-charging-dock'),
     eyebrow: 'ROS 2 Jazzy / Rust Safety Core / EV Charging Robotics',
