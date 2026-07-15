@@ -172,6 +172,19 @@ export const projects: ProjectItem[] = [
     },
   },
   {
+    id: 'fabflow-twin',
+    name: 'FabFlow Twin',
+    description:
+      'Interactive 3D semiconductor fab digital twin for wafer transport, scheduling strategy comparison, fault scenarios, and live throughput analytics.',
+    stack: ['React', 'TypeScript', 'React Three Fiber', 'Zustand', 'Recharts', 'Tailwind CSS', 'Vitest'],
+    github: 'https://github.com/srigan-s/microalchemy-demo',
+    media: {
+      type: 'video',
+      src: '/fabflow.mp4',
+      alt: 'FabFlow Twin 3D wafer transport and scheduling digital twin preview',
+    },
+  },
+  {
     id: 'ros2-gnss-nav-demo',
     name: 'ROS2 GNSS RC Car Navigation',
     description: 'Autonomous waypoint navigation simulation with noisy GNSS, IMU telemetry, RViz2, and validation plots.',
@@ -610,6 +623,70 @@ export const projectDetails: ProjectDetail[] = [
       {
         title: 'Mobile manipulator factory material handling demo',
         src: '/rockwell-mobile-manipulator.mp4',
+      },
+    ],
+  },
+  {
+    ...projectById('fabflow-twin'),
+    eyebrow: 'Digital Twin / Semiconductor Manufacturing / Scheduling',
+    year: '2026',
+    role: 'Simulation engine, 3D digital twin, dispatch logic, and analytics dashboard',
+    summary:
+      'FabFlow Twin is an interactive 3D digital twin that simulates wafer movement through a compact semiconductor production line. It helps explore material flow, identify bottlenecks, compare scheduling strategies, test equipment faults, and estimate throughput before investing in physical transport systems.',
+    heroVideo: '/fabflow.mp4',
+    highlights: [
+      {
+        title: 'Discrete-event Fab Model',
+        copy:
+          'Combines deterministic wafer-lot flow with seven process stations, automated vehicle movement, station queues, processing windows, and repeatable experiment runs.',
+      },
+      {
+        title: 'Routing and Dispatch Strategies',
+        copy:
+          'Compares FIFO, nearest-vehicle, priority-aware, and bottleneck-aware dispatch behavior while vehicles respond to queue congestion, blocked rail segments, and station availability.',
+      },
+      {
+        title: 'Live Production Analytics',
+        copy:
+          'Tracks throughput, cycle time, queue length, station utilization, vehicle performance, congestion events, lot traceability, and transparent bottleneck recommendations.',
+      },
+    ],
+    sections: [
+      {
+        title: 'What it simulates',
+        copy:
+          'The application models a compact semiconductor production line where automated vehicles move wafer carriers between seven simplified process stations. The equipment geometry and timing model are intentionally educational, but the workflow is structured around real material-flow questions: what is waiting, what is blocked, which station is saturated, and how dispatch decisions affect output.',
+      },
+      {
+        title: 'Simulation engine',
+        copy:
+          'A deterministic discrete-event simulation drives station processing, vehicle assignment, rail movement, queue changes, and production metrics. Because runs are repeatable, scheduling strategies and fault scenarios can be compared without random noise hiding the cause of a performance change.',
+      },
+      {
+        title: 'Graph routing and vehicle control',
+        copy:
+          'The transport network is represented as a graph so vehicles can route between stations while respecting blocked segments and active congestion. Collision-aware vehicle control keeps carriers moving through the rail layout without treating the 3D scene as a purely decorative animation.',
+      },
+      {
+        title: 'Fault scenarios',
+        copy:
+          'FabFlow Twin can introduce station breakdowns, blocked rail segments, queue congestion, and changing lot priorities. These scenarios make the dashboard useful for asking how resilient each scheduling strategy is when the factory stops behaving ideally.',
+      },
+      {
+        title: 'Dashboard and recommendations',
+        copy:
+          'The React dashboard pairs the 3D digital twin with Recharts-based production metrics, wafer-lot traceability, vehicle performance panels, and readable bottleneck recommendations so the user can connect visible factory behavior to measured throughput and cycle-time changes.',
+      },
+      {
+        title: 'Prototype boundary',
+        copy:
+          'FabFlow Twin is an original educational prototype focused on digital-twin and material-flow software concepts. It is not connected to physical semiconductor equipment, and its equipment geometry, process timings, and transport behavior are intentionally simplified.',
+      },
+    ],
+    videos: [
+      {
+        title: 'FabFlow Twin wafer transport and scheduling walkthrough',
+        src: '/fabflow.mp4',
       },
     ],
   },
