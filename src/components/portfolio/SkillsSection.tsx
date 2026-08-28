@@ -13,7 +13,8 @@ export function SkillsSection() {
             <h2 className="section-title mt-3">A concise stack for systems that touch the real world.</h2>
           </div>
           <p className="max-w-sm text-sm leading-6 muted-copy">
-            Strongest around robotics, embedded work, and polished software interfaces.
+            Hands-on experience across motion control, semiconductor process hardware, embedded
+            testing, robotics, and production software.
           </p>
         </div>
 

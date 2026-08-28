@@ -12,8 +12,8 @@ import {
 
 export const profile = {
   name: 'Srigan Sivagnanenthirarajah',
-  title: 'Electrical Engineering @ University of Waterloo',
-  line: 'Building robotics, controls, embedded systems, and software with a product-minded engineering lens.',
+  title: 'Electrical Engineering @ Waterloo · Founding Hardware Engineering Intern @ MicroAlchemy',
+  line: 'Building semiconductor process equipment, motion-control systems, robotics, and the embedded software that connects them.',
   email: 'srigan.siva@gmail.com',
   githubUsername: 'srigan-s',
   links: [
@@ -56,24 +56,24 @@ export type ExperienceItem = {
 
 export const experiences: ExperienceItem[] = [
   {
+    id: 'microalchemy',
+    role: 'Founding Hardware Engineering Intern',
+    company: 'MicroAlchemy',
+    date: 'May 2026 – Present',
+    impact:
+      'Founding intern at a semiconductor startup founded by two former NVIDIA engineers, developing controls for an automated photoresist/HMDS spin-bake system. Building PID control for a 10-10,000 RPM vacuum chuck, Python/C++ telemetry and sequencing tools, and 50-250 °C bake and N₂ automation targeting ±1 °C uniformity.',
+    image: '/microalchemy.png',
+    tags: ['Motor Control', 'PID', 'Vacuum Systems', 'Thermal Control', 'Python', 'C++'],
+  },
+  {
     id: 'wiz-robotics',
-    role: 'Robotics Software Engineer Intern',
+    role: 'Robotics Engineering Intern',
     company: 'Wiz Robotics',
     // TODO: Replace with the exact internship date range from your resume.
     date: 'January 2026 - April 2026',
     impact: 'Lead Engineer of client robotics team, built robotics integrations across IoT software, perception, and hardware validation.',
     image: '/wizrobotics.webp',
     tags: ['Robotics','Java', 'C++','OpenCV', 'Python','Embedded'],
-  },
-  {
-    id: 'baycrest',
-    role: 'Software Engineer Intern',
-    company: 'Baycrest',
-    // TODO: Replace with the exact internship date range from your resume.
-    date: 'May 2025 - August 2025',
-    impact: "Shipped full-stack product work for a hospital volunteer team of 100+ with usability and reliability in focus.",
-    image: '/bay.png',
-    tags: ['React', 'TypeScript', 'MongoDB', "Gemini API"],
   },
   {
     id: 'watonomous',
@@ -86,6 +86,16 @@ export const experiences: ExperienceItem[] = [
     tags: ['Controls', 'PCB', 'Testing'],
   },
   {
+    id: 'baycrest',
+    role: 'Software Engineer Intern',
+    company: 'Baycrest',
+    // TODO: Replace with the exact internship date range from your resume.
+    date: 'May 2025 - August 2025',
+    impact: "Shipped full-stack product work for a hospital volunteer team of 100+ with usability and reliability in focus.",
+    image: '/bay.png',
+    tags: ['React', 'TypeScript', 'MongoDB', "Gemini API"],
+  },
+  {
     id: 'miniai',
     role: 'Founding Engineer (AI Software)',
     company: 'MiniAI',
@@ -94,16 +104,6 @@ export const experiences: ExperienceItem[] = [
     impact: 'Led engineering for a gamified AI learning platform for younger students.',
     image: '/miniAi.png',
     tags: ['AI', 'Product', 'Full-stack'],
-  },
-  {
-    id: 'learnit',
-    role: 'Robotics Engineer Consultant',
-    company: 'Learnit',
-    date: 'April 2026 - Present',
-    impact:
-      'Providing insight for robotics workshops exploring ESP32s, sensors, AI, and more, while aiding curriculum development through industry experience.',
-    image: '/learnitcanada_logo.jpeg',
-    tags: ['Robotics', 'ESP32', 'Sensors', 'AI', 'Curriculum'],
   },
   {
     id: 'uwaterloo-research',
@@ -131,7 +131,29 @@ export type ProjectItem = {
   };
 };
 
-export const projects: ProjectItem[] = [
+const hiddenProjectIds = new Set([
+  'ferroclimb-magnetic-hexapod',
+  'autonomous-mobile-manipulator-factory-simulation',
+  'ai-robot-umpire',
+  'martinrea-factorysight-qa',
+  'trackqa',
+  'lightlink',
+  'colourmash-ai',
+]);
+
+const visibleProjectOrder = [
+  'kiwidock-ros2-ev-charging-dock',
+  'cad-turret-build',
+  'turret-auto-align',
+  'ros2-gnss-nav-demo',
+  'fabflow-twin',
+  'miniai-web-app',
+  'kiwibot-hardware-health-monitor',
+  'arduino-beatsync',
+  'recruitercall-ai',
+];
+
+const allProjects: ProjectItem[] = [
   {
     id: 'ferroclimb-magnetic-hexapod',
     name: 'FerroClimb',
@@ -335,6 +357,13 @@ export const projects: ProjectItem[] = [
   },
 ];
 
+export const projects = allProjects
+  .filter((project) => !hiddenProjectIds.has(project.id))
+  .sort(
+    (firstProject, secondProject) =>
+      visibleProjectOrder.indexOf(firstProject.id) - visibleProjectOrder.indexOf(secondProject.id),
+  );
+
 const turretTrainingSnippet = `import pandas as pd
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import train_test_split
@@ -376,7 +405,7 @@ elif _object_touches_border(frame, detection):
 else:
     status = "PASS"`;
 
-const projectById = (id: string) => projects.find((project) => project.id === id)!;
+const projectById = (id: string) => allProjects.find((project) => project.id === id)!;
 
 export type ProjectDetail = ProjectItem & {
   eyebrow: string;
@@ -415,7 +444,7 @@ export type ProjectDetail = ProjectItem & {
   };
 };
 
-export const projectDetails: ProjectDetail[] = [
+const allProjectDetails: ProjectDetail[] = [
   {
     ...projectById('ferroclimb-magnetic-hexapod'),
     eyebrow: 'ROS 2 Jazzy / Gazebo Harmonic / Safety-Critical Autonomy',
@@ -1314,30 +1343,34 @@ export const projectDetails: ProjectDetail[] = [
   },
 ];
 
+export const projectDetails = allProjectDetails.filter(
+  (project) => !hiddenProjectIds.has(project.id),
+);
+
 export const skillGroups = [
   {
-    title: 'Robotics',
+    title: 'Hardware Controls',
     icon: Bot,
-    skills: ['ROS2', 'GNSS/PNT', 'controls', 'AprilTags', 'Limelight', 'RViz2'],
+    skills: ['PID control', 'motor control', 'actuator sequencing', 'motion profiling', 'RPM telemetry', 'system integration'],
   },
   {
-    title: 'Embedded',
+    title: 'Process Hardware',
     icon: Cpu,
-    skills: ['C++', 'Arduino', 'microcontrollers', 'sensors', 'PCB validation'],
+    skills: ['spin coating', 'vacuum chucking', 'photoresist / HMDS', 'thermal control', 'N₂ automation', 'fluid dispensing'],
+  },
+  {
+    title: 'Embedded & Test',
+    icon: Wrench,
+    skills: ['C++', 'Python', 'microcontrollers', 'sensors & actuators', 'oscilloscope', 'hardware validation'],
+  },
+  {
+    title: 'Robotics',
+    icon: RadioTower,
+    skills: ['ROS2', 'GNSS/PNT', 'AprilTags', 'Limelight', 'RViz2', 'OpenCV'],
   },
   {
     title: 'Software',
     icon: Braces,
-    skills: ['TypeScript', 'React', 'Next.js', 'Node.js', 'Python', 'SQL'],
-  },
-  {
-    title: 'AI / Perception',
-    icon: RadioTower,
-    skills: ['OpenCV', 'TensorFlow', 'OpenAI API', 'ML tuning', 'data workflows'],
-  },
-  {
-    title: 'Tools',
-    icon: Wrench,
-    skills: ['Git', 'Linux', 'Tailwind CSS', 'MongoDB', 'PostgreSQL', 'oscilloscope'],
+    skills: ['TypeScript', 'React', 'Next.js', 'Node.js', 'Git', 'Linux'],
   },
 ];

@@ -14,7 +14,7 @@ export function HeroPortrait() {
         <div className="grid content-between gap-4 p-1">
           <div>
             <p className="eyebrow">Waterloo ECE</p>
-            <h2 className="mt-3 text-2xl font-semibold">Robotics, embedded systems, and software.</h2>
+            <h2 className="mt-3 text-2xl font-semibold">Semiconductor hardware, controls, robotics, and embedded systems.</h2>
           </div>
           <GitHubContributionCard compact embedded />
         </div>

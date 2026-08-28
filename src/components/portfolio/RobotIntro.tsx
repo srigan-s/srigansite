@@ -8,7 +8,7 @@ const terminalLines = [
   { text: '> srigan-portfolio@0.0.0 server', delay: 0.88 },
   { text: '> next dev --turbo', delay: 1.18 },
   { text: 'ready - local portfolio online', delay: 1.58, accent: true },
-  { text: 'compiled robotics / controls / software', delay: 1.92 },
+  { text: 'compiled hardware / controls / robotics / software', delay: 1.92 },
 ];
 
 export function RobotIntro() {

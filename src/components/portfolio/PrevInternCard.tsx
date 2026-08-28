@@ -24,7 +24,7 @@ export function PrevInternCard() {
     <div className="quiet-panel min-h-[7.75rem] overflow-hidden p-3">
       <div className="flex items-start justify-between gap-3">
         <div>
-          <p className="text-[11px] font-semibold uppercase muted-copy">Prev Intern at</p>
+          <p className="text-[11px] font-semibold uppercase muted-copy">Engineering Experience</p>
           <AnimatePresence mode="wait">
             <motion.div
               key={active.id}

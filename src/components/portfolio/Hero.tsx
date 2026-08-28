@@ -72,7 +72,7 @@ export function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
         >
-          <p className="eyebrow">Robotics / Controls / Software</p>
+          <p className="eyebrow">Hardware / Controls / Robotics / Software</p>
           <motion.h1
             aria-label={profile.name}
             className="display-title animated-name mt-5"

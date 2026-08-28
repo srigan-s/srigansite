@@ -15,6 +15,8 @@ type Project = {
   spotlight?: boolean;
 };
 
+const hiddenProjectTitles = new Set(['TrackQA', 'ColourMashAI', 'LightLink']);
+
 const Projects = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -31,7 +33,7 @@ const Projects = () => {
     return () => observer.disconnect();
   }, []);
 
-  const projects: Project[] = [
+  const allProjects: Project[] = [
     {
       title: 'KiwiDock',
       description:
@@ -158,6 +160,8 @@ const Projects = () => {
       image: '/majestykapps.jpg',
     },
   ];
+
+  const projects = allProjects.filter((project) => !hiddenProjectTitles.has(project.title));
 
   const nextProject = () => setCurrentIndex((prev) => (prev + 1) % projects.length);
   const prevProject = () => setCurrentIndex((prev) => (prev - 1 + projects.length) % projects.length);
