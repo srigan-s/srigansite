@@ -59,7 +59,7 @@ export const experiences: ExperienceItem[] = [
     id: 'microalchemy',
     role: 'Founding Hardware Engineering Intern',
     company: 'MicroAlchemy',
-    date: 'May 2026 – Present',
+    date: 'September 2026 – Present',
     impact:
       'Founding intern at a semiconductor startup founded by two former NVIDIA engineers, developing controls for an automated photoresist/HMDS spin-bake system. Building PID control for a 10-10,000 RPM vacuum chuck, Python/C++ telemetry and sequencing tools, and 50-250 °C bake and N₂ automation targeting ±1 °C uniformity.',
     image: '/microalchemy.png',
