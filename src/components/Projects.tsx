@@ -15,7 +15,7 @@ type Project = {
   spotlight?: boolean;
 };
 
-const hiddenProjectTitles = new Set(['TrackQA', 'ColourMashAI', 'LightLink']);
+const hiddenProjectTitles = new Set(['TrackQA', 'ColourMashAI', 'LightLink', 'RecruiterCallAI']);
 
 const Projects = () => {
   const [isVisible, setIsVisible] = useState(false);

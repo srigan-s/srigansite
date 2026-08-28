@@ -139,6 +139,7 @@ const hiddenProjectIds = new Set([
   'trackqa',
   'lightlink',
   'colourmash-ai',
+  'recruitercall-ai',
 ]);
 
 const visibleProjectOrder = [
@@ -150,7 +151,6 @@ const visibleProjectOrder = [
   'miniai-web-app',
   'kiwibot-hardware-health-monitor',
   'arduino-beatsync',
-  'recruitercall-ai',
 ];
 
 const allProjects: ProjectItem[] = [
