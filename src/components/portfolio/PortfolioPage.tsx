@@ -9,6 +9,8 @@ import { Hero } from './Hero';
 import { ProjectsSection } from './ProjectsSection';
 import { SkillsSection } from './SkillsSection';
 import { TrackingRobot } from './TrackingRobot';
+import { SecretReward } from '@/components/robot-game/SecretReward';
+import { UnlockableSection } from '@/components/robot-game/UnlockableSection';
 
 export function PortfolioPage() {
   return (
@@ -19,9 +21,16 @@ export function PortfolioPage() {
         <TrackingRobot />
         <main>
           <Hero />
-          <ExperienceSection />
-          <ProjectsSection />
-          <SkillsSection />
+          <UnlockableSection milestoneId="experience">
+            <ExperienceSection />
+          </UnlockableSection>
+          <UnlockableSection milestoneId="projects">
+            <ProjectsSection />
+          </UnlockableSection>
+          <UnlockableSection milestoneId="skills">
+            <SkillsSection />
+          </UnlockableSection>
+          <SecretReward />
         </main>
         <Footer />
       </div>

@@ -54,7 +54,7 @@ export function Header() {
           >
             Resume
           </a>
-          <NavRobot />
+          <NavRobot targetId="navigation-robot-desktop" />
           <a
             className="link-button hidden md:inline-flex"
             data-cursor="hover"
@@ -66,7 +66,7 @@ export function Header() {
         </div>
 
         <div className="flex items-center gap-1.5 md:hidden">
-          <NavRobot />
+          <NavRobot targetId="navigation-robot-mobile" />
           <ThemeToggle />
           <button
             aria-expanded={open}

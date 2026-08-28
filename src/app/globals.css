@@ -310,6 +310,67 @@ video:-webkit-full-screen {
     opacity: 0.72;
   }
 
+  .robot-playfield-game {
+    opacity: 1;
+  }
+
+  .robot-playfield-game .robot-swapper-left {
+    left: -4rem;
+    animation: game-target-drift-left 5.8s ease-in-out infinite;
+  }
+
+  .robot-playfield-game .robot-swapper-right {
+    right: -4rem;
+    animation: game-target-drift-right 6.4s ease-in-out -2.1s infinite;
+  }
+
+  .robot-target {
+    pointer-events: auto;
+    touch-action: manipulation;
+    transform-origin: center;
+  }
+
+  .robot-target:disabled {
+    cursor: none;
+  }
+
+  .robot-target:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 4px;
+  }
+
+  .unlockable-section-locked {
+    max-height: 28rem;
+    overflow: hidden;
+  }
+
+  .unlockable-section-locked .unlockable-section-content {
+    max-height: 28rem;
+    overflow: hidden;
+    opacity: 0.24;
+    filter: blur(5px) grayscale(0.35);
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .unlockable-section-overlay {
+    background:
+      linear-gradient(180deg, transparent, color-mix(in srgb, var(--bg) 82%, transparent) 24%, var(--bg) 88%),
+      color-mix(in srgb, var(--bg) 18%, transparent);
+  }
+
+  .game-hud {
+    background: color-mix(in srgb, var(--bg-elevated) 88%, transparent);
+    box-shadow:
+      var(--shadow),
+      inset 0 0 0 1px color-mix(in srgb, var(--accent) 16%, transparent);
+    backdrop-filter: blur(16px);
+  }
+
+  .robot-game-mode .grid-hover-background {
+    opacity: 0.9;
+  }
+
   .robot-swapper {
     position: absolute;
     top: 0;
@@ -731,6 +792,30 @@ video:-webkit-full-screen {
   }
 }
 
+@keyframes game-target-drift-left {
+  0%, 100% {
+    transform: translate3d(0, 4px, 0) rotate(-1deg);
+  }
+  35% {
+    transform: translate3d(34px, -16px, 0) rotate(2deg);
+  }
+  68% {
+    transform: translate3d(12px, 12px, 0) rotate(-2deg);
+  }
+}
+
+@keyframes game-target-drift-right {
+  0%, 100% {
+    transform: translate3d(0, -8px, 0) rotate(1deg);
+  }
+  38% {
+    transform: translate3d(-32px, 12px, 0) rotate(-2deg);
+  }
+  72% {
+    transform: translate3d(-10px, -18px, 0) rotate(2deg);
+  }
+}
+
 @keyframes robot-side-hover {
   0%, 100% {
     transform: translateY(0) scale(0.62);
@@ -838,6 +923,33 @@ video:-webkit-full-screen {
   }
 }
 
+@media (max-width: 1023px) {
+  .robot-playfield-game {
+    top: 5rem;
+    height: calc(100dvh - 5rem);
+  }
+
+  .robot-playfield-game .robot-swapper-left {
+    left: -3.75rem;
+    top: 22vh;
+  }
+
+  .robot-playfield-game .robot-swapper-right {
+    right: -3.75rem;
+    top: 48vh;
+  }
+
+  .robot-playfield-game .robot-swapper {
+    width: 8rem;
+    height: 11rem;
+  }
+
+  .robot-playfield-game .robot-figure {
+    scale: 0.78;
+    transform-origin: center center;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .skills-wheel {
     mask-image: none;
@@ -847,5 +959,28 @@ video:-webkit-full-screen {
     flex-wrap: wrap;
     width: auto;
     animation: none;
+  }
+
+  .robot-swapper,
+  .robot-figure,
+  .robot-arm,
+  .nav-robot,
+  .nav-robot *,
+  .robot-figure *,
+  .intro-smash-robot,
+  .intro-smash-robot *,
+  .intro-terminal-impact {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .terminal-scanline {
+    display: none;
+  }
+
+  .unlockable-section,
+  .unlockable-section-content,
+  .unlockable-section-overlay {
+    transition: none !important;
   }
 }

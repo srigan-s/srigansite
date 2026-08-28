@@ -1,6 +1,9 @@
 'use client';
 
+import { useReducedMotion } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
+import { RobotTarget } from '@/components/robot-game/RobotTarget';
+import { useRobotGame } from '@/components/robot-game/RobotGameProvider';
 
 type RobotPose = {
   rotateX: number;
@@ -13,6 +16,8 @@ type RobotPose = {
 const clamp = (value: number, min: number, max: number) => Math.min(Math.max(value, min), max);
 
 export function TrackingRobot() {
+  const { isGameMode } = useRobotGame();
+  const shouldReduceMotion = useReducedMotion();
   const robotRef = useRef<HTMLDivElement | null>(null);
   const [pose, setPose] = useState<RobotPose>({
     rotateX: 0,
@@ -23,6 +28,8 @@ export function TrackingRobot() {
   });
 
   useEffect(() => {
+    if (shouldReduceMotion) return;
+
     const updatePose = (event: PointerEvent) => {
       const robot = robotRef.current;
       if (!robot) return;
@@ -44,24 +51,41 @@ export function TrackingRobot() {
 
     window.addEventListener('pointermove', updatePose, { passive: true });
     return () => window.removeEventListener('pointermove', updatePose);
-  }, []);
+  }, [shouldReduceMotion]);
 
   return (
-    <div aria-hidden="true" className="robot-playfield pointer-events-none fixed inset-x-0 top-24 z-40 hidden h-72 lg:block">
+    <div
+      aria-hidden={!isGameMode}
+      className={`robot-playfield pointer-events-none fixed inset-x-0 top-24 z-40 h-72 ${
+        isGameMode ? 'robot-playfield-game block' : 'hidden lg:block'
+      }`}
+    >
       <div className="robot-swapper robot-swapper-left" ref={robotRef} style={{ perspective: '500px' }}>
-        <RobotFigure pose={pose} trackMultiplier={1} />
+        <RobotTarget
+          className="h-full w-full"
+          label="Hit the left tracking robot"
+          targetId="tracking-robot-left"
+        >
+          <RobotFigure pose={pose} trackMultiplier={1} />
+        </RobotTarget>
       </div>
       <div className="robot-swapper robot-swapper-right" style={{ perspective: '500px' }}>
-        <RobotFigure
-          pose={{
-            rotateX: pose.rotateX * 0.75,
-            rotateY: pose.rotateY * -0.75,
-            eyeX: pose.eyeX * -0.75,
-            eyeY: pose.eyeY * 0.75,
-            trackY: pose.trackY,
-          }}
-          trackMultiplier={1}
-        />
+        <RobotTarget
+          className="h-full w-full"
+          label="Hit the right tracking robot"
+          targetId="tracking-robot-right"
+        >
+          <RobotFigure
+            pose={{
+              rotateX: pose.rotateX * 0.75,
+              rotateY: pose.rotateY * -0.75,
+              eyeX: pose.eyeX * -0.75,
+              eyeY: pose.eyeY * 0.75,
+              trackY: pose.trackY,
+            }}
+            trackMultiplier={1}
+          />
+        </RobotTarget>
       </div>
     </div>
   );

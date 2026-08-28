@@ -1,6 +1,9 @@
 import type { Metadata } from 'next';
 import { CustomCursor } from '@/components/portfolio/CustomCursor';
 import { RobotIntro } from '@/components/portfolio/RobotIntro';
+import { GameHUD } from '@/components/robot-game/GameHUD';
+import { RobotGameProvider } from '@/components/robot-game/RobotGameProvider';
+import { UnlockNotification } from '@/components/robot-game/UnlockNotification';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -38,9 +41,13 @@ export default function RootLayout({
 })();`,
           }}
         />
-        <RobotIntro />
-        <CustomCursor />
-        {children}
+        <RobotGameProvider>
+          <RobotIntro />
+          <CustomCursor />
+          <GameHUD />
+          <UnlockNotification />
+          {children}
+        </RobotGameProvider>
       </body>
     </html>
   );

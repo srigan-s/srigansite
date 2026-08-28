@@ -10,6 +10,7 @@ import { PrevInternCard } from './PrevInternCard';
 import { PrevProjectCard } from './PrevProjectCard';
 import { TechnicalSkillsWheel } from './TechnicalSkillsWheel';
 import { ThemeToggle } from './ThemeToggle';
+import { RobotGameLauncher } from '@/components/robot-game/RobotGameLauncher';
 
 const nameLines = profile.name.split(' ');
 
@@ -140,6 +141,7 @@ export function Hero() {
               </a>
             ))}
             <ThemeToggle />
+            <RobotGameLauncher />
           </div>
           <TechnicalSkillsWheel />
           <PersonalPhotoCarousel />

@@ -1,6 +1,8 @@
 'use client';
 
+import { useReducedMotion } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
+import { RobotTarget } from '@/components/robot-game/RobotTarget';
 
 type RobotPose = {
   rotateX: number;
@@ -11,7 +13,8 @@ type RobotPose = {
 
 const clamp = (value: number, min: number, max: number) => Math.min(Math.max(value, min), max);
 
-export function NavRobot() {
+export function NavRobot({ targetId = 'navigation-robot' }: { targetId?: string }) {
+  const shouldReduceMotion = useReducedMotion();
   const robotRef = useRef<HTMLDivElement | null>(null);
   const bounceTimer = useRef<number | null>(null);
   const [isBouncing, setIsBouncing] = useState(false);
@@ -23,6 +26,8 @@ export function NavRobot() {
   });
 
   useEffect(() => {
+    if (shouldReduceMotion) return;
+
     const updatePose = (event: PointerEvent) => {
       const robot = robotRef.current;
       if (!robot) return;
@@ -43,7 +48,7 @@ export function NavRobot() {
 
     window.addEventListener('pointermove', updatePose, { passive: true });
     return () => window.removeEventListener('pointermove', updatePose);
-  }, []);
+  }, [shouldReduceMotion]);
 
   const triggerBounce = () => {
     setIsBouncing(false);
@@ -68,15 +73,16 @@ export function NavRobot() {
   }, []);
 
   return (
-    <div
-      aria-label="Mouse-tracking robot"
-      className={`nav-robot relative block h-10 w-10 md:h-16 md:w-16${isBouncing ? ' nav-robot-bounce' : ''}`}
-      data-cursor="hover"
-      onPointerDown={triggerBounce}
-      ref={robotRef}
-      role="img"
-      style={{ perspective: '420px' }}
-    >
+    <RobotTarget className="shrink-0" label="Hit the navigation robot" targetId={targetId}>
+      <div
+        aria-label="Mouse-tracking robot"
+        className={`nav-robot relative block h-10 w-10 md:h-16 md:w-16${isBouncing ? ' nav-robot-bounce' : ''}`}
+        data-cursor="hover"
+        onPointerDown={triggerBounce}
+        ref={robotRef}
+        role="img"
+        style={{ perspective: '420px' }}
+      >
       <span
         className="absolute left-1/2 top-0 h-2 w-2 -translate-x-1/2 rounded-full md:h-3 md:w-3"
         style={{ background: 'var(--accent)', animation: 'robot-blink 1.8s ease-in-out infinite' }}
@@ -125,6 +131,7 @@ export function NavRobot() {
       />
       <span className="absolute bottom-1 left-1.5 h-4 w-1.5 rounded-sm border md:left-2 md:h-6 md:w-2" style={{ borderColor: 'var(--line)', background: 'var(--bg-muted)', animation: 'robot-wave-left 2.4s ease-in-out infinite' }} />
       <span className="absolute bottom-1 right-1.5 h-4 w-1.5 rounded-sm border md:right-2 md:h-6 md:w-2" style={{ borderColor: 'var(--line)', background: 'var(--bg-muted)', animation: 'robot-wave-right 2.4s ease-in-out infinite' }} />
-    </div>
+      </div>
+    </RobotTarget>
   );
 }
