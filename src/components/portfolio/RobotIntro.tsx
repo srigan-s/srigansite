@@ -2,6 +2,7 @@
 
 import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
+import { SleekRobot } from './SleekRobot';
 
 const terminalLines = [
   { text: '$ npm run server', delay: 0.2, accent: true },
@@ -44,25 +45,7 @@ export function RobotIntro() {
               transition={{ duration: 2.2, ease: 'linear', repeat: Infinity }}
             />
             <div className="intro-smash-robot">
-              <span className="intro-smash-antenna" />
-              <span className="intro-smash-dot" />
-              <div className="intro-smash-head">
-                <span className="intro-smash-eye" />
-                <span className="intro-smash-eye" />
-                <span className="intro-smash-mouth" />
-              </div>
-              <span className="intro-smash-arm intro-smash-arm-left" />
-              <span className="intro-smash-arm intro-smash-arm-right" />
-              <div className="intro-smash-body">
-                <span />
-                <span />
-                <span />
-                <span />
-                <span />
-                <span />
-              </div>
-              <span className="intro-smash-leg intro-smash-leg-left" />
-              <span className="intro-smash-leg intro-smash-leg-right" />
+              <SleekRobot variant="intro" />
             </div>
             <span className="intro-terminal-impact" />
             <div className="mb-4 flex items-center justify-between border-b pb-3 hairline">

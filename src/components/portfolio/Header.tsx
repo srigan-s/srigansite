@@ -3,7 +3,6 @@
 import { Menu, X } from 'lucide-react';
 import { useState } from 'react';
 import { profile } from '@/data/portfolio';
-import { NavRobot } from './NavRobot';
 import { ThemeToggle } from './ThemeToggle';
 
 const navItems = [
@@ -17,7 +16,7 @@ export function Header() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 px-3 py-3 md:px-4 md:py-4">
+    <header className="sticky inset-x-0 top-0 z-50 px-3 py-3 md:px-4 md:py-4">
       <nav
         aria-label="Primary navigation"
         className="content-shell flex items-center justify-between gap-2 md:gap-4"
@@ -54,7 +53,6 @@ export function Header() {
           >
             Resume
           </a>
-          <NavRobot targetId="navigation-robot-desktop" />
           <a
             className="link-button hidden md:inline-flex"
             data-cursor="hover"
@@ -66,7 +64,6 @@ export function Header() {
         </div>
 
         <div className="flex items-center gap-1.5 md:hidden">
-          <NavRobot targetId="navigation-robot-mobile" />
           <ThemeToggle />
           <button
             aria-expanded={open}

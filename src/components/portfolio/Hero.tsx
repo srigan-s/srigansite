@@ -10,7 +10,6 @@ import { PrevInternCard } from './PrevInternCard';
 import { PrevProjectCard } from './PrevProjectCard';
 import { TechnicalSkillsWheel } from './TechnicalSkillsWheel';
 import { ThemeToggle } from './ThemeToggle';
-import { RobotGameLauncher } from '@/components/robot-game/RobotGameLauncher';
 
 const nameLines = profile.name.split(' ');
 
@@ -65,7 +64,7 @@ const heroLinks = [
 
 export function Hero() {
   return (
-    <section className="content-shell flex min-h-screen items-center pt-24" id="home">
+    <section className="content-shell flex min-h-screen items-center pt-24" id="portfolio">
       <div className="grid w-full gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
         <motion.div
           className="min-w-0"
@@ -141,7 +140,6 @@ export function Hero() {
               </a>
             ))}
             <ThemeToggle />
-            <RobotGameLauncher />
           </div>
           <TechnicalSkillsWheel />
           <PersonalPhotoCarousel />
