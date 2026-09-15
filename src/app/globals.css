@@ -94,48 +94,35 @@ video:-webkit-full-screen {
   }
 
   .ascii-landing {
-    --ascii-green: #00ff88;
-    --ascii-green-soft: rgba(0, 255, 136, 0.68);
-    --ascii-line: rgba(0, 255, 136, 0.2);
+    --ascii-green: var(--accent);
+    --ascii-green-soft: color-mix(in srgb, var(--accent) 72%, var(--text));
+    --ascii-line: color-mix(in srgb, var(--accent) 24%, transparent);
     position: relative;
     z-index: 3;
     display: flex;
+    width: 100%;
+    max-width: 100vw;
     min-height: 100svh;
     overflow: hidden;
     isolation: isolate;
     align-items: center;
     background:
-      radial-gradient(circle at 72% 42%, rgba(0, 255, 136, 0.09), transparent 26rem),
-      #020403;
-    color: #e4eee9;
+      linear-gradient(180deg, transparent 72%, var(--bg) 100%),
+      radial-gradient(circle at 50% 42%, color-mix(in srgb, var(--accent) 10%, transparent), transparent 32rem),
+      var(--bg);
+    color: var(--text);
   }
 
-  .ascii-landing-grid,
-  .ascii-landing-scanlines {
+  .ascii-landing-grid {
     position: absolute;
     inset: 0;
     z-index: -1;
     pointer-events: none;
-  }
-
-  .ascii-landing-grid {
     background:
-      linear-gradient(90deg, rgba(0, 255, 136, 0.042) 1px, transparent 1px),
-      linear-gradient(0deg, rgba(0, 255, 136, 0.042) 1px, transparent 1px);
-    background-size: 48px 48px;
-    mask-image: radial-gradient(ellipse 82% 72% at 50% 48%, #000 34%, transparent 100%);
-  }
-
-  .ascii-landing-scanlines {
-    z-index: 5;
-    opacity: 0.18;
-    background: repeating-linear-gradient(
-      180deg,
-      transparent 0,
-      transparent 3px,
-      rgba(151, 255, 206, 0.09) 4px
-    );
-    mix-blend-mode: screen;
+      linear-gradient(90deg, color-mix(in srgb, var(--line) 55%, transparent) 1px, transparent 1px),
+      linear-gradient(0deg, color-mix(in srgb, var(--line) 55%, transparent) 1px, transparent 1px);
+    background-size: 42px 42px;
+    mask-image: radial-gradient(ellipse 78% 74% at 50% 46%, #000 34%, transparent 100%);
   }
 
   .ascii-landing-topbar {
@@ -155,8 +142,8 @@ video:-webkit-full-screen {
     gap: 0.65rem;
     border: 1px solid var(--ascii-line);
     padding: 0.55rem 0.75rem;
-    color: rgba(228, 238, 233, 0.72);
-    background: rgba(2, 4, 3, 0.72);
+    color: var(--text-soft);
+    background: color-mix(in srgb, var(--bg-elevated) 82%, transparent);
     font-size: 0.68rem;
     font-weight: 700;
     letter-spacing: 0.09em;
@@ -188,112 +175,21 @@ video:-webkit-full-screen {
 
   .ascii-landing-content {
     display: grid;
-    width: min(100%, 90rem);
+    width: 100%;
+    min-width: 0;
     min-height: 100svh;
     margin: 0 auto;
-    padding: 7rem clamp(1.25rem, 5vw, 5rem) 5.5rem;
-    grid-template-columns: minmax(0, 0.95fr) minmax(24rem, 1.05fr);
-    gap: clamp(2rem, 4vw, 5rem);
+    padding: 3.75rem 1rem 3.25rem;
+    place-items: center;
     align-items: center;
-  }
-
-  .ascii-landing-copy {
-    position: relative;
-    z-index: 4;
-    min-width: 0;
-  }
-
-  .ascii-landing-kicker {
-    margin-bottom: 1.2rem;
-    color: var(--ascii-green-soft);
-    font-size: 0.68rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-  }
-
-  .ascii-name-window {
-    position: relative;
-    width: max-content;
-    max-width: 100%;
-    overflow: hidden;
-    padding: 0.2rem 0 0.8rem;
-  }
-
-  .ascii-name-art {
-    overflow: hidden;
-    margin: 0;
-    color: var(--ascii-green);
-    font-family: inherit;
-    font-size: clamp(5.5px, 0.77vw, 11px);
-    font-weight: 700;
-    line-height: 1.04;
-    letter-spacing: -0.055em;
-    white-space: pre;
-    text-shadow: 0 0 16px rgba(0, 255, 136, 0.25);
-    animation: ascii-name-reveal 1.3s steps(12, end) 0.18s both;
-  }
-
-  .ascii-name-cursor {
-    position: absolute;
-    right: -0.72rem;
-    bottom: 0.72rem;
-    color: var(--ascii-green);
-    font-size: 0.78rem;
-    animation: terminal-caret 850ms steps(2, end) infinite;
-  }
-
-  .ascii-landing-copy h1 {
-    margin-top: 0.75rem;
-    color: #f4f8f6;
-    font-size: clamp(1.45rem, 2.15vw, 2.25rem);
-    font-weight: 700;
-    line-height: 1.08;
-    letter-spacing: -0.045em;
-  }
-
-  .ascii-landing-role {
-    display: inline-block;
-    margin-top: 1.2rem;
-    border-top: 1px solid var(--ascii-line);
-    border-bottom: 1px solid var(--ascii-line);
-    padding: 0.65rem 0.85rem;
-    color: rgba(228, 238, 233, 0.72);
-    font-size: clamp(0.72rem, 1vw, 0.9rem);
-    line-height: 1.55;
-  }
-
-  .ascii-landing-role span {
-    color: var(--ascii-green);
-  }
-
-  .ascii-landing-description {
-    max-width: 39rem;
-    margin-top: 1.35rem;
-    color: rgba(228, 238, 233, 0.54);
-    font-size: clamp(0.76rem, 1vw, 0.9rem);
-    line-height: 1.8;
-  }
-
-  .ascii-landing-readout {
-    display: grid;
-    margin-top: 1.5rem;
-    gap: 0.45rem;
-    color: rgba(228, 238, 233, 0.42);
-    font-size: 0.62rem;
-    letter-spacing: 0.055em;
-  }
-
-  .ascii-landing-readout b {
-    color: var(--ascii-green-soft);
-    font-weight: 700;
   }
 
   .ascii-landing-robot-stage {
     position: relative;
     z-index: 2;
-    width: 100%;
-    height: min(75svh, 46rem);
-    min-height: 30rem;
+    width: min(100%, 72rem);
+    height: min(92svh, 58rem);
+    min-height: 36rem;
     transform-style: preserve-3d;
   }
 
@@ -305,6 +201,8 @@ video:-webkit-full-screen {
 
   .ascii-landing-spline {
     z-index: 2;
+    min-width: 0;
+    overflow: hidden;
     opacity: 0;
     transition: opacity 650ms ease;
   }
@@ -313,7 +211,9 @@ video:-webkit-full-screen {
     opacity: 1;
   }
 
+  .ascii-landing-spline spline-viewer,
   .ascii-landing-spline canvas {
+    display: block;
     width: 100% !important;
     height: 100% !important;
   }
@@ -332,24 +232,10 @@ video:-webkit-full-screen {
     opacity: 0;
   }
 
-  .ascii-landing-robot-label {
-    position: absolute;
-    right: 0;
-    bottom: 4%;
-    z-index: 4;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 0.25rem;
-    color: rgba(0, 255, 136, 0.44);
-    font-size: 0.58rem;
-    letter-spacing: 0.08em;
-  }
-
   .ascii-corner {
     position: absolute;
     z-index: 6;
-    color: rgba(0, 255, 136, 0.2);
+    color: color-mix(in srgb, var(--accent) 32%, transparent);
     font-size: 0.76rem;
     pointer-events: none;
   }
@@ -382,7 +268,7 @@ video:-webkit-full-screen {
     display: inline-flex;
     align-items: center;
     gap: 0.65rem;
-    color: rgba(228, 238, 233, 0.48);
+    color: var(--text-faint);
     font-size: 0.6rem;
     font-weight: 700;
     letter-spacing: 0.1em;
@@ -1147,17 +1033,6 @@ video:-webkit-full-screen {
   }
 }
 
-@keyframes ascii-name-reveal {
-  from {
-    clip-path: inset(0 100% 0 0);
-    opacity: 0.35;
-  }
-  to {
-    clip-path: inset(0 0 0 0);
-    opacity: 1;
-  }
-}
-
 @keyframes ascii-status-pulse {
   0%, 100% {
     opacity: 0.45;
@@ -1273,32 +1148,15 @@ video:-webkit-full-screen {
 @media (max-width: 1023px) {
   .ascii-landing-content {
     min-height: 100svh;
-    padding: 5.5rem 1.25rem 4.75rem;
-    grid-template-columns: 1fr;
-    gap: 0.5rem;
-  }
-
-  .ascii-landing-copy {
-    grid-row: 2;
-    max-width: 46rem;
-    margin: 0 auto;
+    padding: 4.25rem 0.75rem 3.75rem;
   }
 
   .ascii-landing-robot-stage {
-    width: min(100%, 42rem);
-    height: 42svh;
-    min-height: 18rem;
-    max-height: 25rem;
+    width: min(100%, 52rem);
+    height: 84svh;
+    min-height: 31rem;
+    max-height: 48rem;
     margin: 0 auto;
-    grid-row: 1;
-  }
-
-  .ascii-name-art {
-    font-size: clamp(4.6px, 1.28vw, 8px);
-  }
-
-  .ascii-landing-robot-label {
-    right: 1rem;
   }
 }
 
@@ -1318,48 +1176,15 @@ video:-webkit-full-screen {
   }
 
   .ascii-landing-content {
-    padding: 4.75rem 1rem 4.25rem;
+    padding: 4rem 0.25rem 3.5rem;
   }
 
   .ascii-landing-robot-stage {
-    height: 34svh;
-    min-height: 15.5rem;
-    max-height: 19rem;
+    height: 82svh;
+    min-height: 29rem;
+    max-height: 42rem;
   }
 
-  .ascii-landing-kicker {
-    margin-bottom: 0.7rem;
-  }
-
-  .ascii-name-window {
-    padding-bottom: 0.35rem;
-  }
-
-  .ascii-name-art {
-    font-size: clamp(4px, 1.3vw, 5.5px);
-  }
-
-  .ascii-landing-copy h1 {
-    margin-top: 0.4rem;
-    font-size: 1.2rem;
-  }
-
-  .ascii-landing-role {
-    margin-top: 0.8rem;
-    padding: 0.5rem 0.6rem;
-  }
-
-  .ascii-landing-description {
-    margin-top: 0.8rem;
-    line-height: 1.55;
-  }
-
-  .ascii-landing-readout {
-    margin-top: 0.85rem;
-    font-size: 0.54rem;
-  }
-
-  .ascii-landing-robot-label,
   .ascii-corner-bl,
   .ascii-corner-br {
     display: none;
@@ -1377,7 +1202,6 @@ video:-webkit-full-screen {
     animation: none;
   }
 
-  .ascii-name-art,
   .ascii-landing-scroll svg,
   .ascii-landing-status span,
   .intro-smash-robot,

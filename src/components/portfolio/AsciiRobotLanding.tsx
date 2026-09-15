@@ -8,22 +8,12 @@ import {
   useReducedMotion,
   useSpring,
 } from 'framer-motion';
-import { createElement, useState, type PointerEvent } from 'react';
-import { profile } from '@/data/portfolio';
+import { createElement, useEffect, useRef, useState, type PointerEvent } from 'react';
 import { SleekRobot } from './SleekRobot';
 
 const ROBOT_SCENE = 'https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode';
 const SPLINE_VIEWER =
   'https://unpkg.com/@splinetool/viewer@1.12.59/build/spline-viewer.js';
-
-const asciiName = [
-  '███████╗██████╗ ██╗ ██████╗  █████╗ ███╗   ██╗',
-  '██╔════╝██╔══██╗██║██╔════╝ ██╔══██╗████╗  ██║',
-  '███████╗██████╔╝██║██║  ███╗███████║██╔██╗ ██║',
-  '╚════██║██╔══██╗██║██║   ██║██╔══██║██║╚██╗██║',
-  '███████║██║  ██║██║╚██████╔╝██║  ██║██║ ╚████║',
-  '╚══════╝╚═╝  ╚═╝╚═╝ ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═══╝',
-];
 
 const clamp = (value: number, min: number, max: number) =>
   Math.min(Math.max(value, min), max);
@@ -31,6 +21,7 @@ const clamp = (value: number, min: number, max: number) =>
 export function AsciiRobotLanding() {
   const shouldReduceMotion = useReducedMotion();
   const [robotLoaded, setRobotLoaded] = useState(false);
+  const splineHostRef = useRef<HTMLDivElement>(null);
   const robotX = useMotionValue(0);
   const robotY = useMotionValue(0);
   const robotRotateX = useMotionValue(0);
@@ -39,6 +30,24 @@ export function AsciiRobotLanding() {
   const smoothY = useSpring(robotY, { stiffness: 90, damping: 20 });
   const smoothRotateX = useSpring(robotRotateX, { stiffness: 80, damping: 22 });
   const smoothRotateY = useSpring(robotRotateY, { stiffness: 80, damping: 22 });
+
+  useEffect(() => {
+    const viewer = splineHostRef.current?.querySelector('spline-viewer');
+    if (!viewer) return;
+
+    const showScene = () => setRobotLoaded(true);
+    const showFallback = () => setRobotLoaded(false);
+
+    viewer.addEventListener('load-complete', showScene);
+    viewer.addEventListener('context-loss', showFallback);
+    viewer.addEventListener('unload', showFallback);
+
+    return () => {
+      viewer.removeEventListener('load-complete', showScene);
+      viewer.removeEventListener('context-loss', showFallback);
+      viewer.removeEventListener('unload', showFallback);
+    };
+  }, []);
 
   const trackPointer = (event: PointerEvent<HTMLElement>) => {
     if (shouldReduceMotion) return;
@@ -69,7 +78,6 @@ export function AsciiRobotLanding() {
       onPointerMove={trackPointer}
     >
       <div aria-hidden="true" className="ascii-landing-grid" />
-      <div aria-hidden="true" className="ascii-landing-scanlines" />
 
       <div className="ascii-landing-topbar">
         <a className="ascii-landing-control" data-cursor="hover" href="#portfolio">
@@ -83,42 +91,6 @@ export function AsciiRobotLanding() {
       </div>
 
       <div className="ascii-landing-content">
-        <motion.div
-          className="ascii-landing-copy"
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <p className="ascii-landing-kicker">SYS://PORTFOLIO_INIT</p>
-          <div className="ascii-name-window">
-            <pre aria-hidden="true" className="ascii-name-art">
-              {asciiName.join('\n')}
-            </pre>
-            <span aria-hidden="true" className="ascii-name-cursor">█</span>
-          </div>
-
-          <h1>{profile.name}</h1>
-          <p className="ascii-landing-role">
-            <span>&gt;</span> Electrical Engineering · Hardware / Controls / Robotics
-          </p>
-          <p className="ascii-landing-description">
-            Building semiconductor process equipment, motion-control systems, and embedded
-            software in Waterloo.
-          </p>
-
-          <div className="ascii-landing-readout" aria-label="Portfolio status">
-            <span>
-              <b>[LOCATION]</b> WATERLOO, ON
-            </span>
-            <span>
-              <b>[FOCUS]</b> HARDWARE SYSTEMS
-            </span>
-            <span>
-              <b>[STATUS]</b> AVAILABLE FOR COLLABORATION
-            </span>
-          </div>
-        </motion.div>
-
         <motion.div
           aria-label="Interactive 3D humanoid robot"
           className="ascii-landing-robot-stage"
@@ -140,21 +112,21 @@ export function AsciiRobotLanding() {
           >
             <SleekRobot variant="reward" />
           </div>
-          <div className={`ascii-landing-spline${robotLoaded ? ' is-loaded' : ''}`}>
+          <div
+            className={`ascii-landing-spline${robotLoaded ? ' is-loaded' : ''}`}
+            ref={splineHostRef}
+          >
             <Script
-              onLoad={() => window.setTimeout(() => setRobotLoaded(true), 1600)}
               src={SPLINE_VIEWER}
               strategy="afterInteractive"
               type="module"
             />
             {createElement('spline-viewer', {
               'aria-hidden': 'true',
+              'events-target': 'global',
+              loading: 'eager',
               url: ROBOT_SCENE,
             })}
-          </div>
-          <div aria-hidden="true" className="ascii-landing-robot-label">
-            <span>UNIT // R4X</span>
-            <span>POINTER TRACKING: ACTIVE</span>
           </div>
         </motion.div>
       </div>

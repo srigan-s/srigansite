@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import { CustomCursor } from '@/components/portfolio/CustomCursor';
-import { RobotIntro } from '@/components/portfolio/RobotIntro';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -38,7 +37,6 @@ export default function RootLayout({
 })();`,
           }}
         />
-        <RobotIntro />
         <CustomCursor />
         {children}
       </body>
