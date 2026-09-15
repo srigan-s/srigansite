@@ -1,20 +1,16 @@
 'use client';
 
-import Script from 'next/script';
-import { ArrowDown } from 'lucide-react';
+import { Application } from '@splinetool/runtime';
 import {
+  AnimatePresence,
   motion,
   useMotionValue,
   useReducedMotion,
   useSpring,
 } from 'framer-motion';
-import { createElement, useEffect, useRef, useState, type PointerEvent } from 'react';
-import { SleekRobot } from './SleekRobot';
+import { useEffect, useRef, useState, type PointerEvent } from 'react';
 
 const ROBOT_SCENE = 'https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode';
-const SPLINE_VIEWER =
-  'https://unpkg.com/@splinetool/viewer@1.12.59/build/spline-viewer.js';
-
 const landingFacts = [
   {
     label: 'CURRENTLY',
@@ -53,10 +49,24 @@ const landingFacts = [
 const clamp = (value: number, min: number, max: number) =>
   Math.min(Math.max(value, min), max);
 
-export function AsciiRobotLanding() {
+const tapMessages = [
+  'tap me to find out more',
+  'I help build semiconductor equipment',
+  'I study electrical engineering at Waterloo',
+  'I build controls, embedded systems, and robots',
+  'one more tap to enter Srigan\'s Space',
+  'opening Srigan\'s Space...',
+];
+
+type AsciiRobotLandingProps = {
+  onComplete: () => void;
+};
+
+export function AsciiRobotLanding({ onComplete }: AsciiRobotLandingProps) {
   const shouldReduceMotion = useReducedMotion();
   const [robotLoaded, setRobotLoaded] = useState(false);
-  const splineHostRef = useRef<HTMLDivElement>(null);
+  const [tapCount, setTapCount] = useState(0);
+  const splineCanvasRef = useRef<HTMLCanvasElement>(null);
   const robotX = useMotionValue(0);
   const robotY = useMotionValue(0);
   const robotRotateX = useMotionValue(0);
@@ -67,20 +77,28 @@ export function AsciiRobotLanding() {
   const smoothRotateY = useSpring(robotRotateY, { stiffness: 80, damping: 22 });
 
   useEffect(() => {
-    const viewer = splineHostRef.current?.querySelector('spline-viewer');
-    if (!viewer) return;
+    const canvas = splineCanvasRef.current;
+    if (!canvas) return;
 
-    const showScene = () => setRobotLoaded(true);
+    let active = true;
+    const spline = new Application(canvas);
     const showFallback = () => setRobotLoaded(false);
 
-    viewer.addEventListener('load-complete', showScene);
-    viewer.addEventListener('context-loss', showFallback);
-    viewer.addEventListener('unload', showFallback);
+    spline
+      .load(ROBOT_SCENE)
+      .then(() => {
+        if (active) setRobotLoaded(true);
+      })
+      .catch(() => {
+        if (active) setRobotLoaded(false);
+      });
+
+    canvas.addEventListener('webglcontextlost', showFallback);
 
     return () => {
-      viewer.removeEventListener('load-complete', showScene);
-      viewer.removeEventListener('context-loss', showFallback);
-      viewer.removeEventListener('unload', showFallback);
+      active = false;
+      canvas.removeEventListener('webglcontextlost', showFallback);
+      spline.dispose();
     };
   }, []);
 
@@ -104,95 +122,111 @@ export function AsciiRobotLanding() {
     robotRotateY.set(0);
   };
 
+  const revealNext = () => {
+    if (!robotLoaded || tapCount >= 5) return;
+
+    const nextTap = tapCount + 1;
+    setTapCount(nextTap);
+
+    if (nextTap === 5) {
+      window.setTimeout(onComplete, 1150);
+    }
+  };
+
   return (
-    <section
+    <motion.section
       aria-label="Interactive portfolio introduction"
       className="ascii-landing"
-      id="home"
+      exit={{ opacity: 0, filter: 'blur(14px)', scale: 1.025 }}
+      id="intro"
       onPointerLeave={resetRobot}
       onPointerMove={trackPointer}
+      transition={{ duration: 1.55, ease: [0.16, 1, 0.3, 1] }}
     >
       <div aria-hidden="true" className="ascii-landing-grid" />
 
       <div className="ascii-landing-content">
+        <motion.div
+          aria-hidden="true"
+          className="landing-name-backdrop"
+          initial={{ opacity: 0, letterSpacing: '0.03em', scale: 0.96 }}
+          animate={{ opacity: 1, letterSpacing: '-0.075em', scale: 1 }}
+          transition={{ duration: 1.5, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
+        >
+          Srigan Sivagnanenthirarajah
+        </motion.div>
+
         <motion.aside
-          aria-label="Robot greeting"
+          aria-live="polite"
           className="landing-greeting"
           initial={{ opacity: 0, scale: 0.82, y: 14 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 0.62, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
           <span className="landing-greeting-status">
-            <i /> R4X // HELLO
+            <i /> R4X // {tapCount === 5 ? 'ACCESS GRANTED' : 'DISCOVERY MODE'}
           </span>
-          <p>hello, welcome to Srigan&apos;s Space</p>
+          <AnimatePresence mode="wait">
+            <motion.p
+              initial={{ opacity: 0, y: 5 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -5 }}
+              key={tapCount}
+              transition={{ duration: 0.34 }}
+            >
+              {tapMessages[tapCount]}
+            </motion.p>
+          </AnimatePresence>
         </motion.aside>
 
         <div aria-label="A few things about Srigan" className="landing-facts">
-          {landingFacts.map((fact, index) => (
-            <motion.article
-              className={`landing-fact ${fact.position}`}
-              initial={{ opacity: 0, scale: 0.68, y: 22, filter: 'blur(10px)' }}
-              animate={{ opacity: 1, scale: 1, y: 0, filter: 'blur(0px)' }}
-              transition={{
-                duration: 1,
-                delay: 2.05 + index * 1.05,
-                ease: [0.16, 1, 0.3, 1],
-              }}
-              key={fact.label}
-            >
-              {fact.image ? (
-                <img alt={fact.imageAlt} className="landing-fact-logo" src={fact.image} />
-              ) : (
-                <span aria-hidden="true" className="landing-fact-node" />
-              )}
-              <div>
-                <span className="landing-fact-label">{fact.label}</span>
-                <p>{fact.value}</p>
-                <small>{fact.detail}</small>
-              </div>
-            </motion.article>
-          ))}
+          <AnimatePresence>
+            {landingFacts.slice(0, Math.min(tapCount, landingFacts.length)).map((fact) => (
+              <motion.article
+                className={`landing-fact ${fact.position}`}
+                initial={{ opacity: 0, scale: 0.62, y: 24, filter: 'blur(12px)' }}
+                animate={{ opacity: 1, scale: 1, y: 0, filter: 'blur(0px)' }}
+                transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
+                key={fact.label}
+              >
+                {fact.image ? (
+                  <img alt={fact.imageAlt} className="landing-fact-logo" src={fact.image} />
+                ) : (
+                  <span aria-hidden="true" className="landing-fact-node" />
+                )}
+                <div>
+                  <span className="landing-fact-label">{fact.label}</span>
+                  <p>{fact.value}</p>
+                  <small>{fact.detail}</small>
+                </div>
+              </motion.article>
+            ))}
+          </AnimatePresence>
         </div>
 
-        <motion.div
-          aria-label="Interactive 3D humanoid robot"
-          className="ascii-landing-robot-stage"
-          initial={{ opacity: 0, scale: 0.96 }}
-          animate={{ opacity: 1, scale: 1 }}
-          role="img"
-          style={{
-            x: smoothX,
-            y: smoothY,
-            rotateX: smoothRotateX,
-            rotateY: smoothRotateY,
-            transformPerspective: 1000,
-          }}
-          transition={{ duration: 0.9, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <div
-            aria-hidden="true"
-            className={`ascii-landing-robot-fallback${robotLoaded ? ' is-hidden' : ''}`}
+        <div className={`landing-robot-dock${tapCount === 5 ? ' is-docking' : ''}`}>
+          <motion.button
+            aria-label={`Tap the robot to discover more. ${tapCount} of 5 taps complete.`}
+            className="ascii-landing-robot-stage"
+            disabled={!robotLoaded || tapCount >= 5}
+            initial={{ opacity: 0, scale: 0.96 }}
+            animate={{ opacity: 1, scale: 1 }}
+            onClick={revealNext}
+            style={{
+              x: smoothX,
+              y: smoothY,
+              rotateX: smoothRotateX,
+              rotateY: smoothRotateY,
+              transformPerspective: 1000,
+            }}
+            transition={{ duration: 0.9, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
+            type="button"
           >
-            <SleekRobot variant="reward" />
-          </div>
-          <div
-            className={`ascii-landing-spline${robotLoaded ? ' is-loaded' : ''}`}
-            ref={splineHostRef}
-          >
-            <Script
-              src={SPLINE_VIEWER}
-              strategy="afterInteractive"
-              type="module"
-            />
-            {createElement('spline-viewer', {
-              'aria-hidden': 'true',
-              'events-target': 'global',
-              loading: 'eager',
-              url: ROBOT_SCENE,
-            })}
-          </div>
-        </motion.div>
+            <div className={`ascii-landing-spline${robotLoaded ? ' is-loaded' : ''}`}>
+              <canvas aria-hidden="true" ref={splineCanvasRef} />
+            </div>
+          </motion.button>
+        </div>
       </div>
 
       <span aria-hidden="true" className="ascii-corner ascii-corner-tl">╔═══</span>
@@ -200,14 +234,14 @@ export function AsciiRobotLanding() {
       <span aria-hidden="true" className="ascii-corner ascii-corner-bl">╚═══</span>
       <span aria-hidden="true" className="ascii-corner ascii-corner-br">═══╝</span>
 
-      <a className="ascii-landing-scroll" data-cursor="hover" href="#portfolio">
-        <span>SCROLL TO EXPLORE</span>
-        <span aria-hidden="true" className="landing-scroll-arrows">
-          <ArrowDown />
-          <ArrowDown />
-          <ArrowDown />
-        </span>
-      </a>
-    </section>
+      <div aria-label={`${tapCount} of 5 taps completed`} className="landing-tap-progress">
+        <span>{tapCount}/5</span>
+        <div aria-hidden="true">
+          {Array.from({ length: 5 }, (_, index) => (
+            <i className={index < tapCount ? 'is-active' : ''} key={index} />
+          ))}
+        </div>
+      </div>
+    </motion.section>
   );
 }

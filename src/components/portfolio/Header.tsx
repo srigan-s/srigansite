@@ -3,6 +3,7 @@
 import { Menu, X } from 'lucide-react';
 import { useState } from 'react';
 import { profile } from '@/data/portfolio';
+import { NavRobot } from './NavRobot';
 import { ThemeToggle } from './ThemeToggle';
 
 const navItems = [
@@ -22,12 +23,13 @@ export function Header() {
         className="content-shell flex items-center justify-between gap-2 md:gap-4"
       >
         <a
-          className="quiet-panel inline-flex px-3 py-2 text-sm font-semibold transition duration-300 hover:border-[color:var(--line-strong)]"
+          className="quiet-panel inline-flex items-center gap-2 px-2.5 py-1.5 text-sm font-semibold transition duration-300 hover:border-[color:var(--line-strong)]"
           data-cursor="hover"
           href="#home"
           onClick={() => setOpen(false)}
         >
-          SS
+          <NavRobot />
+          <span>SS</span>
         </a>
 
         <div className="quiet-panel mx-auto hidden items-center gap-1 p-1 backdrop-blur-xl md:flex md:mx-0">

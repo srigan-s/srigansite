@@ -19,7 +19,7 @@ const nameContainerVariants: Variants = {
   hidden: {},
   visible: {
     transition: {
-      delayChildren: 3.8,
+      delayChildren: 0.55,
       staggerChildren: 0.08,
     },
   },
