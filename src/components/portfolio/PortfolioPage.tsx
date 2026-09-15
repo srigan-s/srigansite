@@ -15,8 +15,8 @@ export function PortfolioPage() {
     <MotionConfig reducedMotion="user">
       <div className="page-shell">
         <GridHoverBackground />
-        <AsciiRobotLanding />
         <Header />
+        <AsciiRobotLanding />
         <main>
           <Hero />
           <ExperienceSection />

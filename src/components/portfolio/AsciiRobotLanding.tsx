@@ -15,6 +15,33 @@ const ROBOT_SCENE = 'https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecod
 const SPLINE_VIEWER =
   'https://unpkg.com/@splinetool/viewer@1.12.59/build/spline-viewer.js';
 
+const landingFacts = [
+  {
+    label: 'CURRENTLY',
+    value: 'Founding Hardware Intern',
+    detail: 'MicroAlchemy · Semiconductor equipment',
+    position: 'fact-one',
+  },
+  {
+    label: 'STUDYING',
+    value: 'Electrical Engineering',
+    detail: 'University of Waterloo',
+    position: 'fact-two',
+  },
+  {
+    label: 'BUILDING',
+    value: 'Controls · Embedded · Robotics',
+    detail: 'Hardware and software as one system',
+    position: 'fact-three',
+  },
+  {
+    label: 'TOOLKIT',
+    value: 'Python · C++ · PCB · CAD',
+    detail: 'From prototypes to tested hardware',
+    position: 'fact-four',
+  },
+];
+
 const clamp = (value: number, min: number, max: number) =>
   Math.min(Math.max(value, min), max);
 
@@ -79,18 +106,43 @@ export function AsciiRobotLanding() {
     >
       <div aria-hidden="true" className="ascii-landing-grid" />
 
-      <div className="ascii-landing-topbar">
-        <a className="ascii-landing-control" data-cursor="hover" href="#portfolio">
-          <span>[≡]</span>
-          <span>enter portfolio</span>
-        </a>
-        <div aria-label="System online" className="ascii-landing-status">
-          <span />
-          SYS.ONLINE // 2026
-        </div>
-      </div>
-
       <div className="ascii-landing-content">
+        <motion.aside
+          aria-label="Robot greeting"
+          className="landing-greeting"
+          initial={{ opacity: 0, scale: 0.82, y: 14 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ duration: 0.62, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <span className="landing-greeting-status">
+            <i /> R4X // HELLO
+          </span>
+          <p>hello, welcome to Srigan&apos;s Space</p>
+        </motion.aside>
+
+        <div aria-label="A few things about Srigan" className="landing-facts">
+          {landingFacts.map((fact, index) => (
+            <motion.article
+              className={`landing-fact ${fact.position}`}
+              initial={{ opacity: 0, scale: 0.82, y: 18, filter: 'blur(8px)' }}
+              animate={{ opacity: 1, scale: 1, y: 0, filter: 'blur(0px)' }}
+              transition={{
+                duration: 0.68,
+                delay: 1.7 + index * 0.68,
+                ease: [0.16, 1, 0.3, 1],
+              }}
+              key={fact.label}
+            >
+              <span aria-hidden="true" className="landing-fact-node" />
+              <div>
+                <span className="landing-fact-label">{fact.label}</span>
+                <p>{fact.value}</p>
+                <small>{fact.detail}</small>
+              </div>
+            </motion.article>
+          ))}
+        </div>
+
         <motion.div
           aria-label="Interactive 3D humanoid robot"
           className="ascii-landing-robot-stage"
@@ -137,8 +189,12 @@ export function AsciiRobotLanding() {
       <span aria-hidden="true" className="ascii-corner ascii-corner-br">═══╝</span>
 
       <a className="ascii-landing-scroll" data-cursor="hover" href="#portfolio">
-        <span>SCROLL TO PORTFOLIO</span>
-        <ArrowDown aria-hidden="true" className="h-4 w-4" />
+        <span>SCROLL TO EXPLORE</span>
+        <span aria-hidden="true" className="landing-scroll-arrows">
+          <ArrowDown />
+          <ArrowDown />
+          <ArrowDown />
+        </span>
       </a>
     </section>
   );
