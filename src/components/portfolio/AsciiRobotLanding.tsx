@@ -167,15 +167,37 @@ export function AsciiRobotLanding({ onComplete }: AsciiRobotLandingProps) {
             <i /> R4X // {tapCount === 5 ? 'ACCESS GRANTED' : 'DISCOVERY MODE'}
           </span>
           <AnimatePresence mode="wait">
-            <motion.p
-              initial={{ opacity: 0, y: 5 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -5 }}
-              key={tapCount}
-              transition={{ duration: 0.34 }}
-            >
-              {tapMessages[tapCount]}
-            </motion.p>
+            {tapCount === 0 ? (
+              <motion.div
+                className="landing-tap-invite"
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                key="tap-invite"
+                transition={{ duration: 0.5 }}
+              >
+                <span aria-hidden="true" className="landing-tap-radar">
+                  <i />
+                  <i />
+                  <b>+</b>
+                </span>
+                <span className="landing-tap-copy">
+                  <small>[ INTERACTIVE UNIT ]</small>
+                  <strong>TAP TO FIND OUT MORE</strong>
+                </span>
+              </motion.div>
+            ) : (
+              <motion.p
+                className="landing-discovery-message"
+                initial={{ opacity: 0, y: 5 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -5 }}
+                key={tapCount}
+                transition={{ duration: 0.34 }}
+              >
+                {tapMessages[tapCount]}
+              </motion.p>
+            )}
           </AnimatePresence>
         </motion.aside>
 
@@ -186,18 +208,20 @@ export function AsciiRobotLanding({ onComplete }: AsciiRobotLandingProps) {
                 className={`landing-fact ${fact.position}`}
                 initial={{ opacity: 0, scale: 0.62, y: 24, filter: 'blur(12px)' }}
                 animate={{ opacity: 1, scale: 1, y: 0, filter: 'blur(0px)' }}
-                transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
-                key={fact.label}
-              >
-                {fact.image ? (
-                  <img alt={fact.imageAlt} className="landing-fact-logo" src={fact.image} />
-                ) : (
-                  <span aria-hidden="true" className="landing-fact-node" />
-                )}
-                <div>
-                  <span className="landing-fact-label">{fact.label}</span>
-                  <p>{fact.value}</p>
-                  <small>{fact.detail}</small>
+              transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
+              key={fact.label}
+            >
+                <div className="landing-fact-surface">
+                  {fact.image ? (
+                    <img alt={fact.imageAlt} className="landing-fact-logo" src={fact.image} />
+                  ) : (
+                    <span aria-hidden="true" className="landing-fact-node" />
+                  )}
+                  <div className="landing-fact-copy">
+                    <span className="landing-fact-label">{fact.label}</span>
+                    <p>{fact.value}</p>
+                    <small>{fact.detail}</small>
+                  </div>
                 </div>
               </motion.article>
             ))}

@@ -163,29 +163,11 @@ video:-webkit-full-screen {
 
   .landing-greeting {
     position: absolute;
-    top: 12%;
-    left: calc(50% + 10rem);
+    top: 11%;
+    left: calc(50% + 9rem);
     z-index: 7;
-    width: min(20rem, calc(50vw - 2rem));
-    border: 1px solid var(--line-strong);
-    border-radius: 0.75rem;
-    padding: 0.9rem 1rem;
-    background: color-mix(in srgb, var(--bg-elevated) 92%, transparent);
-    box-shadow: var(--shadow);
+    width: min(23rem, calc(50vw - 1rem));
     pointer-events: none;
-  }
-
-  .landing-greeting::before {
-    position: absolute;
-    left: -0.55rem;
-    bottom: 1.05rem;
-    width: 1rem;
-    height: 1rem;
-    border-bottom: 1px solid var(--line-strong);
-    border-left: 1px solid var(--line-strong);
-    background: var(--bg-elevated);
-    content: '';
-    transform: rotate(45deg);
   }
 
   .landing-greeting-status {
@@ -207,12 +189,70 @@ video:-webkit-full-screen {
     animation: landing-signal 2s ease-out infinite;
   }
 
-  .landing-greeting p {
-    margin-top: 0.48rem;
+  .landing-tap-invite {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    margin-top: 0.6rem;
+  }
+
+  .landing-tap-radar {
+    position: relative;
+    display: grid;
+    flex: 0 0 auto;
+    width: 3.25rem;
+    height: 3.25rem;
+    place-items: center;
+  }
+
+  .landing-tap-radar i {
+    position: absolute;
+    inset: 0.45rem;
+    border: 1px solid color-mix(in srgb, var(--accent) 65%, transparent);
+    border-radius: 50%;
+    animation: landing-radar 2.25s ease-out infinite;
+  }
+
+  .landing-tap-radar i:nth-child(2) {
+    animation-delay: 1.1s;
+  }
+
+  .landing-tap-radar b {
+    color: var(--accent);
+    font-size: 1rem;
+    font-weight: 500;
+    text-shadow: 0 0 12px color-mix(in srgb, var(--accent) 60%, transparent);
+  }
+
+  .landing-tap-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 0.28rem;
+  }
+
+  .landing-tap-copy small {
+    color: var(--text-faint);
+    font-size: 0.55rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+  }
+
+  .landing-tap-copy strong {
+    color: var(--text);
+    font-size: clamp(0.92rem, 1.25vw, 1.18rem);
+    letter-spacing: 0.035em;
+    text-shadow: 0 0 22px color-mix(in srgb, var(--accent) 16%, transparent);
+  }
+
+  .landing-discovery-message {
+    margin-top: 0.62rem;
+    border-left: 2px solid var(--accent);
+    padding: 0.28rem 0 0.28rem 0.8rem;
     color: var(--text);
     font-size: clamp(0.82rem, 1.1vw, 1rem);
     font-weight: 600;
     line-height: 1.45;
+    text-shadow: 0 0 22px color-mix(in srgb, var(--accent) 14%, transparent);
   }
 
   .landing-facts {
@@ -224,80 +264,133 @@ video:-webkit-full-screen {
 
   .landing-fact {
     position: absolute;
-    display: flex;
-    width: min(16.5rem, 22vw);
-    align-items: flex-start;
-    gap: 0.7rem;
-    border: 1px solid var(--line);
-    border-radius: 1.4rem;
-    padding: 0.78rem 0.9rem;
-    background: color-mix(in srgb, var(--bg-elevated) 86%, transparent);
-    box-shadow: 0 12px 35px color-mix(in srgb, var(--bg) 75%, transparent);
-    backdrop-filter: blur(12px);
-    animation: landing-bubble-breathe 4.8s ease-in-out infinite;
+    width: min(19rem, 25vw);
+    perspective: 900px;
   }
 
-  .landing-fact::after {
+  .landing-fact-surface {
+    position: relative;
+    display: flex;
+    width: 100%;
+    min-height: 6.8rem;
+    align-items: center;
+    gap: 0.95rem;
+    border: 1px solid var(--line);
+    border-radius: 2.7rem;
+    padding: 1rem 1.2rem;
+    background:
+      radial-gradient(circle at 16% 13%, rgba(255, 255, 255, 0.48), transparent 19%),
+      radial-gradient(circle at 84% 82%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 48%),
+      linear-gradient(145deg, color-mix(in srgb, var(--bg-elevated) 96%, transparent), color-mix(in srgb, var(--bg-muted) 80%, transparent));
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.4),
+      inset -12px -14px 30px color-mix(in srgb, var(--bg) 14%, transparent),
+      0 18px 48px color-mix(in srgb, var(--bg) 74%, transparent),
+      0 0 28px color-mix(in srgb, var(--accent) 8%, transparent);
+    backdrop-filter: blur(18px) saturate(1.15);
+    transform-style: preserve-3d;
+    animation: landing-bubble-float 5.2s ease-in-out infinite;
+  }
+
+  .landing-fact-surface::before {
     position: absolute;
-    bottom: 0.7rem;
-    width: 0.52rem;
-    height: 0.52rem;
+    left: 11%;
+    top: 12%;
+    width: 30%;
+    height: 16%;
+    border-radius: 50%;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.35), transparent);
+    content: '';
+    filter: blur(2px);
+    pointer-events: none;
+  }
+
+  .landing-fact-surface::after {
+    position: absolute;
+    bottom: 0.82rem;
+    width: 0.72rem;
+    height: 0.72rem;
     border: 1px solid var(--line);
     border-radius: 50%;
-    background: var(--bg-elevated);
+    background:
+      radial-gradient(circle at 30% 24%, rgba(255, 255, 255, 0.72), transparent 28%),
+      color-mix(in srgb, var(--bg-elevated) 90%, var(--accent));
     content: '';
-    box-shadow: 0 0 0 0.2rem color-mix(in srgb, var(--bg) 35%, transparent);
+    box-shadow:
+      0 0 0 0.28rem color-mix(in srgb, var(--bg) 32%, transparent),
+      0.72rem 0.62rem 0 -0.18rem color-mix(in srgb, var(--accent) 35%, var(--bg-elevated));
   }
 
-  .fact-one::after,
-  .fact-three::after {
-    right: -0.68rem;
+  .fact-one .landing-fact-surface::after,
+  .fact-three .landing-fact-surface::after {
+    right: -0.88rem;
   }
 
-  .fact-two::after,
-  .fact-four::after {
-    left: -0.68rem;
+  .fact-two .landing-fact-surface::after,
+  .fact-four .landing-fact-surface::after {
+    left: -0.88rem;
+  }
+
+  .fact-two .landing-fact-surface {
+    animation-delay: -1.3s;
+  }
+
+  .fact-three .landing-fact-surface {
+    animation-delay: -2.7s;
+  }
+
+  .fact-four .landing-fact-surface {
+    animation-delay: -3.8s;
   }
 
   .landing-fact-logo {
     flex: 0 0 auto;
-    width: 2.35rem;
-    height: 2.35rem;
-    border: 1px solid var(--line);
-    border-radius: 0.8rem;
-    padding: 0.22rem;
+    width: 3.5rem;
+    height: 3.5rem;
+    border: 1px solid color-mix(in srgb, var(--line-strong) 70%, transparent);
+    border-radius: 50%;
+    padding: 0.38rem;
     background: #fff;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.72),
+      0 8px 20px rgba(0, 0, 0, 0.12),
+      0 0 18px color-mix(in srgb, var(--accent) 11%, transparent);
     object-fit: contain;
+    transform: translateZ(18px);
   }
 
   .landing-fact-node {
     flex: 0 0 auto;
-    width: 0.48rem;
-    height: 0.48rem;
-    margin-top: 0.2rem;
+    width: 1rem;
+    height: 1rem;
     border: 1px solid var(--accent);
     border-radius: 50%;
-    background: var(--accent-soft);
-    box-shadow: 0 0 12px color-mix(in srgb, var(--accent) 52%, transparent);
+    background:
+      radial-gradient(circle at 30% 24%, rgba(255, 255, 255, 0.8), transparent 28%),
+      var(--accent-soft);
+    box-shadow:
+      inset -3px -3px 6px color-mix(in srgb, var(--accent) 18%, transparent),
+      0 0 16px color-mix(in srgb, var(--accent) 52%, transparent);
     animation: landing-node 2.6s ease-in-out infinite;
   }
 
   .landing-fact-label {
     display: block;
     color: var(--accent);
-    font-size: 0.52rem;
+    font-size: 0.58rem;
     font-weight: 700;
     letter-spacing: 0.1em;
   }
 
-  .landing-fact > div {
+  .landing-fact-copy {
     min-width: 0;
+    transform: translateZ(12px);
   }
 
   .landing-fact p {
     margin-top: 0.28rem;
     color: var(--text);
-    font-size: clamp(0.68rem, 0.85vw, 0.78rem);
+    font-size: clamp(0.76rem, 0.95vw, 0.9rem);
     font-weight: 600;
     line-height: 1.35;
   }
@@ -306,7 +399,7 @@ video:-webkit-full-screen {
     display: block;
     margin-top: 0.18rem;
     color: var(--text-faint);
-    font-size: 0.58rem;
+    font-size: 0.64rem;
     line-height: 1.45;
   }
 
@@ -1244,14 +1337,26 @@ video:-webkit-full-screen {
   }
 }
 
-@keyframes landing-bubble-breathe {
+@keyframes landing-radar {
+  0% {
+    opacity: 0;
+    transform: scale(0.42);
+  }
+  38% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.65);
+  }
+}
+
+@keyframes landing-bubble-float {
   0%, 100% {
-    box-shadow: 0 12px 35px color-mix(in srgb, var(--bg) 75%, transparent);
+    transform: translateY(0) rotateX(0deg) rotateY(-0.7deg);
   }
   50% {
-    box-shadow:
-      0 16px 42px color-mix(in srgb, var(--bg) 68%, transparent),
-      0 0 22px color-mix(in srgb, var(--accent) 10%, transparent);
+    transform: translateY(-8px) rotateX(1.8deg) rotateY(0.7deg);
   }
 }
 
@@ -1359,7 +1464,7 @@ video:-webkit-full-screen {
   }
 
   .landing-fact {
-    width: min(14rem, 27vw);
+    width: min(16rem, 32vw);
   }
 
   .landing-robot-dock {
@@ -1387,7 +1492,6 @@ video:-webkit-full-screen {
     left: 50%;
     width: calc(100% - 2rem);
     max-width: 18rem;
-    padding: 0.62rem 0.72rem;
     translate: -50% 0;
   }
 
@@ -1398,25 +1502,44 @@ video:-webkit-full-screen {
     white-space: normal;
   }
 
-  .landing-greeting::before {
-    display: none;
-  }
-
-  .landing-greeting p {
+  .landing-discovery-message {
     margin-top: 0.3rem;
     font-size: 0.72rem;
   }
 
+  .landing-tap-invite {
+    gap: 0.55rem;
+    margin-top: 0.35rem;
+  }
+
+  .landing-tap-radar {
+    width: 2.6rem;
+    height: 2.6rem;
+  }
+
+  .landing-tap-copy strong {
+    font-size: 0.75rem;
+  }
+
+  .landing-tap-copy small {
+    font-size: 0.44rem;
+  }
+
   .landing-fact {
-    width: min(11rem, 44vw);
-    gap: 0.45rem;
-    padding: 0.48rem 0.52rem;
+    width: min(12rem, 46vw);
+  }
+
+  .landing-fact-surface {
+    min-height: 4.7rem;
+    gap: 0.52rem;
+    border-radius: 1.8rem;
+    padding: 0.62rem 0.68rem;
   }
 
   .landing-fact-logo {
-    width: 1.9rem;
-    height: 1.9rem;
-    border-radius: 0.65rem;
+    width: 2.25rem;
+    height: 2.25rem;
+    padding: 0.25rem;
   }
 
   .landing-fact-label {
@@ -1489,7 +1612,8 @@ video:-webkit-full-screen {
   }
 
   .landing-greeting-status i,
-  .landing-fact,
+  .landing-tap-radar i,
+  .landing-fact-surface,
   .landing-fact-node,
   .intro-smash-robot,
   .intro-smash-robot *,
