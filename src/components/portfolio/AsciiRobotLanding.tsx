@@ -21,24 +21,32 @@ const landingFacts = [
     value: 'Founding Hardware Intern',
     detail: 'MicroAlchemy · Semiconductor equipment',
     position: 'fact-one',
+    image: '/microalchemy.png',
+    imageAlt: 'MicroAlchemy logo',
   },
   {
     label: 'STUDYING',
     value: 'Electrical Engineering',
     detail: 'University of Waterloo',
     position: 'fact-two',
+    image: '/waterloo.png',
+    imageAlt: 'University of Waterloo logo',
   },
   {
     label: 'BUILDING',
     value: 'Controls · Embedded · Robotics',
     detail: 'Hardware and software as one system',
     position: 'fact-three',
+    image: null,
+    imageAlt: '',
   },
   {
     label: 'TOOLKIT',
     value: 'Python · C++ · PCB · CAD',
     detail: 'From prototypes to tested hardware',
     position: 'fact-four',
+    image: null,
+    imageAlt: '',
   },
 ];
 
@@ -124,16 +132,20 @@ export function AsciiRobotLanding() {
           {landingFacts.map((fact, index) => (
             <motion.article
               className={`landing-fact ${fact.position}`}
-              initial={{ opacity: 0, scale: 0.82, y: 18, filter: 'blur(8px)' }}
+              initial={{ opacity: 0, scale: 0.68, y: 22, filter: 'blur(10px)' }}
               animate={{ opacity: 1, scale: 1, y: 0, filter: 'blur(0px)' }}
               transition={{
-                duration: 0.68,
-                delay: 1.7 + index * 0.68,
+                duration: 1,
+                delay: 2.05 + index * 1.05,
                 ease: [0.16, 1, 0.3, 1],
               }}
               key={fact.label}
             >
-              <span aria-hidden="true" className="landing-fact-node" />
+              {fact.image ? (
+                <img alt={fact.imageAlt} className="landing-fact-logo" src={fact.image} />
+              ) : (
+                <span aria-hidden="true" className="landing-fact-node" />
+              )}
               <div>
                 <span className="landing-fact-label">{fact.label}</span>
                 <p>{fact.value}</p>

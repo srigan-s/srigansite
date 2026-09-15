@@ -206,11 +206,45 @@ video:-webkit-full-screen {
     align-items: flex-start;
     gap: 0.7rem;
     border: 1px solid var(--line);
-    border-radius: 0.7rem;
-    padding: 0.72rem 0.8rem;
+    border-radius: 1.4rem;
+    padding: 0.78rem 0.9rem;
     background: color-mix(in srgb, var(--bg-elevated) 86%, transparent);
     box-shadow: 0 12px 35px color-mix(in srgb, var(--bg) 75%, transparent);
     backdrop-filter: blur(12px);
+    animation: landing-bubble-breathe 4.8s ease-in-out infinite;
+  }
+
+  .landing-fact::after {
+    position: absolute;
+    bottom: 0.7rem;
+    width: 0.52rem;
+    height: 0.52rem;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    background: var(--bg-elevated);
+    content: '';
+    box-shadow: 0 0 0 0.2rem color-mix(in srgb, var(--bg) 35%, transparent);
+  }
+
+  .fact-one::after,
+  .fact-three::after {
+    right: -0.68rem;
+  }
+
+  .fact-two::after,
+  .fact-four::after {
+    left: -0.68rem;
+  }
+
+  .landing-fact-logo {
+    flex: 0 0 auto;
+    width: 2.35rem;
+    height: 2.35rem;
+    border: 1px solid var(--line);
+    border-radius: 0.8rem;
+    padding: 0.22rem;
+    background: #fff;
+    object-fit: contain;
   }
 
   .landing-fact-node {
@@ -231,6 +265,10 @@ video:-webkit-full-screen {
     font-size: 0.52rem;
     font-weight: 700;
     letter-spacing: 0.1em;
+  }
+
+  .landing-fact > div {
+    min-width: 0;
   }
 
   .landing-fact p {
@@ -1158,6 +1196,17 @@ video:-webkit-full-screen {
   }
 }
 
+@keyframes landing-bubble-breathe {
+  0%, 100% {
+    box-shadow: 0 12px 35px color-mix(in srgb, var(--bg) 75%, transparent);
+  }
+  50% {
+    box-shadow:
+      0 16px 42px color-mix(in srgb, var(--bg) 68%, transparent),
+      0 0 22px color-mix(in srgb, var(--accent) 10%, transparent);
+  }
+}
+
 @keyframes landing-chevron {
   0% {
     opacity: 0;
@@ -1317,6 +1366,12 @@ video:-webkit-full-screen {
     padding: 0.48rem 0.52rem;
   }
 
+  .landing-fact-logo {
+    width: 1.9rem;
+    height: 1.9rem;
+    border-radius: 0.65rem;
+  }
+
   .landing-fact-label {
     font-size: 0.45rem;
   }
@@ -1382,6 +1437,7 @@ video:-webkit-full-screen {
 
   .landing-scroll-arrows svg,
   .landing-greeting-status i,
+  .landing-fact,
   .landing-fact-node,
   .intro-smash-robot,
   .intro-smash-robot *,
