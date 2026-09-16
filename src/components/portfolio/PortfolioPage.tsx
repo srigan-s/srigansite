@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { AsciiRobotLanding } from './AsciiRobotLanding';
 import { ExperienceSection } from './ExperienceSection';
 import { Footer } from './Footer';
-import { GridHoverBackground } from './GridHoverBackground';
+import { CircuitBackground } from './GridHoverBackground';
 import { Header } from './Header';
 import { Hero } from './Hero';
 import { ProjectsSection } from './ProjectsSection';
@@ -26,7 +26,7 @@ export function PortfolioPage() {
   return (
     <MotionConfig reducedMotion="user">
       <div className="page-shell" id="home">
-        <GridHoverBackground />
+        <CircuitBackground />
         <AnimatePresence>
           {!revealed ? <AsciiRobotLanding onComplete={() => setRevealed(true)} /> : null}
         </AnimatePresence>

@@ -4,8 +4,8 @@
 
 :root {
   color-scheme: light;
-  --grid-x: 50vw;
-  --grid-y: 50vh;
+  --circuit-x: 50vw;
+  --circuit-y: 50vh;
   --bg: #f7f8f6;
   --bg-elevated: #ffffff;
   --bg-muted: #ecefec;
@@ -124,12 +124,44 @@ video:-webkit-full-screen {
     position: absolute;
     inset: 0;
     z-index: -1;
+    overflow: hidden;
     pointer-events: none;
-    background:
-      linear-gradient(90deg, color-mix(in srgb, var(--line) 55%, transparent) 1px, transparent 1px),
-      linear-gradient(0deg, color-mix(in srgb, var(--line) 55%, transparent) 1px, transparent 1px);
-    background-size: 42px 42px;
-    mask-image: radial-gradient(ellipse 78% 74% at 50% 46%, #000 34%, transparent 100%);
+    background: radial-gradient(
+      ellipse 74% 72% at 50% 44%,
+      transparent 28%,
+      color-mix(in srgb, var(--bg) 58%, transparent) 100%
+    );
+  }
+
+  .ascii-landing-grid::before,
+  .ascii-landing-grid::after {
+    position: absolute;
+    inset: 0;
+    content: '';
+    -webkit-mask-image: url('/silicon-circuit.webp');
+    -webkit-mask-mode: luminance;
+    -webkit-mask-repeat: repeat;
+    -webkit-mask-size: 420px 420px;
+    mask-image: url('/silicon-circuit.webp');
+    mask-mode: luminance;
+    mask-repeat: repeat;
+    mask-size: 420px 420px;
+  }
+
+  .ascii-landing-grid::before {
+    background: color-mix(in srgb, var(--line-strong) 88%, var(--accent));
+    animation: circuit-pulse 6s ease-in-out infinite;
+  }
+
+  .ascii-landing-grid::after {
+    background: radial-gradient(
+      circle 190px at var(--circuit-x) var(--circuit-y),
+      color-mix(in srgb, var(--accent) 62%, transparent) 0%,
+      color-mix(in srgb, var(--accent) 27%, transparent) 38%,
+      transparent 74%
+    );
+    filter: drop-shadow(0 0 8px color-mix(in srgb, var(--accent) 24%, transparent));
+    opacity: 0.8;
   }
 
   .ascii-landing-content {
@@ -568,22 +600,49 @@ video:-webkit-full-screen {
     transform: scaleY(1.45);
   }
 
-  .grid-hover-background {
+  .circuit-background {
     position: fixed;
     inset: 0;
     z-index: 0;
+    overflow: hidden;
     pointer-events: none;
-    background:
-      radial-gradient(
-        circle 170px at var(--grid-x) var(--grid-y),
-        color-mix(in srgb, var(--accent) 28%, transparent),
-        transparent 68%
-      ),
-      linear-gradient(90deg, color-mix(in srgb, var(--line) 34%, transparent) 1px, transparent 1px),
-      linear-gradient(0deg, color-mix(in srgb, var(--line) 34%, transparent) 1px, transparent 1px);
-    background-size: auto, 42px 42px, 42px 42px;
-    opacity: 0.72;
-    transition: opacity 180ms ease;
+    background: radial-gradient(
+      ellipse at 50% 0%,
+      transparent 0%,
+      color-mix(in srgb, var(--bg) 34%, transparent) 66%,
+      color-mix(in srgb, var(--bg) 64%, transparent) 100%
+    );
+  }
+
+  .circuit-background::before,
+  .circuit-background::after {
+    position: absolute;
+    inset: 0;
+    content: '';
+    -webkit-mask-image: url('/silicon-circuit.webp');
+    -webkit-mask-mode: luminance;
+    -webkit-mask-repeat: repeat;
+    -webkit-mask-size: 420px 420px;
+    mask-image: url('/silicon-circuit.webp');
+    mask-mode: luminance;
+    mask-repeat: repeat;
+    mask-size: 420px 420px;
+  }
+
+  .circuit-background::before {
+    background: color-mix(in srgb, var(--line-strong) 88%, var(--accent));
+    animation: circuit-pulse 6s ease-in-out infinite;
+  }
+
+  .circuit-background::after {
+    background: radial-gradient(
+      circle 175px at var(--circuit-x) var(--circuit-y),
+      color-mix(in srgb, var(--accent) 64%, transparent) 0%,
+      color-mix(in srgb, var(--accent) 29%, transparent) 36%,
+      transparent 72%
+    );
+    filter: drop-shadow(0 0 8px color-mix(in srgb, var(--accent) 24%, transparent));
+    opacity: 0.76;
   }
 
   .page-shell main,
@@ -1317,6 +1376,15 @@ video:-webkit-full-screen {
   }
 }
 
+@keyframes circuit-pulse {
+  0%, 100% {
+    opacity: 0.32;
+  }
+  50% {
+    opacity: 0.42;
+  }
+}
+
 @keyframes landing-signal {
   0% {
     box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 45%, transparent);
@@ -1615,6 +1683,8 @@ video:-webkit-full-screen {
   .landing-tap-radar i,
   .landing-fact-surface,
   .landing-fact-node,
+  .ascii-landing-grid::before,
+  .circuit-background::before,
   .intro-smash-robot,
   .intro-smash-robot *,
   .sleek-robot-reward,
