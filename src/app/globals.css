@@ -1566,6 +1566,21 @@ video:-webkit-full-screen {
 }
 
 @media (max-width: 560px) {
+  #portfolio {
+    min-height: auto;
+    align-items: flex-start;
+    padding-top: 4rem;
+  }
+
+  .animated-name {
+    font-size: clamp(1.35rem, 7vw, 1.5rem);
+    letter-spacing: -0.035em;
+  }
+
+  .animated-name-line {
+    white-space: nowrap;
+  }
+
   .ascii-landing-content {
     padding: 3.25rem 0.25rem 3rem;
   }
