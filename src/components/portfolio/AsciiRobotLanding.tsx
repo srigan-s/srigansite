@@ -9,6 +9,7 @@ import {
   useSpring,
 } from 'framer-motion';
 import { useEffect, useRef, useState, type PointerEvent } from 'react';
+import { CircuitSignals } from './CircuitSignals';
 
 const ROBOT_SCENE = 'https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode';
 const landingFacts = [
@@ -144,6 +145,7 @@ export function AsciiRobotLanding({ onComplete }: AsciiRobotLandingProps) {
       transition={{ duration: 1.55, ease: [0.16, 1, 0.3, 1] }}
     >
       <div aria-hidden="true" className="ascii-landing-grid" />
+      <CircuitSignals />
 
       <div className="ascii-landing-content">
         <motion.div

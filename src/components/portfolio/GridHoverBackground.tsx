@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
+import { CircuitSignals } from './CircuitSignals';
 
 export function CircuitBackground() {
   useEffect(() => {
@@ -13,5 +14,9 @@ export function CircuitBackground() {
     return () => window.removeEventListener('pointermove', updateCircuitGlow);
   }, []);
 
-  return <div aria-hidden="true" className="circuit-background" />;
+  return (
+    <div aria-hidden="true" className="circuit-background">
+      <CircuitSignals />
+    </div>
+  );
 }
