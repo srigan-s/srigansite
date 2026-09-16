@@ -1569,7 +1569,7 @@ video:-webkit-full-screen {
   #portfolio {
     min-height: auto;
     align-items: flex-start;
-    padding-top: 4rem;
+    padding-top: 2.5rem;
   }
 
   .animated-name {
@@ -1676,9 +1676,11 @@ video:-webkit-full-screen {
   }
 
   .landing-robot-dock {
-    height: 66svh;
-    min-height: 25rem;
-    max-height: 34rem;
+    top: 52%;
+    width: min(84vw, 21rem);
+    height: clamp(19rem, 52svh, 25rem);
+    min-height: 0;
+    max-height: none;
   }
 
   .landing-robot-dock.is-docking {
