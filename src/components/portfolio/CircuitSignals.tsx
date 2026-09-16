@@ -92,7 +92,7 @@ export function CircuitSignals() {
       canvas.style.height = `${height}px`;
       context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
 
-      const tileSize = 420;
+      const tileSize = 840;
       const scale = tileSize / 840;
       routes = [];
 
@@ -141,7 +141,7 @@ export function CircuitSignals() {
           context.lineCap = 'round';
           context.shadowColor = accent;
           context.shadowBlur = 12;
-          context.globalAlpha = 0.78 * edgeFade;
+          context.globalAlpha = 0.5 * edgeFade;
           context.strokeStyle = accent;
           context.lineWidth = 1.6;
           traceRange(context, route, tailStart, distance);
@@ -152,7 +152,7 @@ export function CircuitSignals() {
           context.arc(x, y, 2.1, 0, Math.PI * 2);
           context.fillStyle = head;
           context.shadowBlur = 15;
-          context.globalAlpha = 0.92 * edgeFade;
+          context.globalAlpha = 0.6 * edgeFade;
           context.fill();
           context.restore();
         });
