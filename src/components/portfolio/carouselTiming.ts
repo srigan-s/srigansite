@@ -1,0 +1,1 @@
+export const HERO_CAROUSEL_INTERVAL_MS = 9500;

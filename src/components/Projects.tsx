@@ -7,13 +7,15 @@ type Project = {
   description: string;
   technologies: string[];
   featured: boolean;
-  github: string;
+  github?: string;
   live: string;
   image?: string;
   video?: string;
   internal?: boolean;
   spotlight?: boolean;
 };
+
+const hiddenProjectTitles = new Set(['TrackQA', 'ColourMashAI', 'LightLink', 'RecruiterCallAI']);
 
 const Projects = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -31,7 +33,19 @@ const Projects = () => {
     return () => observer.disconnect();
   }, []);
 
-  const projects: Project[] = [
+  const allProjects: Project[] = [
+    {
+      title: 'KiwiDock',
+      description:
+        'A ROS 2 Jazzy autonomous mobile EV charging dock with Python rclpy simulation nodes, RViz visualization, a Rust safety supervisor, Server-Sent Events telemetry, and a React dashboard.',
+      technologies: ['ROS 2 Jazzy', 'Rust', 'rclpy', 'RViz2', 'React', 'SSE'],
+      featured: true,
+      github: 'https://github.com/srigan-s/KiwiDock',
+      live: '/projects/kiwidock-ros2-ev-charging-dock',
+      video: '/kiwidock.mp4',
+      internal: true,
+      spotlight: true,
+    },
     {
       title: 'ROS2 GNSS RC Car Navigation Demo',
       description:
@@ -78,7 +92,17 @@ const Projects = () => {
       live: 'https://github.com/srigan-s/ArduinoBeatSync',
       image: '/arduino.jpg',
     },
-    
+    {
+      title: 'TrackQA',
+      description:
+        'A full-stack engineering dashboard for debugging optical and electromagnetic 3D tracking integrations with Java WebSocket simulation, Three.js visualization, issue detection, Gemini diagnosis, CSV export, and Jira-style report generation.',
+      technologies: ['Java', 'WebSocket', 'React', 'TypeScript', 'Three.js', 'Gemini API'],
+      featured: true,
+      live: '/projects/trackqa',
+      video: '/trackqa-demo.mov',
+      internal: true,
+      spotlight: true,
+    },
     {
       title: 'ColourMashAI',
       description: 'A cognitive support web app designed to help users with Alzheimer’s and dementia through pattern recognition games.',
@@ -87,6 +111,17 @@ const Projects = () => {
       github: 'https://github.com/srigan-s/ColourMash',
       live: 'https://colourmash.netlify.app/',
       image: '/colourmash.png',
+    },
+    {
+      title: 'LightLink',
+      description:
+        'A browser-based optical modem firmware demo with BPSK modulation, noisy optical channel impairments, C++ DSP telemetry, ASIC-style lock detection, and a React validation dashboard.',
+      technologies: ['C++', 'FastAPI', 'React', 'DSP', 'BPSK', 'ASIC Telemetry'],
+      featured: true,
+      live: '/projects/lightlink',
+      video: '/lightlink-dsp-firmware-simulator.mov',
+      internal: true,
+      spotlight: true,
     },
     {
       title: '4-Way Traffic Signal',
@@ -125,6 +160,8 @@ const Projects = () => {
       image: '/majestykapps.jpg',
     },
   ];
+
+  const projects = allProjects.filter((project) => !hiddenProjectTitles.has(project.title));
 
   const nextProject = () => setCurrentIndex((prev) => (prev + 1) % projects.length);
   const prevProject = () => setCurrentIndex((prev) => (prev - 1 + projects.length) % projects.length);
@@ -235,15 +272,17 @@ const Projects = () => {
                       </div>
 
                       <div className="mt-8 flex flex-wrap gap-5">
-                        <a
-                          href={project.github}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-3 rounded-full border border-[color:var(--line)] px-5 py-3 text-sm font-semibold text-white transition-all duration-300 hover:-translate-y-1 hover:border-[color:var(--accent)]"
-                        >
-                          <Github className="h-4 w-4" />
-                          View Code
-                        </a>
+                        {project.github ? (
+                          <a
+                            href={project.github}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-3 rounded-full border border-[color:var(--line)] px-5 py-3 text-sm font-semibold text-white transition-all duration-300 hover:-translate-y-1 hover:border-[color:var(--accent)]"
+                          >
+                            <Github className="h-4 w-4" />
+                            View Code
+                          </a>
+                        ) : null}
 
                         {project.internal ? (
                           <button

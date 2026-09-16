@@ -1,0 +1,294 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1536" height="1024" viewBox="0 0 1536 1024" role="img" aria-labelledby="title desc">
+  <title id="title">Autonomous Mobile Manipulator Factory Simulation technical breakdown</title>
+  <desc id="desc">A full technical overview of the Gazebo workcell, ROS 2 system, factory mission sequence, interfaces, workspace, launch modes, and fault recovery behavior.</desc>
+  <defs>
+    <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset="1" stop-color="#f7fafc"/>
+    </linearGradient>
+    <marker id="blueArrow" markerHeight="8" markerWidth="8" orient="auto" refX="7" refY="4">
+      <path d="M0 0 8 4 0 8z" fill="#1746a2"/>
+    </marker>
+    <marker id="purpleArrow" markerHeight="8" markerWidth="8" orient="auto" refX="7" refY="4">
+      <path d="M0 0 8 4 0 8z" fill="#6d28a8"/>
+    </marker>
+    <style>
+      .panel{fill:url(#paper);stroke:#153b88;stroke-width:1.4}
+      .green-panel{fill:url(#paper);stroke:#176b35;stroke-width:1.4}
+      .red-panel{fill:url(#paper);stroke:#c43b2f;stroke-width:1.4}
+      .dash-panel{fill:#fff;stroke:#6941b2;stroke-width:1.3;stroke-dasharray:6 4}
+      .box{fill:#fff;stroke:#18479f;stroke-width:1.2}
+      .title{font:700 32px Arial,sans-serif;fill:#0b2459;text-anchor:middle}
+      .subtitle{font:21px Arial,sans-serif;fill:#172554;text-anchor:middle}
+      .section{font:700 18px Arial,sans-serif;fill:#102a67}
+      .section-green{font:700 18px Arial,sans-serif;fill:#14532d}
+      .heading{font:700 14px Arial,sans-serif;fill:#0b2459}
+      .copy{font:12px Arial,sans-serif;fill:#172033}
+      .small{font:11px Arial,sans-serif;fill:#172033}
+      .tiny{font:10px Arial,sans-serif;fill:#172033}
+      .center{text-anchor:middle}
+      .blue-line{fill:none;stroke:#1746a2;stroke-width:1.7;marker-end:url(#blueArrow)}
+      .purple-line{fill:none;stroke:#6d28a8;stroke-width:1.5;marker-end:url(#purpleArrow)}
+      .green-line{fill:none;stroke:#176b35;stroke-width:1.5;marker-end:url(#blueArrow)}
+      .rule{stroke:#8993a4;stroke-width:1;stroke-dasharray:4 3}
+      .icon{fill:none;stroke:#172033;stroke-width:2}
+      .fill-blue{fill:#1769d2;stroke:#102a67;stroke-width:1.4}
+      .fill-gray{fill:#cbd5e1;stroke:#172033;stroke-width:1.4}
+      .badge{fill:#176b35}
+      .badge-text{font:700 15px Arial,sans-serif;fill:#fff;text-anchor:middle}
+    </style>
+  </defs>
+
+  <rect width="1536" height="1024" fill="url(#paper)"/>
+  <text class="title" x="768" y="34">Autonomous Mobile Manipulator Factory Simulation</text>
+  <text class="subtitle" x="768" y="63">ROS 2 / Gazebo / C++ / Python — Technical Breakdown</text>
+
+  <!-- Left: factory and robot -->
+  <rect class="panel" x="14" y="70" width="302" height="348" rx="10"/>
+  <text class="section" x="82" y="103">Gazebo Factory Workcell</text>
+  <path class="icon" d="M34 109V84h6v15l11-8v8l12-8v18z"/>
+  <rect class="box" x="30" y="126" width="265" height="122" rx="8"/>
+  <path class="icon" d="M47 157l24-17 24 17-24 18zM47 157v27l24 17v-26M95 157v27l-24 17"/>
+  <text class="heading" x="118" y="151">Gazebo Harmonic</text>
+  <text class="copy" x="118" y="174">Factory SDF world with</text>
+  <text class="copy" x="118" y="193">safety rails, bins, yellow</text>
+  <text class="copy" x="118" y="212">route markings, props,</text>
+  <text class="copy" x="118" y="231">and workcell stations.</text>
+  <path class="blue-line" d="M150 249v25"/>
+  <path class="blue-line" d="M150 275v-25"/>
+  <rect class="box" x="30" y="275" width="265" height="130" rx="8"/>
+  <path class="icon" d="M47 334h59M55 313v42M70 298v57M86 304v51M101 317v38M47 330c22 0 23-28 23-28s1 28 16 28 15-22 15-22"/>
+  <text class="heading" x="122" y="297">ros_gz_bridge</text>
+  <text class="copy" x="122" y="320">Bridges /cmd_vel, /odom,</text>
+  <text class="copy" x="122" y="339">/scan, camera, joint state,</text>
+  <text class="copy" x="122" y="358">and simulation clock</text>
+  <text class="copy" x="122" y="377">between Gazebo and</text>
+  <text class="copy" x="122" y="396">ROS 2.</text>
+
+  <rect class="panel" x="14" y="440" width="318" height="205" rx="10"/>
+  <text class="heading" x="45" y="467">Custom Mobile Manipulator URDF</text>
+  <rect class="fill-gray" x="58" y="548" width="82" height="32" rx="4"/>
+  <circle class="fill-gray" cx="75" cy="584" r="13"/><circle class="fill-gray" cx="125" cy="584" r="13"/>
+  <path class="icon" d="M98 548v-55h15v39l45-26 8 13-54 31"/>
+  <path class="icon" d="M157 507l25 12 15 22"/>
+  <rect class="fill-blue" x="195" y="531" width="39" height="34"/>
+  <text class="copy" x="42" y="613">Differential-drive base, mounted arm,</text>
+  <text class="copy" x="42" y="632">gripper fingers, and visible carried payload.</text>
+
+  <rect class="green-panel" x="45" y="656" width="247" height="87" rx="9"/>
+  <rect x="61" y="670" width="55" height="45" rx="4" fill="#353b43"/>
+  <text x="88" y="700" font-family="Arial" font-size="18" fill="#fff" text-anchor="middle">RViz²</text>
+  <text class="section-green" x="135" y="679">RViz2</text>
+  <text class="copy" x="135" y="699">Visualization of robot,</text>
+  <text class="copy" x="135" y="717">sensors, map, stations,</text>
+  <text class="copy" x="135" y="735">paths, and states.</text>
+
+  <!-- Center: ROS system -->
+  <rect class="panel" x="366" y="70" width="806" height="659" rx="10"/>
+  <text class="section center" x="769" y="100" style="font-size:23px">ROS 2 System</text>
+
+  <rect class="box" x="379" y="111" width="205" height="120" rx="9"/>
+  <text class="heading" x="438" y="134">1) task_orchestrator (C++)</text>
+  <path class="icon" d="M401 150h28v39h-28zM408 144h14v7M407 162h16M407 178h16"/>
+  <text class="copy" x="441" y="158">Mission state machine that</text>
+  <text class="copy" x="441" y="178">coordinates navigation,</text>
+  <text class="copy" x="441" y="198">docking, and tote</text>
+  <text class="copy" x="441" y="218">manipulation.</text>
+
+  <rect class="box" x="594" y="111" width="190" height="120" rx="9"/>
+  <text class="heading" x="642" y="134">2) docking_controller (C++)</text>
+  <path class="icon" d="M616 189h38M624 177l8-27 11 27M632 150v-18M628 130a4 4 0 1 0 8 0 4 4 0 1 0-8 0"/>
+  <text class="copy" x="660" y="158">Mock dock action server</text>
+  <text class="copy" x="660" y="178">that simulates docking</text>
+  <text class="copy" x="660" y="198">behavior and publishes</text>
+  <text class="copy" x="660" y="218">docking state.</text>
+
+  <rect class="box" x="795" y="111" width="190" height="120" rx="9"/>
+  <text class="heading" x="835" y="134">3) manipulation_interface</text>
+  <text class="heading" x="868" y="150">(Python)</text>
+  <path class="icon" d="M813 193h43M823 187v-30l19-18 12 12-18 18v18M851 148l13 9"/>
+  <rect class="fill-blue" x="824" y="190" width="29" height="20"/>
+  <text class="copy" x="864" y="172">Simulated tote pick/place</text>
+  <text class="copy" x="864" y="190">action server for arm lift,</text>
+  <text class="copy" x="864" y="208">gripper open/close, and</text>
+  <text class="copy" x="864" y="226">payload drop-offs.</text>
+
+  <rect class="dash-panel" x="995" y="111" width="160" height="125" rx="9"/>
+  <text class="heading" x="1032" y="134">6) perception_pipeline</text>
+  <rect x="1087" y="142" width="53" height="21" rx="4" fill="#f1eafe" stroke="#6d28a8"/>
+  <text x="1113" y="157" font-family="Arial" font-size="11" fill="#6d28a8" text-anchor="middle">Phase 3</text>
+  <path class="icon" d="M1011 157h36v28h-36zM1018 153h15l4 5M1021 171a8 8 0 1 0 16 0 8 8 0 1 0-16 0"/>
+  <text class="small" x="1056" y="178">Scaffold for AprilTag /</text>
+  <text class="small" x="1056" y="196">ArUco detection and</text>
+  <text class="small" x="1056" y="214">fallback station-pose</text>
+  <text class="small" x="1056" y="230">publishing.</text>
+
+  <rect class="box" x="520" y="293" width="278" height="84" rx="9"/>
+  <text class="heading" x="590" y="320">4) dock_to_workcell_interfaces</text>
+  <path class="icon" d="M540 320h14v14h-14zM566 320h14v14h-14zM553 343h14v14h-14zM547 334l10 10M573 334l-10 10"/>
+  <text class="copy" x="590" y="342">Custom ROS actions/services for Dock,</text>
+  <text class="copy" x="590" y="361">ManipulateTote, and health interfaces.</text>
+
+  <rect class="box" x="378" y="326" width="95" height="144" rx="8"/>
+  <text class="section center" x="425" y="356">Nav2</text>
+  <path class="icon" d="M419 375a11 11 0 1 0 22 0c0 14-11 25-11 25s-11-11-11-25z"/>
+  <path class="icon" stroke-dasharray="5 4" d="M401 439c28 12 61 0 49-17-12-17-42 3-42 3"/>
+  <text class="small center" x="425" y="454">Navigation stack for</text>
+  <text class="small center" x="425" y="468">path planning and control.</text>
+
+  <rect class="box" x="581" y="430" width="148" height="113" rx="8"/>
+  <text class="heading center" x="655" y="452">robot_base</text>
+  <text class="heading center" x="655" y="468">/diff_drive_controller</text>
+  <path class="icon" d="M596 487h36l8 25h-52zM595 514h45"/>
+  <circle class="icon" cx="615" cy="519" r="10"/>
+  <text class="small" x="645" y="492">Differential drive</text>
+  <text class="small" x="645" y="510">controller that</text>
+  <text class="small" x="645" y="528">executes velocity commands.</text>
+
+  <rect class="box" x="794" y="430" width="170" height="113" rx="8"/>
+  <text class="heading center" x="879" y="455">robot_arm_controller</text>
+  <path class="icon" d="M810 521h45M817 515v-30l17-22 15 14-13 17v21"/>
+  <text class="small" x="859" y="482">Joint trajectory</text>
+  <text class="small" x="859" y="501">controller for arm</text>
+  <text class="small" x="859" y="520">motion and</text>
+  <text class="small" x="859" y="537">gripper actions.</text>
+
+  <rect class="dash-panel" x="995" y="249" width="160" height="107" rx="9"/>
+  <text class="heading" x="1034" y="274">7) health_monitor</text>
+  <rect x="1087" y="280" width="53" height="21" rx="4" fill="#f1eafe" stroke="#6d28a8"/>
+  <text x="1113" y="295" font-family="Arial" font-size="11" fill="#6d28a8" text-anchor="middle">Phase 2</text>
+  <path class="icon" d="M1008 309c12-23 27-6 27 4 0-10 16-27 27-4-4 18-27 32-27 32s-23-14-27-32zM1015 320h10l5-12 7 23 6-12h12"/>
+  <text class="small" x="1067" y="320">Stale-topic detection,</text>
+  <text class="small" x="1067" y="338">health checks, and RViz</text>
+  <text class="small" x="1067" y="352">status markers.</text>
+
+  <rect class="dash-panel" x="995" y="369" width="160" height="131" rx="9"/>
+  <text class="heading" x="1035" y="394">8) fault_injector</text>
+  <rect x="1087" y="400" width="53" height="21" rx="4" fill="#f1eafe" stroke="#6d28a8"/>
+  <text x="1113" y="415" font-family="Arial" font-size="11" fill="#6d28a8" text-anchor="middle">Phase 2</text>
+  <path class="icon" d="M1014 452l20-40 20 40zM1035 425l-5 13h8l-5 10"/>
+  <text class="small" x="1060" y="442">Dynamic obstacle, camera</text>
+  <text class="small" x="1060" y="460">dropout, and manipulation-</text>
+  <text class="small" x="1060" y="478">fault injection scaffold.</text>
+
+  <rect class="dash-panel" x="995" y="512" width="160" height="122" rx="9"/>
+  <text class="heading" x="1034" y="537">9) telemetry_logger</text>
+  <rect x="1087" y="543" width="53" height="21" rx="4" fill="#f1eafe" stroke="#6d28a8"/>
+  <text x="1113" y="558" font-family="Arial" font-size="11" fill="#6d28a8" text-anchor="middle">Phase 2</text>
+  <path class="icon" d="M1010 548h32v44h-32zM1017 580v-10h5v10M1026 580v-21h5v21M1035 580v-14h5"/>
+  <text class="small" x="1051" y="579">Mission JSONL logging</text>
+  <text class="small" x="1051" y="597">and readable run</text>
+  <text class="small" x="1051" y="615">summaries.</text>
+
+  <rect class="box" x="376" y="573" width="603" height="64" rx="8"/>
+  <text class="heading" x="469" y="599">5) dock_to_workcell_bringup</text>
+  <text class="copy" x="469" y="621">Launch entrypoints for simulation, demo modes, and RViz.</text>
+  <path class="icon" d="M395 590h42v28h-42zM404 598l7 6-7 6M415 610h13"/>
+
+  <rect class="box" x="525" y="653" width="273" height="68" rx="8"/>
+  <text class="heading center" x="661" y="676">robot_state_publisher</text>
+  <path class="icon" d="M541 695l18-12 18 12-18 12zM559 683v-16M577 695l16-9M541 695l-16-9"/>
+  <text class="copy" x="603" y="696">Publishes TFs and robot_description</text>
+  <text class="copy" x="603" y="714">from custom URDF to ROS.</text>
+
+  <!-- Flow arrows -->
+  <path class="blue-line" d="M481 231v95"/>
+  <text x="418" y="291" font-family="Arial" font-size="10" fill="#1746a2">NavigateToPose</text>
+  <path class="blue-line" d="M690 231v62"/>
+  <text x="672" y="273" font-family="Arial" font-size="11" fill="#1746a2">Dock action</text>
+  <path class="blue-line" d="M852 231v62"/>
+  <text x="765" y="263" font-family="Arial" font-size="11" fill="#1746a2">ManipulateTote</text>
+  <text x="810" y="278" font-family="Arial" font-size="11" fill="#1746a2">action</text>
+  <path class="purple-line" d="M995 170h-10"/>
+  <path class="purple-line" d="M995 305H887v-28h-89"/>
+  <path class="blue-line" d="M618 377v53"/>
+  <path class="blue-line" d="M841 377v53"/>
+  <path class="blue-line" d="M615 543v30M841 543v30"/>
+  <path class="blue-line" d="M492 637v42h33"/>
+  <path class="blue-line" d="M832 637v42h-34"/>
+
+  <!-- Right: mission sequence -->
+  <rect class="green-panel" x="1193" y="70" width="311" height="414" rx="10"/>
+  <text class="section-green center" x="1348" y="101">Factory Mission Sequence</text>
+  <circle class="badge" cx="1235" cy="134" r="15"/><text class="badge-text" x="1235" y="140">1</text>
+  <rect class="fill-gray" x="1262" y="151" width="53" height="26" rx="4"/><circle class="fill-gray" cx="1275" cy="181" r="8"/><circle class="fill-gray" cx="1303" cy="181" r="8"/>
+  <path class="icon" d="M1288 151v-30l18-13 12 13-18 13v17"/>
+  <rect class="fill-blue" x="1320" y="149" width="25" height="25"/>
+  <text class="copy" x="1358" y="139">Start with tote</text><text class="copy" x="1358" y="158">in gripper</text>
+  <line class="rule" x1="1212" y1="193" x2="1486" y2="193"/>
+
+  <circle class="badge" cx="1235" cy="225" r="15"/><text class="badge-text" x="1235" y="231">2</text>
+  <rect class="fill-gray" x="1260" y="254" width="48" height="26"/>
+  <path class="icon" d="M1280 254v-25l20-20 14 14-17 17v14"/>
+  <rect class="fill-blue" x="1320" y="250" width="25" height="25"/>
+  <text class="copy" x="1358" y="233">Lift arm and drop</text><text class="copy" x="1358" y="252">into first raised</text><text class="copy" x="1358" y="271">blue box</text>
+  <line class="rule" x1="1212" y1="288" x2="1486" y2="288"/>
+
+  <circle class="badge" cx="1235" cy="320" r="15"/><text class="badge-text" x="1235" y="326">3</text>
+  <path d="M1265 354c25 11 69 10 69-8 0-18-48-11-48-27" fill="none" stroke="#e5a100" stroke-width="2" stroke-dasharray="8 5"/>
+  <path class="icon" d="M1264 340a8 8 0 1 0 16 0c0 11-8 19-8 19s-8-8-8-19zM1320 312a8 8 0 1 0 16 0c0 11-8 19-8 19s-8-8-8-19z"/>
+  <text class="copy" x="1358" y="330">Follow yellow</text><text class="copy" x="1358" y="349">factory route</text>
+  <line class="rule" x1="1212" y1="372" x2="1486" y2="372"/>
+
+  <circle class="badge" cx="1235" cy="400" r="15"/><text class="badge-text" x="1235" y="406">4</text>
+  <rect class="fill-gray" x="1262" y="432" width="53" height="26" rx="4"/><circle class="fill-gray" cx="1275" cy="462" r="8"/><circle class="fill-gray" cx="1303" cy="462" r="8"/>
+  <path class="icon" d="M1288 432v-30l18-13 12 13-18 13v17"/>
+  <rect class="fill-blue" x="1320" y="431" width="25" height="25"/>
+  <text class="copy" x="1358" y="408">Dock at second</text><text class="copy" x="1358" y="427">station and complete</text><text class="copy" x="1358" y="446">second drop-off</text>
+
+  <rect class="panel" x="1187" y="506" width="325" height="194" rx="9" style="stroke:#4c1d95"/>
+  <text class="section" x="1252" y="539" style="fill:#4c1d95">Key ROS Topics &amp; Interfaces</text>
+  <text class="copy" x="1203" y="572">• /mission/state, /mission/status</text>
+  <text class="copy" x="1203" y="595">• /docking/state, /docking/error, /docking/target_pose</text>
+  <text class="copy" x="1203" y="618">• /manipulation/tote_state, /manipulation/operation_status,</text>
+  <text class="copy" x="1216" y="637">/manipulation/tote_marker</text>
+  <text class="copy" x="1203" y="660">• /cmd_vel, /odom, /scan, /robot_description, /clock</text>
+  <text class="copy" x="1203" y="683">• Dock action, ManipulateTote action, health service</text>
+
+  <!-- Bottom row -->
+  <rect class="panel" x="14" y="755" width="272" height="238" rx="9"/>
+  <text class="heading" x="38" y="784">Legend</text>
+  <rect class="box" x="34" y="797" width="32" height="14"/><text class="copy" x="78" y="809">Implemented (Phase 1)</text>
+  <rect class="dash-panel" x="34" y="823" width="32" height="14"/><text class="copy" x="78" y="835">Scaffolded Future (Phase 2/3)</text>
+  <path class="blue-line" d="M34 857h32"/><text class="copy" x="78" y="861">ROS / Gazebo Bridge</text>
+  <path class="blue-line" d="M34 881h32"/><text class="copy" x="78" y="885">Control / Data Flow</text>
+  <path class="purple-line" d="M34 905h32"/><text class="copy" x="78" y="909">Health / Feedback</text>
+  <path d="M34 929h32" stroke="#176b35" stroke-width="2" marker-end="url(#blueArrow)"/><text class="copy" x="78" y="933">Telemetry / Outputs</text>
+  <rect x="29" y="949" width="194" height="31" rx="5" fill="#fff8e8" stroke="#d99b22"/>
+  <text class="heading" x="42" y="970" style="font-size:12px">Phase 1 = working vertical slice</text>
+
+  <rect class="panel" x="300" y="755" width="290" height="238" rx="9"/>
+  <text class="section" x="365" y="786">Workspace Layout</text>
+  <text class="copy" x="325" y="820">📁  src/ — ROS 2 packages</text>
+  <text class="copy" x="325" y="845">📁  worlds/ — Gazebo factory world files</text>
+  <text class="copy" x="325" y="870">📁  config/ — RViz and demo configuration</text>
+  <text class="copy" x="325" y="895">📁  maps/ — map assets / route resources</text>
+  <text class="copy" x="325" y="920">📁  docker/ + compose.yaml — reproducible</text>
+  <text class="copy" x="345" y="939">headless demo environment</text>
+  <text class="copy" x="325" y="964">📁  scripts/ and tests/ — tooling and validation</text>
+
+  <rect class="panel" x="604" y="755" width="373" height="238" rx="9"/>
+  <text class="section" x="692" y="786">Launch &amp; Demo Modes</text>
+  <text class="copy" x="627" y="827">▣  demo_normal.launch.py — interview two-drop demo</text>
+  <text class="copy" x="627" y="872">▣  simulation.launch.py — headless simulation option</text>
+  <text class="copy" x="627" y="917">▣  rviz.launch.py — visualization-only launch</text>
+  <text class="copy" x="627" y="962">▣  demo_fault_recovery.launch.py — planned recovery demo</text>
+
+  <rect class="red-panel" x="988" y="755" width="529" height="238" rx="9"/>
+  <text class="section center" x="1252" y="786">⚠  Fault Recovery Logic</text>
+  <rect x="998" y="790" width="509" height="173" rx="7" fill="#fff" stroke="#27344d"/>
+  <path d="M998 818h509M998 865h509M998 913h509M1160 790v173M1337 790v173" stroke="#27344d" stroke-width="1"/>
+  <text class="heading center" x="1079" y="809">Condition</text>
+  <text class="heading center" x="1248" y="809">Recovery Policy</text>
+  <text class="heading center" x="1422" y="809">Operator Visibility</text>
+  <text class="copy" x="1013" y="843">Navigation blocked</text>
+  <text class="copy" x="1195" y="837">retry once, then</text><text class="copy" x="1195" y="854">recovery state</text>
+  <text class="copy" x="1351" y="837">operator sees mission</text><text class="copy" x="1351" y="854">retry/recovery</text>
+  <text class="copy" x="1013" y="892">Docking error</text>
+  <text class="copy" x="1195" y="885">retry once, then</text><text class="copy" x="1195" y="902">safe failure</text>
+  <text class="copy" x="1351" y="885">operator sees station</text><text class="copy" x="1351" y="902">+ error</text>
+  <text class="copy" x="1013" y="940">Manipulation error</text>
+  <text class="copy" x="1195" y="933">retry once, then</text><text class="copy" x="1195" y="950">intervention required</text>
+  <text class="copy" x="1351" y="933">operator sees manipulation</text><text class="copy" x="1351" y="950">+ mission status</text>
+  <text x="1252" y="984" font-family="Arial" font-size="11" font-style="italic" fill="#6d28a8" text-anchor="middle">Camera dropout safety is Phase 3 planned work.</text>
+</svg>

@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1255" height="723" viewBox="0 0 1255 723" role="img" aria-labelledby="title desc">
+  <title id="title">Rockwell mobile manipulator system architecture</title>
+  <desc id="desc">ROS 2 component graph connecting the task orchestrator to navigation, docking, manipulation, telemetry, health monitoring, fault injection, Gazebo, and RViz.</desc>
+  <defs>
+    <marker id="arrow" markerHeight="7" markerWidth="7" orient="auto" refX="6" refY="3.5">
+      <path d="M0 0 7 3.5 0 7z" fill="#c6ccd3"/>
+    </marker>
+    <style>
+      .node{fill:#1f1f1f;stroke:#aeb4ba;stroke-width:1.2}
+      .edge{fill:none;stroke:#c6ccd3;stroke-width:1.15;marker-end:url(#arrow)}
+      .bi{fill:none;stroke:#c6ccd3;stroke-width:1.15;marker-start:url(#arrow);marker-end:url(#arrow)}
+      .label{font:16px Arial,sans-serif;fill:#f3f6f8;text-anchor:middle}
+      .edge-label{font:16px Arial,sans-serif;fill:#f3f6f8;text-anchor:middle}
+      .label-bg{fill:#5b5b5b}
+    </style>
+  </defs>
+  <rect width="1255" height="723" fill="#0d1117"/>
+
+  <path class="edge" d="M490 88 C620 88 690 93 791 101"/>
+  <path class="edge" d="M506 340 C610 195 665 140 791 113"/>
+  <path class="edge" d="M512 217 C612 217 660 225 741 242"/>
+  <path class="edge" d="M506 340 L741 282"/>
+  <path class="edge" d="M938 262 L1066 262"/>
+  <path class="edge" d="M247 369 L311 369"/>
+  <path class="edge" d="M506 390 L724 392"/>
+  <path class="edge" d="M469 409 C580 502 650 522 746 522"/>
+  <path class="bi" d="M255 639 L328 639"/>
+  <path class="edge" d="M490 639 L790 639"/>
+
+  <rect class="label-bg" x="536" y="162" width="113" height="24"/>
+  <text class="edge-label" x="592" y="180">NavigateToPose</text>
+  <rect class="label-bg" x="574" y="206" width="88" height="24"/>
+  <text class="edge-label" x="618" y="224">station pose</text>
+  <rect class="label-bg" x="580" y="292" width="85" height="24"/>
+  <text class="edge-label" x="622" y="310">Dock action</text>
+  <rect class="label-bg" x="980" y="250" width="62" height="25"/>
+  <text class="edge-label" x="1011" y="268">cmd_vel</text>
+  <rect class="label-bg" x="537" y="380" width="162" height="25"/>
+  <text class="edge-label" x="618" y="398">ManipulateTote action</text>
+
+  <rect class="node" x="328" y="49" width="162" height="79"/>
+  <text class="label" x="409" y="82">fault_injector</text>
+  <text class="label" x="409" y="106">Phase 2</text>
+
+  <rect class="node" x="305" y="178" width="207" height="80"/>
+  <text class="label" x="408" y="212">perception_pipeline</text>
+  <text class="label" x="408" y="236">Phase 3</text>
+
+  <rect class="node" x="74" y="330" width="173" height="79"/>
+  <text class="label" x="160" y="364">health_monitor</text>
+  <text class="label" x="160" y="388">Phase 2</text>
+
+  <rect class="node" x="311" y="330" width="195" height="79"/>
+  <text class="label" x="408" y="364">task_orchestrator</text>
+  <text class="label" x="408" y="388">C++ state machine</text>
+
+  <rect class="node" x="791" y="77" width="97" height="55"/>
+  <text class="label" x="839" y="110">Nav2</text>
+
+  <rect class="node" x="741" y="222" width="197" height="81"/>
+  <text class="label" x="839" y="256">docking_controller</text>
+  <text class="label" x="839" y="281">C++</text>
+
+  <rect class="node" x="1066" y="235" width="138" height="55"/>
+  <text class="label" x="1135" y="269">robot base</text>
+
+  <rect class="node" x="724" y="353" width="231" height="79"/>
+  <text class="label" x="839" y="386">manipulation_interface</text>
+  <text class="label" x="839" y="411">Python</text>
+
+  <rect class="node" x="746" y="482" width="187" height="80"/>
+  <text class="label" x="839" y="516">telemetry_logger</text>
+  <text class="label" x="839" y="540">Phase 2</text>
+
+  <rect class="node" x="66" y="612" width="189" height="55"/>
+  <text class="label" x="160" y="645">Gazebo Harmonic</text>
+
+  <rect class="node" x="328" y="612" width="162" height="55"/>
+  <text class="label" x="409" y="645">ros_gz_bridge</text>
+
+  <rect class="node" x="790" y="612" width="100" height="55"/>
+  <text class="label" x="840" y="645">RViz2</text>
+</svg>

@@ -10,7 +10,12 @@ lerna-debug.log*
 node_modules
 dist
 dist-ssr
+.next
+out
 *.local
+
+# Local nested project copy; this must not be tracked as a submodule.
+/srigansite/
 
 # Editor directories and files
 .vscode/*
