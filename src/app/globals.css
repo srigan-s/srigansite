@@ -1578,7 +1578,9 @@ video:-webkit-full-screen {
   }
 
   .animated-name-line {
-    white-space: nowrap;
+    white-space: normal;
+    word-break: break-word;
+    overflow-wrap: break-word;
   }
 
   .ascii-landing-content {
