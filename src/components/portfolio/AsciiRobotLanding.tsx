@@ -170,13 +170,17 @@ export function AsciiRobotLanding({ onComplete }: AsciiRobotLandingProps) {
           </span>
           <AnimatePresence mode="wait">
             {tapCount === 0 ? (
-              <motion.div
+              <motion.button
+                aria-label="Discover more about Srigan"
                 className="landing-tap-invite"
+                disabled={!robotLoaded}
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -8 }}
                 key="tap-invite"
+                onClick={revealNext}
                 transition={{ duration: 0.5 }}
+                type="button"
               >
                 <span aria-hidden="true" className="landing-tap-radar">
                   <i />
@@ -185,9 +189,9 @@ export function AsciiRobotLanding({ onComplete }: AsciiRobotLandingProps) {
                 </span>
                 <span className="landing-tap-copy">
                   <small>[ INTERACTIVE UNIT ]</small>
-                  <strong>TAP TO FIND OUT MORE</strong>
+                  <strong>TAP TO EXPLORE</strong>
                 </span>
-              </motion.div>
+              </motion.button>
             ) : (
               <motion.p
                 className="landing-discovery-message"

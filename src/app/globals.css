@@ -227,6 +227,19 @@ video:-webkit-full-screen {
     align-items: center;
     gap: 0.9rem;
     margin-top: 0.6rem;
+    appearance: none;
+    border: 0;
+    padding: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    text-align: left;
+    pointer-events: auto;
+  }
+
+  .landing-tap-invite:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 0.25rem;
   }
 
   .landing-tap-radar {
@@ -1590,9 +1603,18 @@ video:-webkit-full-screen {
   .landing-greeting {
     top: 1.5%;
     left: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     width: calc(100% - 2rem);
     max-width: 18rem;
     translate: -50% 0;
+  }
+
+  .landing-greeting-status {
+    justify-content: center;
+    font-size: 0.52rem;
+    letter-spacing: 0.08em;
   }
 
   .landing-name-backdrop {
@@ -1603,26 +1625,45 @@ video:-webkit-full-screen {
   }
 
   .landing-discovery-message {
-    margin-top: 0.3rem;
+    max-width: 100%;
+    margin-top: 0.5rem;
+    border: 1px solid color-mix(in srgb, var(--accent) 24%, var(--line));
+    border-radius: 0.85rem;
+    padding: 0.5rem 0.75rem;
+    background: color-mix(in srgb, var(--bg-elevated) 76%, transparent);
     font-size: 0.72rem;
+    text-align: center;
+    backdrop-filter: blur(12px);
   }
 
   .landing-tap-invite {
-    gap: 0.55rem;
-    margin-top: 0.35rem;
+    gap: 0.45rem;
+    margin-top: 0.45rem;
+    border: 1px solid color-mix(in srgb, var(--accent) 28%, var(--line));
+    border-radius: 999px;
+    padding: 0.38rem 0.75rem 0.38rem 0.42rem;
+    background: color-mix(in srgb, var(--bg-elevated) 78%, transparent);
+    box-shadow: 0 8px 24px color-mix(in srgb, var(--bg) 22%, transparent);
+    backdrop-filter: blur(12px);
   }
 
   .landing-tap-radar {
-    width: 2.6rem;
-    height: 2.6rem;
+    width: 1.8rem;
+    height: 1.8rem;
+  }
+
+  .landing-tap-radar i {
+    inset: 0.2rem;
   }
 
   .landing-tap-copy strong {
-    font-size: 0.75rem;
+    font-size: 0.68rem;
+    letter-spacing: 0.07em;
+    white-space: nowrap;
   }
 
   .landing-tap-copy small {
-    font-size: 0.44rem;
+    display: none;
   }
 
   .landing-fact {
