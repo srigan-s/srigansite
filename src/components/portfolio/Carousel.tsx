@@ -23,10 +23,11 @@ export function Carousel<T extends { id: string }>({
     const boundedIndex = (index + items.length) % items.length;
     const target = trackRef.current?.children.item(boundedIndex) as HTMLElement | null;
 
-    target?.scrollIntoView({
+    const track = trackRef.current;
+    if (!target || !track) return;
+    track.scrollTo({
+      left: target.offsetLeft - track.offsetLeft,
       behavior: 'smooth',
-      block: 'nearest',
-      inline: 'start',
     });
     setActiveIndex(boundedIndex);
   };
@@ -42,7 +43,7 @@ export function Carousel<T extends { id: string }>({
         const cards = Array.from(track.children) as HTMLElement[];
         const nearest = cards.reduce(
           (closest, card, index) => {
-            const distance = Math.abs(card.offsetLeft - track.scrollLeft);
+            const distance = Math.abs(card.offsetLeft - track.offsetLeft - track.scrollLeft);
             return distance < closest.distance ? { distance, index } : closest;
           },
           { distance: Number.POSITIVE_INFINITY, index: 0 },
@@ -88,12 +89,14 @@ export function Carousel<T extends { id: string }>({
       </div>
 
       <div
-        className="no-scrollbar flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth pb-2"
+        aria-label={`Swipe or use the arrow keys to browse ${ariaLabel}`}
+        className="carousel-track no-scrollbar relative flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth pb-2"
         ref={trackRef}
+        tabIndex={0}
       >
         {items.map((item, index) => (
           <motion.div
-            className="min-w-[82vw] snap-start sm:min-w-[22rem] lg:min-w-[24rem]"
+            className="carousel-card w-[82vw] min-w-0 shrink-0 snap-start sm:w-[22rem] lg:w-[24rem]"
             data-cursor="hover"
             initial={{ opacity: 0, y: 16 }}
             key={item.id}

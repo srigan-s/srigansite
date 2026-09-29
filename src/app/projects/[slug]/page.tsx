@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { ArrowLeft, ExternalLink, Github } from 'lucide-react';
+import { ArrowLeft, ExternalLink, Github, Trophy } from 'lucide-react';
 import { projectDetails, type ProjectDetail } from '@/data/portfolio';
 import { KiwiDockDiagrams } from '@/components/projects/KiwiDockDiagrams';
 import { ThemeToggle } from '@/components/portfolio/ThemeToggle';
@@ -80,7 +80,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   if (!project) notFound();
 
   return (
-    <main className="page-shell pb-20 pt-8">
+    <main className="project-page page-shell pb-20 pt-8">
       <div className="content-shell">
         <div className="mb-10 flex items-center justify-between">
           <Link className="link-button" data-cursor="hover" href="/#projects">
@@ -93,6 +93,18 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         <section className="grid gap-10 pt-12 lg:grid-cols-[0.95fr_1.05fr] lg:items-end">
           <div>
             <p className="eyebrow">{project.eyebrow}</p>
+            {project.award ? (
+              <div
+                className="mt-5 inline-flex max-w-full items-center gap-2 border-l-2 py-2 pl-4 text-xs font-bold uppercase tracking-[0.12em]"
+                style={{
+                  borderColor: 'color-mix(in srgb, var(--accent) 55%, var(--line))',
+                  color: 'var(--accent)',
+                }}
+              >
+                <Trophy className="h-4 w-4 shrink-0" />
+                <span>{project.award.label}</span>
+              </div>
+            ) : null}
             <h1 className="mt-5 max-w-3xl text-4xl font-semibold leading-tight md:text-6xl">{project.name}</h1>
             <p className="mt-5 max-w-2xl text-lg leading-8 muted-copy">{project.summary}</p>
             <div className="mt-8 flex flex-wrap gap-2">
@@ -107,13 +119,13 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               {project.github ? (
                 <a className="link-button" data-cursor="hover" href={project.github} rel="noopener noreferrer" target="_blank">
                   <Github className="h-4 w-4" />
-                  Source
+                  GitHub
                 </a>
               ) : null}
               {project.demo ? (
                 <a className="accent-button" data-cursor="hover" href={project.demo} rel="noopener noreferrer" target="_blank">
                   <ExternalLink className="h-4 w-4" />
-                  Live
+                  {project.demoLabel ?? 'Live'}
                 </a>
               ) : null}
             </div>

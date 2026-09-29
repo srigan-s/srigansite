@@ -26,9 +26,20 @@ export function PortfolioPage() {
       // Storage can be unavailable in strict privacy modes; replaying the intro is a safe fallback.
     }
 
+    // Section links should open the content directly, including project-page returns.
+    introWasCompleted ||= ['#portfolio', '#experience', '#projects', '#skills', '#github'].includes(window.location.hash);
+
     restoredFromSession.current = introWasCompleted;
     setRevealed(introWasCompleted);
   }, []);
+
+  useEffect(() => {
+    if (!revealed || !window.location.hash) return;
+    const frame = window.requestAnimationFrame(() => {
+      document.getElementById(window.location.hash.slice(1))?.scrollIntoView({ behavior: 'instant' });
+    });
+    return () => window.cancelAnimationFrame(frame);
+  }, [revealed]);
 
   useEffect(() => {
     const previousOverflow = document.body.style.overflow;

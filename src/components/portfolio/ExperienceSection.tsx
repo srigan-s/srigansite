@@ -17,12 +17,12 @@ function ExperienceCard({ experience }: { experience: ExperienceItem }) {
         />
       </div>
       <div className="flex flex-1 flex-col p-5">
-        <div className="flex items-start justify-between gap-5">
+        <div className="flex flex-col items-start justify-between gap-2 sm:flex-row sm:gap-5">
           <div>
             <h3 className="text-xl font-semibold leading-tight">{experience.role}</h3>
             <p className="mt-2 text-sm font-medium muted-copy">{experience.company}</p>
           </div>
-          <time className="text-right text-xs muted-copy">{experience.date}</time>
+          <time className="text-xs muted-copy sm:text-right">{experience.date}</time>
         </div>
         <p className="mt-5 text-sm leading-6 muted-copy">{experience.impact}</p>
         <div className="mt-auto flex flex-wrap gap-2 pt-6">

@@ -65,48 +65,50 @@ const heroLinks = [
 export function Hero() {
   return (
     <section className="content-shell flex min-h-screen items-center pt-24" id="portfolio">
-      <div className="grid w-full gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+      <div className="hero-layout grid w-full gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
         <motion.div
-          className="min-w-0"
+          className="hero-copy min-w-0"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
         >
-          <p className="eyebrow">Hardware / Controls / Robotics / Software</p>
-          <motion.h1
-            aria-label={profile.name}
-            className="display-title animated-name mt-5"
-            data-cursor="hover"
-            initial="hidden"
-            animate="visible"
-            variants={nameContainerVariants}
-          >
-            {nameLines.map((line, lineIndex) => (
-              <motion.span
-                aria-hidden="true"
-                className="animated-name-line"
-                key={line}
-                variants={nameLineVariants}
-              >
-                {line.split('').map((letter, letterIndex) => (
-                  <motion.span
-                    className="animated-name-letter"
-                    data-cursor="hover"
-                    key={`${letter}-${lineIndex}-${letterIndex}`}
-                    style={{ animationDelay: `${letterIndex * 34}ms` }}
-                    transition={{ duration: 0.46, ease: nameEase }}
-                    variants={nameLetterVariants}
-                  >
-                    {letter}
-                  </motion.span>
-                ))}
-              </motion.span>
-            ))}
-          </motion.h1>
-          <p className="mt-5 max-w-xl text-lg font-medium muted-copy md:text-xl">{profile.title}</p>
-          <p className="mt-4 max-w-2xl text-base leading-7 muted-copy">{profile.line}</p>
+          <div className="hero-introduction">
+            <p className="eyebrow">Hardware / Controls / Robotics / Software</p>
+            <motion.h1
+              aria-label={profile.name}
+              className="display-title animated-name mt-5"
+              data-cursor="hover"
+              initial="hidden"
+              animate="visible"
+              variants={nameContainerVariants}
+            >
+              {nameLines.map((line, lineIndex) => (
+                <motion.span
+                  aria-hidden="true"
+                  className="animated-name-line"
+                  key={line}
+                  variants={nameLineVariants}
+                >
+                  {line.split('').map((letter, letterIndex) => (
+                    <motion.span
+                      className="animated-name-letter"
+                      data-cursor="hover"
+                      key={`${letter}-${lineIndex}-${letterIndex}`}
+                      style={{ animationDelay: `${letterIndex * 34}ms` }}
+                      transition={{ duration: 0.46, ease: nameEase }}
+                      variants={nameLetterVariants}
+                    >
+                      {letter}
+                    </motion.span>
+                  ))}
+                </motion.span>
+              ))}
+            </motion.h1>
+            <p className="mt-5 max-w-xl text-lg font-medium muted-copy md:text-xl">{profile.title}</p>
+            <p className="mt-4 max-w-2xl text-base leading-7 muted-copy">{profile.line}</p>
+          </div>
 
-          <div className="mt-7 grid gap-3 sm:grid-cols-3">
+          <div aria-label="At a glance" className="hero-highlights mt-7 grid gap-3 sm:grid-cols-3" tabIndex={0}>
             <div className="quiet-panel min-h-[7.75rem] overflow-hidden p-3">
               <div className="flex items-start gap-3">
                 <img
@@ -125,7 +127,7 @@ export function Hero() {
             <PrevInternCard />
           </div>
 
-          <div className="mt-8 flex flex-wrap gap-3">
+          <div className="hero-links mt-8 flex flex-wrap gap-3">
             {heroLinks.map((link) => (
               <a
                 className={link.label === 'Resume' ? 'accent-button' : 'link-button'}
@@ -144,7 +146,7 @@ export function Hero() {
           <TechnicalSkillsWheel />
           <PersonalPhotoCarousel />
 
-          <div className="mt-10 flex items-center gap-3 text-sm muted-copy">
+          <div className="hero-scroll mt-10 flex items-center gap-3 text-sm muted-copy">
             <a
               className="link-button h-10 w-10 p-0"
               data-cursor="hover"

@@ -18,9 +18,9 @@ export function SkillsSection() {
           </p>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-5">
+        <div className="skills-grid grid grid-cols-2 gap-3 md:gap-4 lg:grid-cols-5">
           {skillGroups.map((group) => (
-            <article className="quiet-panel interactive p-5" data-cursor="hover" key={group.title}>
+            <article className="quiet-panel interactive min-w-0 p-3 sm:p-5" data-cursor="hover" key={group.title}>
               <group.icon className="h-5 w-5" style={{ color: 'var(--accent)' }} />
               <h3 className="mt-5 text-lg font-semibold">{group.title}</h3>
               <ul className="mt-4 space-y-2 text-sm muted-copy">

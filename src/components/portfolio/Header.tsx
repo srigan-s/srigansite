@@ -1,7 +1,7 @@
 'use client';
 
 import { Menu, X } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { profile } from '@/data/portfolio';
 import { NavRobot } from './NavRobot';
 import { ThemeToggle } from './ThemeToggle';
@@ -15,6 +15,19 @@ const navItems = [
 
 export function Header() {
   const [open, setOpen] = useState(false);
+  const menuButton = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setOpen(false);
+        menuButton.current?.focus();
+      }
+    };
+    window.addEventListener('keydown', closeOnEscape);
+    return () => window.removeEventListener('keydown', closeOnEscape);
+  }, [open]);
 
   return (
     <header className="sticky inset-x-0 top-0 z-50 px-3 py-3 md:px-4 md:py-4">
@@ -32,7 +45,7 @@ export function Header() {
           <span>SS</span>
         </a>
 
-        <div className="quiet-panel mx-auto hidden items-center gap-1 p-1 backdrop-blur-xl md:flex md:mx-0">
+        <div className="quiet-panel mx-auto hidden items-center gap-1 p-1 backdrop-blur-xl lg:flex lg:mx-0">
           {navItems.map((item) => (
             <a
               className="px-3 py-2 text-sm font-medium muted-copy transition duration-300 hover:text-[color:var(--text)]"
@@ -45,7 +58,7 @@ export function Header() {
           ))}
         </div>
 
-        <div className="hidden items-center gap-2 md:flex">
+        <div className="hidden items-center gap-2 lg:flex">
           <a
             className="link-button hidden md:inline-flex"
             data-cursor="hover"
@@ -65,15 +78,17 @@ export function Header() {
           <ThemeToggle />
         </div>
 
-        <div className="flex items-center gap-1.5 md:hidden">
+        <div className="flex items-center gap-1.5 lg:hidden">
           <ThemeToggle />
           <button
             aria-expanded={open}
+            aria-controls="mobile-navigation"
             aria-label={open ? 'Close navigation menu' : 'Open navigation menu'}
             className="link-button h-10 w-10 p-0"
             data-cursor="hover"
             onClick={() => setOpen((value) => !value)}
             type="button"
+            ref={menuButton}
           >
             {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
           </button>
@@ -81,7 +96,7 @@ export function Header() {
       </nav>
 
       {open ? (
-        <div className="content-shell md:hidden">
+        <div className="content-shell max-h-[70svh] overflow-y-auto lg:hidden" id="mobile-navigation">
           <div className="quiet-panel mt-2 grid gap-1 p-2 backdrop-blur-xl">
             {navItems.map((item) => (
               <a

@@ -10,6 +10,7 @@ import {
 } from 'framer-motion';
 import { useEffect, useRef, useState, type PointerEvent } from 'react';
 import { CircuitSignals } from './CircuitSignals';
+import { SleekRobot } from './SleekRobot';
 
 const ROBOT_SCENE = 'https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode';
 const landingFacts = [
@@ -68,6 +69,7 @@ export function AsciiRobotLanding({ onComplete }: AsciiRobotLandingProps) {
   const [robotLoaded, setRobotLoaded] = useState(false);
   const [tapCount, setTapCount] = useState(0);
   const splineCanvasRef = useRef<HTMLCanvasElement>(null);
+  const completionTimer = useRef<number | null>(null);
   const robotX = useMotionValue(0);
   const robotY = useMotionValue(0);
   const robotRotateX = useMotionValue(0);
@@ -100,11 +102,12 @@ export function AsciiRobotLanding({ onComplete }: AsciiRobotLandingProps) {
       active = false;
       canvas.removeEventListener('webglcontextlost', showFallback);
       spline.dispose();
+      if (completionTimer.current) window.clearTimeout(completionTimer.current);
     };
   }, []);
 
   const trackPointer = (event: PointerEvent<HTMLElement>) => {
-    if (shouldReduceMotion) return;
+    if (shouldReduceMotion || event.pointerType === 'touch') return;
 
     const rect = event.currentTarget.getBoundingClientRect();
     const normalizedX = clamp((event.clientX - rect.left) / rect.width - 0.5, -0.5, 0.5);
@@ -124,13 +127,13 @@ export function AsciiRobotLanding({ onComplete }: AsciiRobotLandingProps) {
   };
 
   const revealNext = () => {
-    if (!robotLoaded || tapCount >= 5) return;
+    if (tapCount >= 5) return;
 
     const nextTap = tapCount + 1;
     setTapCount(nextTap);
 
     if (nextTap === 5) {
-      window.setTimeout(onComplete, 1150);
+      completionTimer.current = window.setTimeout(onComplete, shouldReduceMotion ? 0 : 1150);
     }
   };
 
@@ -173,7 +176,6 @@ export function AsciiRobotLanding({ onComplete }: AsciiRobotLandingProps) {
               <motion.button
                 aria-label="Discover more about Srigan"
                 className="landing-tap-invite"
-                disabled={!robotLoaded}
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -8 }}
@@ -238,7 +240,7 @@ export function AsciiRobotLanding({ onComplete }: AsciiRobotLandingProps) {
           <motion.button
             aria-label={`Tap the robot to discover more. ${tapCount} of 5 taps complete.`}
             className="ascii-landing-robot-stage"
-            disabled={!robotLoaded || tapCount >= 5}
+            disabled={tapCount >= 5}
             initial={{ opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
             onClick={revealNext}
@@ -252,12 +254,19 @@ export function AsciiRobotLanding({ onComplete }: AsciiRobotLandingProps) {
             transition={{ duration: 0.9, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
             type="button"
           >
+            {!robotLoaded ? (
+              <div className="landing-robot-fallback"><SleekRobot variant="intro" /></div>
+            ) : null}
             <div className={`ascii-landing-spline${robotLoaded ? ' is-loaded' : ''}`}>
               <canvas aria-hidden="true" ref={splineCanvasRef} />
             </div>
           </motion.button>
         </div>
       </div>
+
+      <button className="landing-skip link-button" onClick={onComplete} type="button">
+        Enter portfolio <span aria-hidden="true">↗</span>
+      </button>
 
       <span aria-hidden="true" className="ascii-corner ascii-corner-tl">╔═══</span>
       <span aria-hidden="true" className="ascii-corner ascii-corner-tr">═══╗</span>

@@ -61,9 +61,9 @@ export const experiences: ExperienceItem[] = [
     company: 'MicroAlchemy',
     date: 'September 2026 – Present',
     impact:
-      'Founding intern at a semiconductor startup founded by two former NVIDIA engineers, developing controls for an automated photoresist/HMDS spin-bake system. Building PID control for a 10-10,000 RPM vacuum chuck, Python/C++ telemetry and sequencing tools, and 50-250 °C bake and N₂ automation targeting ±1 °C uniformity.',
+      'Building a Rust-based fleet of autonomous carts to move 150 mm (6-inch) wafers between process cells. Targeting 10 consecutive dark-room cycles using LiDAR, IR, and ToF sensing with Dijkstra’s algorithm for shortest-path routing and route tracking. Migrating navigation, safety, and I/O sensors onto a custom PCB connected to NVIDIA Jetson and Raspberry Pi compute, while supporting a spin-coat module with 10–10,000 RPM chuck control and 50–250 °C bake sequencing.',
     image: '/microalchemy.png',
-    tags: ['Motor Control', 'PID', 'Vacuum Systems', 'Thermal Control', 'Python', 'C++'],
+    tags: ['Rust', 'NVIDIA Jetson', 'Raspberry Pi', 'LiDAR / IR / ToF', 'Dijkstra Path Planning', 'Custom PCB'],
   },
   {
     id: 'wiz-robotics',
@@ -124,6 +124,11 @@ export type ProjectItem = {
   stack: string[];
   github?: string;
   demo?: string;
+  demoLabel?: string;
+  award?: {
+    shortLabel: string;
+    label: string;
+  };
   media?: {
     type: 'image' | 'video';
     src: string;
@@ -143,9 +148,10 @@ const hiddenProjectIds = new Set([
 ]);
 
 const visibleProjectOrder = [
+  'hcp-schematic-to-fetch',
   'kiwidock-ros2-ev-charging-dock',
-  'cad-turret-build',
   'turret-auto-align',
+  'cad-turret-build',
   'ros2-gnss-nav-demo',
   'fabflow-twin',
   'miniai-web-app',
@@ -165,6 +171,25 @@ const allProjects: ProjectItem[] = [
       type: 'video',
       src: '/ferroclimb-demo.mp4',
       alt: 'FerroClimb magnetic hexapod autonomy testbed running in Gazebo Harmonic',
+    },
+  },
+  {
+    id: 'hcp-schematic-to-fetch',
+    name: 'HCP Schematic-to-Fetch',
+    description:
+      'Multimodal AI and hardware pipeline that turns circuit schematics into a structured BOM, then visually identifies and stages components with a robot arm.',
+    stack: ['Python', 'Vision Language Model', 'Raspberry Pi', 'Baseten', 'OpenCV', 'Flask'],
+    github: 'https://github.com/Kashan030704/SchematicParserHTN2026',
+    demo: 'https://devpost.com/software/hcp-schematic-to-fetch-robot-arm',
+    demoLabel: 'Devpost',
+    award: {
+      shortLabel: 'HTN Finalist',
+      label: 'Hack the North · Huawei OMNI Multimodal AI Track Finalist',
+    },
+    media: {
+      type: 'video',
+      src: '/hcp-schematic-to-fetch-demo.mp4',
+      alt: 'HCP Schematic-to-Fetch multimodal AI and robot-arm demonstration',
     },
   },
   {
@@ -512,6 +537,69 @@ const allProjectDetails: ProjectDetail[] = [
         title: 'Current validation boundary',
         copy:
           'The Gazebo demo uses a bounded model-level force for deterministic movement toward the wall. The autonomy, stability, safety, and fault-management components are executable and testable, but per-foot magnetic forces are not yet coupled into Gazebo physics; FerroClimb is therefore presented as an autonomy testbed, not a physically validated climbing simulation.',
+      },
+    ],
+  },
+  {
+    ...projectById('hcp-schematic-to-fetch'),
+    eyebrow: 'Hack the North 2026 / Multimodal AI / Hardware Automation',
+    year: '2026',
+    role: 'Multimodal AI, perception, hardware integration, and end-to-end system design',
+    summary:
+      'HCP Schematic-to-Fetch bridges digital circuit design and physical prototyping: it extracts a bill of materials from a schematic, exposes that context to a vision-language model through the Hardware Context Protocol, localizes parts with camera vision, and commands an arm to retrieve and stage the requested components.',
+    heroVideo: '/hcp-schematic-to-fetch-demo.mp4',
+    highlights: [
+      {
+        title: 'Schematic to structured BOM',
+        copy:
+          'The ingestion layer converts an uploaded circuit schematic into validated component data that downstream reasoning and hardware services can consume predictably.',
+      },
+      {
+        title: 'Context-aware orchestration',
+        copy:
+          'HCP exposes the BOM, robot capabilities, and workspace state as bounded tools, keeping high-level LLM reasoning separate from deterministic motion execution.',
+      },
+      {
+        title: 'Vision-guided retrieval',
+        copy:
+          'Camera-based visual grounding connects detected component locations to the work area so the arm can find, pick, and stage parts for assembly.',
+      },
+    ],
+    sections: [
+      {
+        title: 'End-to-end architecture',
+        copy:
+          'The finalist prototype links six distinct stages: PDF schematic ingestion, component extraction, structured BOM generation, HCP tool exposure, multimodal reasoning, and physical manipulation. Keeping those stages modular made it possible to debug document understanding, perception, and robot behavior independently before integrating the full workflow.',
+      },
+      {
+        title: 'Schematic ingestion and BOM contract',
+        copy:
+          'The front end accepts a circuit schematic and passes it through a document-intelligence pipeline that identifies required parts. Results are normalized into a structured bill of materials rather than left as free-form model text, giving later stages stable component names and quantities to reason over.',
+      },
+      {
+        title: 'Hardware Context Protocol boundary',
+        copy:
+          'HCP acts as the interface between AI reasoning and the physical system. It presents the model with the approved BOM, available hardware actions, and workspace context as explicit tools. The model decides which high-level action is appropriate; deterministic motion-control code remains responsible for coordinates, actuator commands, and execution constraints.',
+      },
+      {
+        title: 'Camera perception and localization',
+        copy:
+          'The camera observes the workbench and grounds component detections in a consistent workspace reference frame. Those detections are translated into arm-relative targets, closing the gap between a symbolic component request and a physical location the manipulator can approach.',
+      },
+      {
+        title: 'Manipulation and system integration',
+        copy:
+          'Once a target component is selected and localized, the 3D-printed SO-100 arm executes the pick-and-stage sequence shown in the hackathon demo. The largest integration challenge was maintaining clean boundaries across PDF processing, model outputs, vision coordinates, and hardware control while still delivering one responsive workflow.',
+      },
+      {
+        title: 'Finalist result and next direction',
+        copy:
+          'The project was selected as a Hack the North finalist in the Huawei OMNI Multimodal AI track. The next step is moving from schematic-to-fetch toward schematic-to-build: richer symbol and value extraction, recognition beyond fiducial tags, and manipulation workflows that can assist with component placement as well as retrieval.',
+      },
+      {
+        title: 'Repository evolution',
+        copy:
+          'The linked repository continues beyond the original SO-100 hackathon demo with a DJI RoboMaster EP execution path, explicit human approval gates, bounded image-based approach control, and fail-stop behavior. This page documents the finalist system shown in the video while the source link reflects the project’s continuing technical development.',
       },
     ],
   },

@@ -8,32 +8,47 @@ import { Carousel } from './Carousel';
 import { SectionReveal } from './SectionReveal';
 
 function ProjectMedia({ project }: { project: ProjectItem }) {
-  if (!project.media) {
-    return <div className="h-32 border-b hairline" style={{ background: 'var(--bg-muted)' }} />;
-  }
-
-  if (project.media.type === 'video') {
-    return (
-      <video
-        aria-label={project.media.alt}
-        autoPlay
-        className="h-32 w-full border-b object-cover hairline"
-        loop
-        muted
-        playsInline
-        preload="metadata"
-        src={project.media.src}
-      />
-    );
-  }
-
   return (
-    <img
-      alt={project.media.alt}
-      className="h-32 w-full border-b object-cover hairline"
-      loading="lazy"
-      src={project.media.src}
-    />
+    <div className="project-media relative h-32 overflow-hidden border-b hairline">
+      {!project.media ? (
+        <div className="h-full w-full" style={{ background: 'var(--bg-muted)' }} />
+      ) : project.media.type === 'video' ? (
+        <video
+          aria-label={project.media.alt}
+          autoPlay
+          className="h-full w-full object-cover"
+          controls
+          loop
+          muted
+          playsInline
+          preload="metadata"
+          src={project.media.src}
+        />
+      ) : (
+        <img
+          alt={project.media.alt}
+          className="h-full w-full object-cover"
+          loading="lazy"
+          src={project.media.src}
+        />
+      )}
+
+      {project.award ? (
+        <div
+          className="pointer-events-none absolute inset-y-0 left-0 z-10 flex w-9 items-center justify-center border-r text-[9px] font-bold uppercase tracking-[0.14em] backdrop-blur-xl"
+          style={{
+            borderColor: 'color-mix(in srgb, var(--accent) 55%, var(--line))',
+            background: 'color-mix(in srgb, var(--bg-elevated) 88%, transparent)',
+            color: 'var(--accent)',
+          }}
+          title={project.award.label}
+        >
+          <span style={{ writingMode: 'vertical-rl', transform: 'rotate(180deg)' }}>
+            {project.award.shortLabel}
+          </span>
+        </div>
+      ) : null}
+    </div>
   );
 }
 
@@ -78,7 +93,7 @@ function ProjectCard({ project }: { project: ProjectItem }) {
               target="_blank"
             >
               <ExternalLink className="h-4 w-4" />
-              Demo
+              {project.demoLabel ?? 'Demo'}
             </a>
           ) : null}
         </div>
