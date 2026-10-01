@@ -10,7 +10,6 @@ import {
 } from 'framer-motion';
 import { useEffect, useRef, useState, type PointerEvent } from 'react';
 import { CircuitSignals } from './CircuitSignals';
-import { SleekRobot } from './SleekRobot';
 
 const ROBOT_SCENE = 'https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode';
 const landingFacts = [
@@ -85,7 +84,7 @@ export function AsciiRobotLanding({ onComplete }: AsciiRobotLandingProps) {
 
     let active = true;
     const spline = new Application(canvas);
-    const showFallback = () => setRobotLoaded(false);
+    const hideRobot = () => setRobotLoaded(false);
 
     spline
       .load(ROBOT_SCENE)
@@ -96,11 +95,11 @@ export function AsciiRobotLanding({ onComplete }: AsciiRobotLandingProps) {
         if (active) setRobotLoaded(false);
       });
 
-    canvas.addEventListener('webglcontextlost', showFallback);
+    canvas.addEventListener('webglcontextlost', hideRobot);
 
     return () => {
       active = false;
-      canvas.removeEventListener('webglcontextlost', showFallback);
+      canvas.removeEventListener('webglcontextlost', hideRobot);
       spline.dispose();
       if (completionTimer.current) window.clearTimeout(completionTimer.current);
     };
@@ -254,9 +253,6 @@ export function AsciiRobotLanding({ onComplete }: AsciiRobotLandingProps) {
             transition={{ duration: 0.9, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
             type="button"
           >
-            {!robotLoaded ? (
-              <div className="landing-robot-fallback"><SleekRobot variant="intro" /></div>
-            ) : null}
             <div className={`ascii-landing-spline${robotLoaded ? ' is-loaded' : ''}`}>
               <canvas aria-hidden="true" ref={splineCanvasRef} />
             </div>

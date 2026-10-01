@@ -1561,11 +1561,6 @@ video:-webkit-full-screen {
   bottom: max(1rem, env(safe-area-inset-bottom));
 }
 
-.landing-robot-fallback {
-  position: absolute;
-  inset: 8% 20%;
-}
-
 .carousel-track {
   overscroll-behavior-x: contain;
 }
