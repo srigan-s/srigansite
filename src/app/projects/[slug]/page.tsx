@@ -146,13 +146,11 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               </div>
             ) : project.heroVideo ? (
               <video
-                autoPlay
                 className="h-[22rem] w-full rounded-md object-cover md:h-[30rem]"
                 controls
-                loop
-                muted
                 playsInline
-                preload="metadata"
+                poster={project.media?.poster}
+                preload="none"
                 src={project.heroVideo}
               />
             ) : project.media?.type === 'image' ? (
@@ -213,7 +211,8 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                     className="h-[24rem] w-full rounded-md object-cover"
                     controls
                     playsInline
-                    preload="metadata"
+                    poster={video.src === project.heroVideo ? project.media?.poster : undefined}
+                    preload="none"
                     src={video.src}
                   />
                 </article>

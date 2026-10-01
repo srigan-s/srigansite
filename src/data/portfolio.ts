@@ -133,6 +133,8 @@ export type ProjectItem = {
     type: 'image' | 'video';
     src: string;
     alt: string;
+    poster?: string;
+    previewSrc?: string;
   };
 };
 
@@ -190,6 +192,8 @@ const allProjects: ProjectItem[] = [
       type: 'video',
       src: '/hcp-schematic-to-fetch-demo.mp4',
       alt: 'HCP Schematic-to-Fetch multimodal AI and robot-arm demonstration',
+      poster: '/project-posters/hcp-schematic-to-fetch.jpg',
+      previewSrc: '/project-previews/hcp-schematic-to-fetch.mp4',
     },
   },
   {
@@ -201,8 +205,10 @@ const allProjects: ProjectItem[] = [
     github: 'https://github.com/srigan-s/KiwiDock',
     media: {
       type: 'video',
-      src: '/kiwidock.mp4',
+      src: '/kiwidock-web.mp4',
       alt: 'KiwiDock ROS 2 autonomous mobile EV charging dock simulation preview',
+      poster: '/project-posters/kiwidock-ros2-ev-charging-dock.jpg',
+      previewSrc: '/project-previews/kiwidock-ros2-ev-charging-dock.mp4',
     },
   },
   {
@@ -229,6 +235,8 @@ const allProjects: ProjectItem[] = [
       type: 'video',
       src: '/fabflow.mp4',
       alt: 'FabFlow Twin 3D wafer transport and scheduling digital twin preview',
+      poster: '/project-posters/fabflow-twin.jpg',
+      previewSrc: '/project-previews/fabflow-twin.mp4',
     },
   },
   {
@@ -239,8 +247,10 @@ const allProjects: ProjectItem[] = [
     github: 'https://github.com/srigan-s/rc-car-calian',
     media: {
       type: 'video',
-      src: '/ros2-gnss-nav-demo.mov',
+      src: '/ros2-gnss-nav-demo-web.mp4',
       alt: 'ROS2 GNSS navigation simulation preview',
+      poster: '/project-posters/ros2-gnss-nav-demo.jpg',
+      previewSrc: '/project-previews/ros2-gnss-nav-demo.mp4',
     },
   },
   {
@@ -253,6 +263,8 @@ const allProjects: ProjectItem[] = [
       type: 'video',
       src: '/turret-auto-align-field.mov',
       alt: 'Turret auto align field preview',
+      poster: '/project-posters/turret-auto-align.jpg',
+      previewSrc: '/project-previews/turret-auto-align.mp4',
     },
   },
   {
@@ -291,6 +303,8 @@ const allProjects: ProjectItem[] = [
       type: 'video',
       src: '/miniai-preview.mov',
       alt: 'MiniAI web app preview',
+      poster: '/project-posters/miniai-web-app.jpg',
+      previewSrc: '/project-previews/miniai-web-app.mp4',
     },
   },
   {
@@ -350,8 +364,10 @@ const allProjects: ProjectItem[] = [
     stack: ['React', 'TypeScript', 'Vite', 'Tailwind CSS', 'Recharts', 'Node.js', 'Express', 'A* Planning'],
     media: {
       type: 'video',
-      src: '/kiwibot-hardware-health-monitor.mov',
+      src: '/kiwibot-hardware-health-monitor-web.mp4',
       alt: 'KiwiBot hardware health monitor robotics diagnostics dashboard preview',
+      poster: '/project-posters/kiwibot-hardware-health-monitor.jpg',
+      previewSrc: '/project-previews/kiwibot-hardware-health-monitor.mp4',
     },
   },
   {
@@ -610,7 +626,7 @@ const allProjectDetails: ProjectDetail[] = [
     role: 'Robotics stack, safety supervisor, simulation, and dashboard',
     summary:
       'KiwiDock is a ROS 2 Jazzy robotics simulation for an autonomous mobile EV charging robot. The stack drives a robot from depot to dock, aligns an end effector with a Tesla Model 3-style charge port, verifies safety interlocks, and only enables charging when the system is safe.',
-    heroVideo: '/kiwidock.mp4',
+    heroVideo: '/kiwidock-web.mp4',
     highlights: [
       {
         title: 'Full Robotics Stack',
@@ -663,7 +679,7 @@ const allProjectDetails: ProjectDetail[] = [
     videos: [
       {
         title: 'KiwiDock autonomous docking and safety-hold walkthrough',
-        src: '/kiwidock.mp4',
+        src: '/kiwidock-web.mp4',
       },
     ],
   },
@@ -814,7 +830,7 @@ const allProjectDetails: ProjectDetail[] = [
     role: 'Full-stack robotics simulation and operations dashboard',
     summary:
       'KiwiBot Hardware Health Monitor models the diagnostic and operations layer for an autonomous mobile EV charging robot. It simulates real-time hardware telemetry, fault injection, charging safety checks, and overnight parking-lot dispatch planning in one full-stack technical demo.',
-    heroVideo: '/kiwibot-hardware-health-monitor.mov',
+    heroVideo: '/kiwibot-hardware-health-monitor-web.mp4',
     highlights: [
       {
         title: 'Hardware Health Simulation',
@@ -862,7 +878,7 @@ const allProjectDetails: ProjectDetail[] = [
     videos: [
       {
         title: 'KiwiBot diagnostics and dispatch walkthrough',
-        src: '/kiwibot-hardware-health-monitor.mov',
+        src: '/kiwibot-hardware-health-monitor-web.mp4',
       },
     ],
   },
@@ -932,7 +948,7 @@ const allProjectDetails: ProjectDetail[] = [
     role: 'Robotics systems demo',
     summary:
       'A full ROS2 Jazzy navigation demo built around an RC-car-style robot that plans waypoint missions, ingests noisy GNSS and IMU measurements, and exposes the entire autonomy loop through RViz2 and post-run telemetry.',
-    heroVideo: '/ros2-gnss-nav-demo.mov',
+    heroVideo: '/ros2-gnss-nav-demo-web.mp4',
     highlights: [
       {
         title: 'GNSS / PNT',
@@ -967,7 +983,7 @@ const allProjectDetails: ProjectDetail[] = [
     videos: [
       {
         title: 'Autonomous waypoint mission',
-        src: '/ros2-gnss-nav-demo.mov',
+        src: '/ros2-gnss-nav-demo-web.mp4',
       },
     ],
   },

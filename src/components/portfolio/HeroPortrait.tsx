@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { GitHubContributionCard } from './GitHubContributionCard';
 
 export function HeroPortrait() {
@@ -5,10 +6,13 @@ export function HeroPortrait() {
     <div className="hero-portrait panel mx-auto w-full max-w-[28rem] overflow-hidden p-3">
       <div className="hero-portrait-grid grid gap-3 md:grid-cols-[0.85fr_1.15fr] lg:grid-cols-1">
         <div className="hero-portrait-photo overflow-hidden rounded-md border hairline">
-          <img
+          <Image
             alt="Srigan Sivagnanenthirarajah"
             className="h-[20rem] w-full object-cover object-center md:h-full lg:h-[24rem]"
+            height={640}
+            sizes="(max-width: 767px) 40vw, (max-width: 1023px) 40vw, 448px"
             src="/sriganBlue.jpeg"
+            width={640}
           />
         </div>
         <div className="hero-portrait-copy grid content-between gap-4 p-1">

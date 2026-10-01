@@ -1,8 +1,7 @@
 'use client';
 
 import { AnimatePresence, motion, MotionConfig } from 'framer-motion';
-import { useEffect, useRef, useState } from 'react';
-import { AsciiRobotLanding } from './AsciiRobotLanding';
+import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import { ExperienceSection } from './ExperienceSection';
 import { Footer } from './Footer';
 import { CircuitBackground } from './GridHoverBackground';
@@ -12,6 +11,9 @@ import { ProjectsSection } from './ProjectsSection';
 import { SkillsSection } from './SkillsSection';
 
 const INTRO_SESSION_KEY = 'srigan-portfolio-intro-complete';
+const AsciiRobotLanding = lazy(
+  () => import('./AsciiRobotLanding').then((module) => ({ default: module.AsciiRobotLanding })),
+);
 
 export function PortfolioPage() {
   const [revealed, setRevealed] = useState<boolean | null>(null);
@@ -66,7 +68,11 @@ export function PortfolioPage() {
       <div className="page-shell" id="home">
         <CircuitBackground />
         <AnimatePresence>
-          {revealed === false ? <AsciiRobotLanding onComplete={revealPortfolio} /> : null}
+          {revealed === false ? (
+            <Suspense fallback={null}>
+              <AsciiRobotLanding onComplete={revealPortfolio} />
+            </Suspense>
+          ) : null}
         </AnimatePresence>
         <AnimatePresence>
           {revealed === true ? (

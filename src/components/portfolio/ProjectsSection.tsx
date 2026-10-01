@@ -1,37 +1,43 @@
 'use client';
 
 import { ExternalLink, Github } from 'lucide-react';
+import Image from 'next/image';
 import Link from 'next/link';
+import { useEffect, useRef, useState, type PointerEvent } from 'react';
 import type { ProjectItem } from '@/data/portfolio';
 import { projects } from '@/data/portfolio';
 import { Carousel } from './Carousel';
 import { SectionReveal } from './SectionReveal';
 
-function ProjectMedia({ project }: { project: ProjectItem }) {
+function ProjectMedia({ project, previewActive }: { project: ProjectItem; previewActive: boolean }) {
   return (
     <div className="project-media relative h-32 overflow-hidden border-b hairline">
       {!project.media ? (
         <div className="h-full w-full" style={{ background: 'var(--bg-muted)' }} />
-      ) : project.media.type === 'video' ? (
-        <video
-          aria-label={project.media.alt}
-          autoPlay
+      ) : (
+        <Image
+          alt={project.media.alt}
           className="h-full w-full object-cover"
-          controls
+          height={256}
+          sizes="(max-width: 640px) 86vw, 384px"
+          src={project.media.poster ?? project.media.src}
+          width={768}
+        />
+      )}
+
+      {previewActive && project.media?.type === 'video' && project.media.previewSrc ? (
+        <video
+          aria-label={`${project.name} video preview`}
+          autoPlay
+          className="pointer-events-none absolute inset-0 h-full w-full object-cover"
           loop
           muted
           playsInline
-          preload="metadata"
-          src={project.media.src}
+          poster={project.media.poster}
+          preload="none"
+          src={project.media.previewSrc}
         />
-      ) : (
-        <img
-          alt={project.media.alt}
-          className="h-full w-full object-cover"
-          loading="lazy"
-          src={project.media.src}
-        />
-      )}
+      ) : null}
 
       {project.award ? (
         <div
@@ -53,9 +59,40 @@ function ProjectMedia({ project }: { project: ProjectItem }) {
 }
 
 function ProjectCard({ project }: { project: ProjectItem }) {
+  const [previewActive, setPreviewActive] = useState(false);
+  const previewTimer = useRef<number | null>(null);
+
+  useEffect(() => () => {
+    if (previewTimer.current !== null) window.clearTimeout(previewTimer.current);
+  }, []);
+
+  const startPreview = (event: PointerEvent<HTMLElement>) => {
+    if (event.pointerType !== 'mouse' && event.pointerType !== 'pen') return;
+    if (!project.media?.previewSrc) return;
+    if (previewTimer.current !== null || previewActive) return;
+
+    previewTimer.current = window.setTimeout(() => setPreviewActive(true), 220);
+  };
+
+  const stopPreview = () => {
+    if (previewTimer.current !== null) window.clearTimeout(previewTimer.current);
+    previewTimer.current = null;
+    setPreviewActive(false);
+  };
+
   return (
-    <article className="panel interactive flex h-full min-h-[25rem] flex-col overflow-hidden" data-cursor="hover">
-      <ProjectMedia project={project} />
+    <article
+      className="panel interactive relative flex h-full min-h-[25rem] flex-col overflow-hidden"
+      data-cursor="hover"
+      onPointerEnter={startPreview}
+      onPointerLeave={stopPreview}
+    >
+      <Link
+        aria-label={`Explore ${project.name}`}
+        className="absolute inset-0 z-10 focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--accent)]"
+        href={`/projects/${project.id}`}
+      />
+      <ProjectMedia previewActive={previewActive} project={project} />
       <div className="flex flex-1 flex-col p-5">
         <h3 className="text-xl font-semibold leading-tight">{project.name}</h3>
         <p className="mt-4 text-sm leading-6 muted-copy">{project.description}</p>
@@ -68,13 +105,11 @@ function ProjectCard({ project }: { project: ProjectItem }) {
           ))}
         </div>
 
-        <div className="mt-auto flex flex-wrap gap-2 pt-6">
-          <Link className="accent-button" data-cursor="hover" href={`/projects/${project.id}`}>
-            Explore
-          </Link>
+        <div className="pointer-events-none relative z-20 mt-auto flex flex-wrap gap-2 pt-6">
+          <span className="accent-button">Explore</span>
           {project.github ? (
             <a
-              className="link-button"
+              className="link-button pointer-events-auto"
               data-cursor="hover"
               href={project.github}
               rel="noopener noreferrer"
@@ -86,7 +121,7 @@ function ProjectCard({ project }: { project: ProjectItem }) {
           ) : null}
           {project.demo ? (
             <a
-              className="link-button"
+              className="link-button pointer-events-auto"
               data-cursor="hover"
               href={project.demo}
               rel="noopener noreferrer"

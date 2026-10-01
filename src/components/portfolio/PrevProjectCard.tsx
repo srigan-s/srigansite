@@ -1,6 +1,7 @@
 'use client';
 
 import { ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
@@ -41,23 +42,14 @@ export function PrevProjectCard() {
         </div>
 
         <div className="h-12 w-12 shrink-0 overflow-hidden rounded-md border hairline">
-          {active.media?.type === 'video' ? (
-            <video
-              aria-label={active.media.alt}
-              autoPlay
-              className="h-full w-full object-cover"
-              loop
-              muted
-              playsInline
-              src={active.media.src}
-            />
-          ) : (
-            <img
-              alt={active.media?.alt ?? `${active.name} preview`}
-              className="h-full w-full object-cover"
-              src={active.media?.src ?? '/waterloo.png'}
-            />
-          )}
+          <Image
+            alt={active.media?.alt ?? `${active.name} preview`}
+            className="h-full w-full object-cover"
+            height={48}
+            sizes="48px"
+            src={active.media?.poster ?? active.media?.src ?? '/waterloo.png'}
+            width={48}
+          />
         </div>
       </div>
 

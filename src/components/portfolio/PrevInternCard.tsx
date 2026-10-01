@@ -2,6 +2,7 @@
 
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
+import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { experiences } from '@/data/portfolio';
 import { HERO_CAROUSEL_INTERVAL_MS } from './carouselTiming';
@@ -39,10 +40,13 @@ export function PrevInternCard() {
           </AnimatePresence>
         </div>
 
-        <img
+        <Image
           alt={`${active.company} preview`}
           className="h-11 w-11 rounded-md object-cover"
+          height={44}
+          sizes="44px"
           src={active.image}
+          width={44}
         />
       </div>
 

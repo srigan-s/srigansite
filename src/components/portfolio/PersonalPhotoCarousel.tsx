@@ -2,6 +2,7 @@
 
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
+import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { HERO_CAROUSEL_INTERVAL_MS } from './carouselTiming';
 
@@ -66,10 +67,11 @@ export function PersonalPhotoCarousel() {
               <span>{active.label}</span>
             </div>
           ) : (
-            <img
+            <Image
               alt={active.alt}
               className="h-full w-full object-cover"
               data-cursor="hover"
+              height={288}
               onError={() =>
                 setMissingPhotos((current) => {
                   const next = new Set(current);
@@ -79,6 +81,8 @@ export function PersonalPhotoCarousel() {
               }
               style={{ objectPosition: active.objectPosition ?? 'center' }}
               src={active.src}
+              sizes="(max-width: 1023px) 86vw, 448px"
+              width={896}
             />
           )}
           <div className="personal-photo-caption">{active.label}</div>

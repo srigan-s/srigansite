@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import type { ExperienceItem } from '@/data/portfolio';
 import { experiences } from '@/data/portfolio';
 import { Carousel } from './Carousel';
@@ -9,11 +10,13 @@ function ExperienceCard({ experience }: { experience: ExperienceItem }) {
   return (
     <article className="panel interactive flex h-full min-h-[23rem] flex-col overflow-hidden" data-cursor="hover">
       <div className="h-28 overflow-hidden border-b hairline">
-        <img
+        <Image
           alt={`${experience.company} visual`}
           className="h-full w-full object-cover grayscale transition duration-500 hover:grayscale-0"
-          loading="lazy"
+          height={224}
+          sizes="(max-width: 640px) 86vw, 384px"
           src={experience.image}
+          width={768}
         />
       </div>
       <div className="flex flex-1 flex-col p-5">

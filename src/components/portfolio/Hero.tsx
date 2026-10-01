@@ -2,6 +2,7 @@
 
 import { ArrowDown } from 'lucide-react';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 import type { Variants } from 'framer-motion';
 import { profile } from '@/data/portfolio';
 import { HeroPortrait } from './HeroPortrait';
@@ -111,10 +112,13 @@ export function Hero() {
           <div aria-label="At a glance" className="hero-highlights mt-7 grid gap-3 sm:grid-cols-3" tabIndex={0}>
             <div className="quiet-panel min-h-[7.75rem] overflow-hidden p-3">
               <div className="flex items-start gap-3">
-                <img
+                <Image
                   alt="University of Waterloo"
                   className="h-12 w-12 rounded-md object-cover"
+                  height={48}
+                  sizes="48px"
                   src="/waterloo.png"
+                  width={48}
                 />
                 <div>
                   <p className="text-[11px] font-semibold uppercase muted-copy">School</p>
