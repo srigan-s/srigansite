@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="520" height="1180" viewBox="0 0 520 1180" role="img" aria-labelledby="title desc">
+  <title id="title">FerroClimb mobile architecture overview</title>
+  <desc id="desc">A simplified vertical architecture showing Gazebo simulation feeding state estimation, stability validation, gait control, ros2_control, and the robot, with adhesion, mission, safety, faults, and telemetry as supporting branches.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0 0L9 4.5L0 9Z" fill="#334155"/>
+    </marker>
+    <marker id="arrow-orange" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0 0L9 4.5L0 9Z" fill="#c2410c"/>
+    </marker>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#0f172a" flood-opacity="0.09"/>
+    </filter>
+    <style>
+      .heading { font: 700 14px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; letter-spacing: .07em; }
+      .node-title { font: 700 15px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; fill: #0f172a; }
+      .node-sub { font: 500 11px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; fill: #64748b; }
+      .node { fill: #ffffff; stroke-width: 1.5; filter: url(#shadow); }
+      .primary { fill: none; stroke: #334155; stroke-width: 2.4; marker-end: url(#arrow); }
+      .secondary { fill: none; stroke: #c2410c; stroke-width: 1.8; stroke-dasharray: 7 6; marker-end: url(#arrow-orange); }
+    </style>
+  </defs>
+
+  <rect width="520" height="1180" rx="16" fill="#f8fafc"/>
+  <text x="28" y="38" class="heading" fill="#334155">PRIMARY CONTROL PATH</text>
+
+  <path d="M260 147V181" class="primary"/>
+  <path d="M260 263V297" class="primary"/>
+  <path d="M260 379V413" class="primary"/>
+  <path d="M260 495V529" class="primary"/>
+  <path d="M260 611V645" class="primary"/>
+
+  <g>
+    <rect x="58" y="65" width="404" height="82" rx="10" class="node" stroke="#60a5fa"/>
+    <text x="260" y="99" text-anchor="middle" class="node-title">Gazebo Harmonic</text>
+    <text x="260" y="123" text-anchor="middle" class="node-sub">steel world · IMU · joints · foot contacts</text>
+  </g>
+  <g>
+    <rect x="58" y="181" width="404" height="82" rx="10" class="node" stroke="#4ade80"/>
+    <text x="260" y="215" text-anchor="middle" class="node-title">State estimator</text>
+    <text x="260" y="239" text-anchor="middle" class="node-sub">pose + contact state</text>
+  </g>
+  <g>
+    <rect x="58" y="297" width="404" height="82" rx="10" class="node" stroke="#4ade80"/>
+    <text x="260" y="331" text-anchor="middle" class="node-title">Stability validator</text>
+    <text x="260" y="355" text-anchor="middle" class="node-sub">support region + stability margin</text>
+  </g>
+  <g>
+    <rect x="58" y="413" width="404" height="82" rx="10" class="node" stroke="#4ade80"/>
+    <text x="260" y="447" text-anchor="middle" class="node-title">Gait + transition controller</text>
+    <text x="260" y="471" text-anchor="middle" class="node-sub">guarded foot release</text>
+  </g>
+  <g>
+    <rect x="58" y="529" width="404" height="82" rx="10" class="node" stroke="#4ade80"/>
+    <text x="260" y="563" text-anchor="middle" class="node-title">ros2_control</text>
+    <text x="260" y="587" text-anchor="middle" class="node-sub">joint command interfaces</text>
+  </g>
+  <g>
+    <rect x="58" y="645" width="404" height="82" rx="10" class="node" stroke="#60a5fa"/>
+    <text x="260" y="679" text-anchor="middle" class="node-title">18-DOF magnetic hexapod</text>
+    <text x="260" y="703" text-anchor="middle" class="node-sub">actuation + sensor feedback</text>
+  </g>
+
+  <text x="28" y="783" class="heading" fill="#c2410c">INDEPENDENT SUPPORT SYSTEMS</text>
+  <path d="M140 874V913" class="secondary"/>
+  <path d="M380 874V913" class="secondary"/>
+
+  <g>
+    <rect x="28" y="807" width="224" height="67" rx="10" class="node" stroke="#4ade80"/>
+    <text x="140" y="835" text-anchor="middle" class="node-title">Adhesion manager</text>
+    <text x="140" y="856" text-anchor="middle" class="node-sub">load · slip · reliability</text>
+  </g>
+  <g>
+    <rect x="268" y="807" width="224" height="67" rx="10" class="node" stroke="#4ade80"/>
+    <text x="380" y="835" text-anchor="middle" class="node-title">Mission manager</text>
+    <text x="380" y="856" text-anchor="middle" class="node-sub">demo + recovery</text>
+  </g>
+  <g>
+    <rect x="28" y="913" width="224" height="67" rx="10" class="node" stroke="#fb923c"/>
+    <text x="140" y="941" text-anchor="middle" class="node-title">Safety supervisor</text>
+    <text x="140" y="962" text-anchor="middle" class="node-sub">slow · hold · stop</text>
+  </g>
+  <g>
+    <rect x="268" y="913" width="224" height="67" rx="10" class="node" stroke="#fb923c"/>
+    <text x="380" y="941" text-anchor="middle" class="node-title">Fault injector</text>
+    <text x="380" y="962" text-anchor="middle" class="node-sub">magnet failure</text>
+  </g>
+  <g>
+    <rect x="58" y="1032" width="404" height="78" rx="10" class="node" stroke="#fb923c"/>
+    <text x="260" y="1065" text-anchor="middle" class="node-title">Telemetry + reports</text>
+    <text x="260" y="1089" text-anchor="middle" class="node-sub">state · safety · mission evidence</text>
+  </g>
+
+  <path d="M140 980C140 1011 198 1002 222 1032" class="secondary"/>
+  <path d="M380 980C380 1011 322 1002 298 1032" class="secondary"/>
+  <text x="260" y="1147" text-anchor="middle" class="node-sub">Dashed paths indicate monitoring, faults, and evaluation.</text>
+</svg>

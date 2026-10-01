@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450">
+  <defs>
+    <linearGradient id="sky" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#9cc9ff"/>
+      <stop offset="1" stop-color="#dceeff"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#sky)"/>
+  <path d="M0 320c142 22 266 18 396 0 144-20 252-12 404 18v112H0z" fill="#f6fbff"/>
+  <path d="M180 318V78M180 160l-90-72M180 182l112-84M180 216l-118 94M180 242l124 72M550 320V120M550 188l-78-62M550 210l92-70M550 238l-102 82M550 260l108 60" stroke="#24445b" stroke-width="11" stroke-linecap="round"/>
+  <circle cx="180" cy="78" r="22" fill="#f6fbff"/>
+  <circle cx="550" cy="120" r="20" fill="#f6fbff"/>
+  <text x="42" y="76" fill="#0f172a" font-family="Inter, Arial, sans-serif" font-size="42" font-weight="700">Snow walk</text>
+</svg>

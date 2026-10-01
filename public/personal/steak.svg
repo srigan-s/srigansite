@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#2b1610"/>
+      <stop offset="0.52" stop-color="#7f3026"/>
+      <stop offset="1" stop-color="#16110d"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#bg)"/>
+  <circle cx="400" cy="238" r="132" fill="#15110f" stroke="#c58b47" stroke-width="16"/>
+  <ellipse cx="328" cy="225" rx="94" ry="48" fill="#8e4939"/>
+  <ellipse cx="482" cy="228" rx="94" ry="48" fill="#9c5141"/>
+  <circle cx="404" cy="200" r="34" fill="#e0a739"/>
+  <path d="M210 360h380" stroke="#e8d3a4" stroke-width="5" stroke-linecap="round" opacity=".45"/>
+  <text x="42" y="76" fill="#fff7ee" font-family="Inter, Arial, sans-serif" font-size="42" font-weight="700">Dinner</text>
+</svg>

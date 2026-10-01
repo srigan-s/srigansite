@@ -9,20 +9,20 @@ const Experience = () => {
 
   const experiences = [
     {
+      title: 'Founding Hardware Engineering Intern',
+      company: 'MicroAlchemy',
+      location: 'Waterloo (In-Person)',
+      description: 'Founding intern at a semiconductor startup founded by two former NVIDIA engineers, developing controls for an automated photoresist/HMDS spin-bake system.',
+      skills: ['Motor Control', 'PID', 'Vacuum Systems', 'Thermal Control', 'Python', 'C++'],
+      image: '/microalchemy.png',
+    },
+    {
       title: 'Robotics Engineering Intern',
       company: 'Wiz Robotics',
       location: 'Toronto (In-Person)',
       description: 'Worked across IoT software, hardware-software integration, and AI perception for robotics systems.',
       skills: ['Sensor Evaluation', 'OpenCV', 'TensorFlow', 'Embedded IoT', 'Microcontrollers'],
       image: '/wizrobotics.webp',
-    },
-    {
-      title: 'Software Engineer Intern',
-      company: 'Baycrest Hospital',
-      location: 'Toronto (Remote)',
-      description: 'Built full-stack web experiences for Daisy’s Journey with a focus on usability and production readiness.',
-      skills: ['React.js', 'MongoDB', 'TypeScript', 'Node.js', 'SQL'],
-      image: '/bay.png',
     },
     {
       title: 'Founding AI Software Engineer',
@@ -47,6 +47,14 @@ const Experience = () => {
       description: 'Developed and validated windshield wiper control hardware with a focus on wiring and power efficiency.',
       skills: ['PCB Design', 'Circuit Testing', 'Soldering', 'Oscilloscope'],
       image: '/wato.jpeg',
+    },
+    {
+      title: 'Software Engineer Intern',
+      company: 'Baycrest Hospital',
+      location: 'Toronto (Remote)',
+      description: 'Built full-stack web experiences for Daisy’s Journey with a focus on usability and production readiness.',
+      skills: ['React.js', 'MongoDB', 'TypeScript', 'Node.js', 'SQL'],
+      image: '/bay.png',
     },
     {
       title: 'Student Researcher',
