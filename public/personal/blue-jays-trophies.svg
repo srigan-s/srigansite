@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450">
+  <rect width="800" height="450" fill="#111827"/>
+  <rect x="120" y="58" width="560" height="310" rx="12" fill="#ece8da" opacity=".9"/>
+  <rect x="170" y="98" width="190" height="220" rx="12" fill="#d6c58a" stroke="#6b5a2d" stroke-width="10"/>
+  <rect x="440" y="98" width="190" height="220" rx="12" fill="#d6c58a" stroke="#6b5a2d" stroke-width="10"/>
+  <path d="M218 132h94M488 132h94M228 288h74M498 288h74" stroke="#151515" stroke-width="8" stroke-linecap="round"/>
+  <path d="M400 70l18 35 39 6-28 27 7 39-36-19-35 19 7-39-28-27 39-6z" fill="#1d4ed8"/>
+  <text x="42" y="76" fill="#f8fafc" font-family="Inter, Arial, sans-serif" font-size="42" font-weight="700">Jays night</text>
+</svg>

@@ -83,7 +83,7 @@ const ROS2GNSSNavPage = () => {
             <div className="section-card overflow-hidden p-3">
               <video
                 className="h-[25rem] w-full rounded-[1.5rem] object-cover"
-                src="/ros2-gnss-nav-demo.mov"
+                src="/ros2-gnss-nav-demo-web.mp4"
                 autoPlay
                 muted
                 loop
@@ -176,7 +176,7 @@ const ROS2GNSSNavPage = () => {
               </div>
               <video
                 className="h-[34rem] w-full rounded-[1.25rem] object-cover"
-                src="/ros2-gnss-nav-demo.mov"
+                src="/ros2-gnss-nav-demo-web.mp4"
                 controls
                 playsInline
                 preload="metadata"

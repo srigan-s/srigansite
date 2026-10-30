@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450">
+  <defs>
+    <linearGradient id="sky" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#ef5b1f"/>
+      <stop offset=".55" stop-color="#c7472d"/>
+      <stop offset="1" stop-color="#273449"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#sky)"/>
+  <path d="M0 320c124-22 230-18 325 2 123 26 245 18 475-26v154H0z" fill="#dce7f3"/>
+  <path d="M92 128v190h118V86H121z" fill="#1f2937"/>
+  <path d="M445 134v184M445 190l-62-38M445 203l73-52M445 230l-82 52M445 244l79 39" stroke="#1f2937" stroke-width="7" stroke-linecap="round"/>
+  <text x="42" y="76" fill="#fff7ed" font-family="Inter, Arial, sans-serif" font-size="42" font-weight="700">Winter sunset</text>
+</svg>
