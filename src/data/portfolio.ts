@@ -133,6 +133,8 @@ export type ProjectItem = {
     type: 'image' | 'video';
     src: string;
     alt: string;
+    fit?: 'cover' | 'contain';
+    unoptimized?: boolean;
     poster?: string;
     previewSrc?: string;
   };
@@ -147,6 +149,7 @@ const hiddenProjectIds = new Set([
   'lightlink',
   'colourmash-ai',
   'recruitercall-ai',
+  'miniai-web-app',
 ]);
 
 const visibleProjectOrder = [
@@ -156,12 +159,28 @@ const visibleProjectOrder = [
   'cad-turret-build',
   'ros2-gnss-nav-demo',
   'fabflow-twin',
-  'miniai-web-app',
+  'pillsense',
   'kiwibot-hardware-health-monitor',
   'arduino-beatsync',
 ];
 
 const allProjects: ProjectItem[] = [
+  {
+    id: 'pillsense',
+    name: 'PillSense',
+    description: 'Recognized by Apple engineers at Cal Hacks for product creativity.',
+    stack: ['CAD', '3D Printing', 'Arduino', 'BLE', 'Stepper Motor', 'AI Agents'],
+    github: 'https://github.com/praveenachen/PillSense',
+    demo: 'https://devpost.com/software/pillsense',
+    demoLabel: 'Devpost',
+    media: {
+      type: 'image',
+      src: '/pillsense-thumb.png',
+      alt: 'PillSense custom 3D-printed rotating medication dispenser',
+      fit: 'contain',
+      unoptimized: true,
+    },
+  },
   {
     id: 'ferroclimb-magnetic-hexapod',
     name: 'FerroClimb',
@@ -453,6 +472,9 @@ export type ProjectDetail = ProjectItem & {
   summary: string;
   year: string;
   role: string;
+  bullets: string[];
+  videoUrl?: string;
+  videoEmbedUrl?: string;
   heroVideo?: string;
   highlights: Array<{
     title: string;
@@ -487,7 +509,31 @@ export type ProjectDetail = ProjectItem & {
 
 const allProjectDetails: ProjectDetail[] = [
   {
+    ...projectById('pillsense'),
+    eyebrow: 'Cal Hacks 13.0 / Embedded Hardware / Agentic AI',
+    year: '2026',
+    role: 'CAD, hardware selection, firmware, and agent workflow integration',
+    summary: 'Cal Hacks medication dispenser recognized by Apple engineers for product creativity, combining custom CAD, Bluetooth firmware, and caregiver-facing AI workflows.',
+    videoUrl: 'https://www.youtube.com/watch?v=yeYd--OyaCk',
+    videoEmbedUrl: 'https://www.youtube.com/embed/yeYd--OyaCk?autoplay=1&mute=1&playsinline=1',
+    bullets: [
+      'Fully designed and customized the rotating dispenser CAD and 3D-printed the carousel and enclosure.',
+      'Selected the Arduino UNO R4 WiFi, 28BYJ-48 stepper, ULN2003 driver, and status LEDs for the physical prototype.',
+      'Built and debugged firmware for motor positioning, LED feedback, and Bluetooth Low Energy control from the web app.',
+      'Connected BLE firmware events to Claude and Fetch.ai missed-dose workflows that review schedules and patient reports before suggesting caregiver follow-up.',
+      'Prototyped computer-vision gesture checks and a voice companion while keeping observed activity separate from confirmed ingestion.',
+      'Recognized by Apple engineers at Cal Hacks for the product’s creativity.',
+    ],
+    highlights: [],
+    sections: [],
+  },
+  {
     ...projectById('ferroclimb-magnetic-hexapod'),
+    bullets: [
+      'Built an 18-DOF magnetic hexapod autonomy testbed in ROS 2 and Gazebo.',
+      'Implemented guarded gaits, per-foot adhesion limits, and stability checks.',
+      'Added independent fault monitoring and recovery; magnetic forces are not yet coupled into Gazebo physics.',
+    ],
     eyebrow: 'ROS 2 Jazzy / Gazebo Harmonic / Safety-Critical Autonomy',
     year: '2026',
     role: 'Autonomy, control, fault management, safety architecture, and simulation',
@@ -558,6 +604,12 @@ const allProjectDetails: ProjectDetail[] = [
   },
   {
     ...projectById('hcp-schematic-to-fetch'),
+    bullets: [
+      'Converted circuit schematics into a structured bill of materials.',
+      'Exposed BOM and robot capabilities through bounded AI tools.',
+      'Used camera localization to guide a robot arm in picking and staging components.',
+      'Selected as a Hack the North Huawei OMNI Multimodal AI track finalist.',
+    ],
     eyebrow: 'Hack the North 2026 / Multimodal AI / Hardware Automation',
     year: '2026',
     role: 'Multimodal AI, perception, hardware integration, and end-to-end system design',
@@ -621,12 +673,22 @@ const allProjectDetails: ProjectDetail[] = [
   },
   {
     ...projectById('kiwidock-ros2-ev-charging-dock'),
+    bullets: [
+      'Simulated autonomous EV charging dock navigation and alignment in ROS 2.',
+      'Built a Rust safety supervisor with human-zone hold and charging interlocks.',
+      'Streamed robot state and safety events to a live React dashboard.',
+    ],
     eyebrow: 'ROS 2 Jazzy / Rust Safety Core / EV Charging Robotics',
     year: '2026',
     role: 'Robotics stack, safety supervisor, simulation, and dashboard',
     summary:
       'KiwiDock is a ROS 2 Jazzy robotics simulation for an autonomous mobile EV charging robot. The stack drives a robot from depot to dock, aligns an end effector with a Tesla Model 3-style charge port, verifies safety interlocks, and only enables charging when the system is safe.',
     heroVideo: '/kiwidock-web.mp4',
+    architectureImages: [{
+      title: 'KiwiDock system architecture',
+      src: '/kiwidock-system-architecture.png',
+      alt: 'KiwiDock ROS 2 simulation, Rust safety core, and dashboard system architecture',
+    }],
     highlights: [
       {
         title: 'Full Robotics Stack',
@@ -685,6 +747,11 @@ const allProjectDetails: ProjectDetail[] = [
   },
   {
     ...projectById('autonomous-mobile-manipulator-factory-simulation'),
+    bullets: [
+      'Built a ROS 2 and Gazebo factory material-handling simulation.',
+      'Modeled a mobile manipulator that follows a route and completes two station drop-offs.',
+      'Integrated robot control, environment, and repeatable mission launch.',
+    ],
     eyebrow: 'ROS 2 Jazzy / Gazebo / Factory Automation Robotics',
     year: '2026',
     role: 'ROS 2 simulation, robot modeling, Gazebo world design, and mission orchestration',
@@ -761,6 +828,11 @@ const allProjectDetails: ProjectDetail[] = [
   },
   {
     ...projectById('fabflow-twin'),
+    bullets: [
+      'Built an interactive 3D digital twin for semiconductor wafer transport.',
+      'Compared routing and dispatch strategies with throughput analytics.',
+      'Simulated equipment faults to reveal bottlenecks and recovery behavior.',
+    ],
     eyebrow: 'Digital Twin / Semiconductor Manufacturing / Scheduling',
     year: '2026',
     role: 'Simulation engine, 3D digital twin, dispatch logic, and analytics dashboard',
@@ -825,6 +897,11 @@ const allProjectDetails: ProjectDetail[] = [
   },
   {
     ...projectById('kiwibot-hardware-health-monitor'),
+    bullets: [
+      'Simulated robot hardware telemetry, fault states, and charging safety checks.',
+      'Built a diagnostics dashboard with live health and interlock status.',
+      'Added overnight dispatch and path-planning scenarios.',
+    ],
     eyebrow: 'Robotics Diagnostics / EV Charging / Dispatch',
     year: '2026',
     role: 'Full-stack robotics simulation and operations dashboard',
@@ -884,6 +961,11 @@ const allProjectDetails: ProjectDetail[] = [
   },
   {
     ...projectById('trackqa'),
+    bullets: [
+      'Streamed simulated 6D tracking poses from Java over WebSocket.',
+      'Built a 3D dashboard for pose, signal, and calibration debugging.',
+      'Organized issue detection and diagnostic reporting for OEM integration.',
+    ],
     eyebrow: '3D Tracking / Java / Three.js',
     year: '2026',
     role: 'Full-stack engineering dashboard',
@@ -943,6 +1025,11 @@ const allProjectDetails: ProjectDetail[] = [
   },
   {
     ...projectById('ros2-gnss-nav-demo'),
+    bullets: [
+      'Planned waypoint missions for an RC-car-style robot in ROS 2 Jazzy.',
+      'Fused noisy GNSS and IMU inputs in the navigation demo.',
+      'Visualized runs in RViz2 and checked post-run telemetry.',
+    ],
     eyebrow: 'ROS2 / GNSS / Linux Robotics',
     year: '2026',
     role: 'Robotics systems demo',
@@ -989,6 +1076,11 @@ const allProjectDetails: ProjectDetail[] = [
   },
   {
     ...projectById('turret-auto-align'),
+    bullets: [
+      'Built a vision-assisted FRC turret alignment loop in Java.',
+      'Used Limelight and AprilTag measurements to track targets while moving.',
+      'Developed a Python pipeline to tune control response from test data.',
+    ],
     eyebrow: 'FRC / Vision / Controls',
     year: '2026',
     role: 'Controls and ML tuning',
@@ -1042,6 +1134,11 @@ const allProjectDetails: ProjectDetail[] = [
   },
   {
     ...projectById('ai-robot-umpire'),
+    bullets: [
+      'Estimated a batter-specific strike zone from live webcam pose data.',
+      'Simulated pitches and called balls or strikes in real time.',
+      'Combined a computer-vision backend with visual and audio feedback.',
+    ],
     eyebrow: 'Computer Vision / Baseball / FastAPI',
     year: '2026',
     role: 'Perception prototype and full-stack demo',
@@ -1091,6 +1188,11 @@ const allProjectDetails: ProjectDetail[] = [
   },
   {
     ...projectById('martinrea-factorysight-qa'),
+    bullets: [
+      'Built an OpenCV inspection pipeline with explainable pass, fail, and review rules.',
+      'Captured webcam frames and stored inspection results in SQLite.',
+      'Displayed live quality metrics in a full-stack dashboard.',
+    ],
     eyebrow: 'Manufacturing QA / Computer Vision / FastAPI',
     year: '2026',
     role: 'Full-stack computer vision inspection system',
@@ -1154,6 +1256,11 @@ const allProjectDetails: ProjectDetail[] = [
   },
   {
     ...projectById('miniai-web-app'),
+    bullets: [
+      'Built a live AI learning platform for younger students.',
+      'Created guided lessons, mini-games, and prompt-based activities.',
+      'Focused on approachable onboarding and an easy-to-follow learning flow.',
+    ],
     eyebrow: 'Live Product / AI Education',
     year: '2026',
     role: 'Founding AI software engineer',
@@ -1195,6 +1302,11 @@ const allProjectDetails: ProjectDetail[] = [
   },
   {
     ...projectById('cad-turret-build'),
+    bullets: [
+      'Designed the complete turret assembly in Onshape and iterated from physics calculations.',
+      'Tuned the goBILDA motor and flywheel through hardware testing.',
+      'Fabricated CNC plates and 3D-printed mounts for the final mechanism.',
+    ],
     eyebrow: 'CAD / Fabrication / Mechanisms',
     year: '2026',
     role: 'Mechanical and systems builder',
@@ -1286,6 +1398,11 @@ const allProjectDetails: ProjectDetail[] = [
   },
   {
     ...projectById('colourmash-ai'),
+    bullets: [
+      'Built a cognitive-support web app around pattern-recognition activities.',
+      'Designed sparse, visual interactions for low-friction use.',
+      'Explored browser-based ML and AI-assisted support.',
+    ],
     eyebrow: 'Health / AI / Web',
     year: '2026',
     role: 'Full-stack builder',
@@ -1320,6 +1437,11 @@ const allProjectDetails: ProjectDetail[] = [
   },
   {
     ...projectById('lightlink'),
+    bullets: [
+      'Simulated a BPSK optical link and C++ firmware-style DSP loop.',
+      'Exposed sweeps, auto-tuning, and telemetry through FastAPI.',
+      'Visualized BER, SNR, lock state, and register data in a React dashboard.',
+    ],
     eyebrow: 'Optical DSP / C++ / FastAPI',
     year: '2026',
     role: 'Firmware simulation and full-stack dashboard',
@@ -1379,6 +1501,11 @@ const allProjectDetails: ProjectDetail[] = [
   },
   {
     ...projectById('arduino-beatsync'),
+    bullets: [
+      'Built a physical LED system synchronized to music timing.',
+      'Implemented responsive light control in Arduino C++.',
+      'Iterated on wiring, power, and output behavior in hardware.',
+    ],
     eyebrow: 'Arduino / Embedded / Audio',
     year: '2026',
     role: 'Embedded systems builder',
@@ -1413,6 +1540,11 @@ const allProjectDetails: ProjectDetail[] = [
   },
   {
     ...projectById('recruitercall-ai'),
+    bullets: [
+      'Built an AI-assisted technical interview practice flow.',
+      'Generated recruiter-style prompts and structured feedback.',
+      'Optimized the answer, review, and retry loop for quick practice.',
+    ],
     eyebrow: 'AI / Interview Practice',
     year: '2026',
     role: 'Full-stack builder',

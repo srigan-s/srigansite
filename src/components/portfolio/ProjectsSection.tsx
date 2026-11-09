@@ -11,16 +11,17 @@ import { SectionReveal } from './SectionReveal';
 
 function ProjectMedia({ project, previewActive }: { project: ProjectItem; previewActive: boolean }) {
   return (
-    <div className="project-media relative h-32 overflow-hidden border-b hairline">
+    <div className="project-media relative h-32 overflow-hidden border-b hairline" style={project.media?.fit === 'contain' ? { background: '#080e2b' } : undefined}>
       {!project.media ? (
         <div className="h-full w-full" style={{ background: 'var(--bg-muted)' }} />
       ) : (
         <Image
           alt={project.media.alt}
-          className="h-full w-full object-cover"
+          className={project.media.fit === 'contain' ? 'h-full w-full object-contain' : 'h-full w-full object-cover'}
           height={256}
           sizes="(max-width: 640px) 86vw, 384px"
           src={project.media.poster ?? project.media.src}
+          unoptimized={project.media.unoptimized}
           width={768}
         />
       )}
