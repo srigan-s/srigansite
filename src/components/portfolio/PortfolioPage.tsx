@@ -1,7 +1,7 @@
 'use client';
 
-import { AnimatePresence, motion, MotionConfig } from 'framer-motion';
-import { lazy, Suspense, useEffect, useRef, useState } from 'react';
+import { AnimatePresence, MotionConfig } from 'framer-motion';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import { ExperienceSection } from './ExperienceSection';
 import { Footer } from './Footer';
 import { CircuitBackground } from './GridHoverBackground';
@@ -17,7 +17,7 @@ const AsciiRobotLanding = lazy(
 
 export function PortfolioPage() {
   const [revealed, setRevealed] = useState<boolean | null>(null);
-  const restoredFromSession = useRef(false);
+  const [introExited, setIntroExited] = useState(false);
 
   useEffect(() => {
     let introWasCompleted = false;
@@ -31,7 +31,7 @@ export function PortfolioPage() {
     // Section links should open the content directly, including project-page returns.
     introWasCompleted ||= ['#portfolio', '#experience', '#projects', '#skills', '#github'].includes(window.location.hash);
 
-    restoredFromSession.current = introWasCompleted;
+    setIntroExited(introWasCompleted);
     setRevealed(introWasCompleted);
   }, []);
 
@@ -45,12 +45,12 @@ export function PortfolioPage() {
 
   useEffect(() => {
     const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = revealed ? '' : 'hidden';
+    document.body.style.overflow = introExited ? previousOverflow : 'hidden';
 
     return () => {
       document.body.style.overflow = previousOverflow;
     };
-  }, [revealed]);
+  }, [introExited]);
 
   const revealPortfolio = () => {
     try {
@@ -59,7 +59,6 @@ export function PortfolioPage() {
       // The page can still reveal normally when storage is unavailable.
     }
 
-    restoredFromSession.current = false;
     setRevealed(true);
   };
 
@@ -67,36 +66,25 @@ export function PortfolioPage() {
     <MotionConfig reducedMotion="user">
       <div className="page-shell" id="home">
         <CircuitBackground />
-        <AnimatePresence>
+        <AnimatePresence onExitComplete={() => setIntroExited(true)}>
           {revealed === false ? (
             <Suspense fallback={null}>
               <AsciiRobotLanding onComplete={revealPortfolio} />
             </Suspense>
           ) : null}
         </AnimatePresence>
-        <AnimatePresence>
-          {revealed === true ? (
-            <motion.div
-              className="portfolio-site"
-              initial={
-                restoredFromSession.current
-                  ? false
-                  : { opacity: 0, filter: 'blur(10px)', scale: 0.985 }
-              }
-              animate={{ opacity: 1, filter: 'blur(0px)', scale: 1 }}
-              transition={{ duration: 2.1, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
-            >
-              <Header />
-              <main>
-                <Hero />
-                <ExperienceSection />
-                <ProjectsSection />
-                <SkillsSection />
-              </main>
-              <Footer />
-            </motion.div>
-          ) : null}
-        </AnimatePresence>
+        {revealed === true ? (
+          <div className="portfolio-site">
+            <Header />
+            <main>
+              <Hero />
+              <ExperienceSection />
+              <ProjectsSection />
+              <SkillsSection />
+            </main>
+            <Footer />
+          </div>
+        ) : null}
       </div>
     </MotionConfig>
   );

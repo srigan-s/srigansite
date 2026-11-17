@@ -3,7 +3,6 @@
 import { ArrowDown } from 'lucide-react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import type { Variants } from 'framer-motion';
 import { profile } from '@/data/portfolio';
 import { HeroPortrait } from './HeroPortrait';
 import { PrevInternCard } from './PrevInternCard';
@@ -12,48 +11,6 @@ import { TechnicalSkillsWheel } from './TechnicalSkillsWheel';
 import { ThemeToggle } from './ThemeToggle';
 
 const nameLines = profile.name.split(' ');
-
-const nameEase = [0.16, 1, 0.3, 1] as const;
-
-const nameContainerVariants: Variants = {
-  hidden: {},
-  visible: {
-    transition: {
-      delayChildren: 0.55,
-      staggerChildren: 0.08,
-    },
-  },
-};
-
-const nameLineVariants: Variants = {
-  hidden: {
-    opacity: 1,
-  },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.045,
-    },
-  },
-};
-
-const nameLetterVariants: Variants = {
-  hidden: {
-    opacity: 0,
-    y: 10,
-    filter: 'blur(7px)',
-  },
-  visible: {
-    opacity: [0, 1, 0.25, 1, 0.55, 1],
-    y: [10, -2, 0, 1, 0, 0],
-    filter: ['blur(7px)', 'blur(0px)', 'blur(2px)', 'blur(0px)', 'blur(1px)', 'blur(0px)'],
-    transition: {
-      duration: 0.58,
-      ease: nameEase,
-      times: [0, 0.24, 0.42, 0.62, 0.78, 1],
-    },
-  },
-};
 
 const heroLinks = [
   profile.links.find((link) => link.label === 'Resume'),
@@ -74,36 +31,29 @@ export function Hero() {
         >
           <div className="hero-introduction">
             <p className="eyebrow">Hardware / Controls / Robotics / Software</p>
-            <motion.h1
+            <h1
               aria-label={profile.name}
               className="display-title animated-name mt-5"
               data-cursor="hover"
-              initial="hidden"
-              animate="visible"
-              variants={nameContainerVariants}
             >
               {nameLines.map((line, lineIndex) => (
-                <motion.span
+                <span
                   aria-hidden="true"
                   className="animated-name-line"
                   key={line}
-                  variants={nameLineVariants}
                 >
                   {line.split('').map((letter, letterIndex) => (
-                    <motion.span
+                    <span
                       className="animated-name-letter"
                       data-cursor="hover"
                       key={`${letter}-${lineIndex}-${letterIndex}`}
-                      style={{ animationDelay: `${letterIndex * 34}ms` }}
-                      transition={{ duration: 0.46, ease: nameEase }}
-                      variants={nameLetterVariants}
                     >
                       {letter}
-                    </motion.span>
+                    </span>
                   ))}
-                </motion.span>
+                </span>
               ))}
-            </motion.h1>
+            </h1>
             <p className="mt-5 max-w-xl text-lg font-medium muted-copy md:text-xl">{profile.title}</p>
             <p className="mt-4 max-w-2xl text-base leading-7 muted-copy">{profile.line}</p>
           </div>

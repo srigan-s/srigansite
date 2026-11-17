@@ -486,19 +486,6 @@ video:-webkit-full-screen {
     min-height: 32rem;
     transform-origin: center;
     transform: translate(-50%, -50%);
-    transition:
-      left 1.12s cubic-bezier(0.16, 1, 0.3, 1),
-      top 1.12s cubic-bezier(0.16, 1, 0.3, 1),
-      transform 1.12s cubic-bezier(0.16, 1, 0.3, 1),
-      filter 1.12s ease;
-    will-change: transform;
-  }
-
-  .landing-robot-dock.is-docking {
-    left: clamp(2.2rem, calc(50vw - 34rem), 20rem);
-    top: 2.5rem;
-    filter: drop-shadow(0 10px 18px color-mix(in srgb, var(--accent) 20%, transparent));
-    transform: translate(-50%, -50%) scale(0.055);
   }
 
   .ascii-landing-robot-stage {
@@ -1673,11 +1660,6 @@ video:-webkit-full-screen {
     margin: 0 auto;
   }
 
-  .landing-robot-dock.is-docking {
-    left: 2.4rem;
-    top: 2.4rem;
-    transform: translate(-50%, -50%) scale(0.06);
-  }
 }
 
 @media (max-width: 767px) {
@@ -1890,12 +1872,6 @@ video:-webkit-full-screen {
     height: clamp(19rem, 52svh, 25rem);
     min-height: 0;
     max-height: none;
-  }
-
-  .landing-robot-dock.is-docking {
-    left: 2.1rem;
-    top: 2.15rem;
-    transform: translate(-50%, -50%) scale(0.075);
   }
 
   .landing-tap-progress {

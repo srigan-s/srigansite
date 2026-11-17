@@ -9,14 +9,16 @@ import {
   useSpring,
 } from 'framer-motion';
 import { useEffect, useRef, useState, type PointerEvent } from 'react';
+import { experiences, profile } from '@/data/portfolio';
 import { CircuitSignals } from './CircuitSignals';
 
 const ROBOT_SCENE = 'https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode';
+const currentExperience = experiences.find((experience) => experience.id === 'microalchemy');
 const landingFacts = [
   {
     label: 'CURRENTLY',
-    value: 'Founding Hardware Intern',
-    detail: 'MicroAlchemy · Semiconductor equipment',
+    value: currentExperience?.role ?? 'Robotics Engineering Intern',
+    detail: 'MicroAlchemy · Wafer-transport robotics',
     position: 'fact-one',
     image: '/microalchemy.png',
     imageAlt: 'MicroAlchemy logo',
@@ -31,16 +33,16 @@ const landingFacts = [
   },
   {
     label: 'BUILDING',
-    value: 'Controls · Embedded · Robotics',
-    detail: 'Hardware and software as one system',
+    value: 'Robotics · Motion Control · Embedded Software',
+    detail: 'Robot hardware and software end to end',
     position: 'fact-three',
     image: null,
     imageAlt: '',
   },
   {
     label: 'TOOLKIT',
-    value: 'Python · C++ · PCB · CAD',
-    detail: 'From prototypes to tested hardware',
+    value: 'ROS 2 · Rust · CAD · Custom PCB',
+    detail: 'Perception, navigation, and motion control',
     position: 'fact-four',
     image: null,
     imageAlt: '',
@@ -52,9 +54,9 @@ const clamp = (value: number, min: number, max: number) =>
 
 const tapMessages = [
   'tap me to find out more',
-  'I help build semiconductor equipment',
+  'I design wafer-transport robots at MicroAlchemy',
   'I study electrical engineering at Waterloo',
-  'I build controls, embedded systems, and robots',
+  'I build robot hardware and ROS 2 software',
   'one more tap to enter Srigan\'s Space',
   'opening Srigan\'s Space...',
 ];
@@ -132,7 +134,7 @@ export function AsciiRobotLanding({ onComplete }: AsciiRobotLandingProps) {
     setTapCount(nextTap);
 
     if (nextTap === 5) {
-      completionTimer.current = window.setTimeout(onComplete, shouldReduceMotion ? 0 : 1150);
+      completionTimer.current = window.setTimeout(onComplete, shouldReduceMotion ? 0 : 350);
     }
   };
 
@@ -140,11 +142,11 @@ export function AsciiRobotLanding({ onComplete }: AsciiRobotLandingProps) {
     <motion.section
       aria-label="Interactive portfolio introduction"
       className="ascii-landing"
-      exit={{ opacity: 0, filter: 'blur(14px)', scale: 1.025 }}
+      exit={{ opacity: 0 }}
       id="intro"
       onPointerLeave={resetRobot}
       onPointerMove={trackPointer}
-      transition={{ duration: 1.55, ease: [0.16, 1, 0.3, 1] }}
+      transition={{ duration: shouldReduceMotion ? 0 : 0.45, ease: 'easeOut' }}
     >
       <div aria-hidden="true" className="ascii-landing-grid" />
       <CircuitSignals />
@@ -157,7 +159,7 @@ export function AsciiRobotLanding({ onComplete }: AsciiRobotLandingProps) {
           animate={{ opacity: 1, letterSpacing: '-0.075em', scale: 1 }}
           transition={{ duration: 1.5, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
         >
-          Srigan Sivagnanenthirarajah
+          {profile.name}
         </motion.div>
 
         <motion.aside
@@ -235,7 +237,7 @@ export function AsciiRobotLanding({ onComplete }: AsciiRobotLandingProps) {
           </AnimatePresence>
         </div>
 
-        <div className={`landing-robot-dock${tapCount === 5 ? ' is-docking' : ''}`}>
+        <div className="landing-robot-dock">
           <motion.button
             aria-label={`Tap the robot to discover more. ${tapCount} of 5 taps complete.`}
             className="ascii-landing-robot-stage"
