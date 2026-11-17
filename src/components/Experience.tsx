@@ -9,11 +9,11 @@ const Experience = () => {
 
   const experiences = [
     {
-      title: 'Founding Hardware Engineering Intern',
+      title: 'Founding Robotics Engineering Intern',
       company: 'MicroAlchemy',
       location: 'Waterloo (In-Person)',
-      description: 'Founding intern at a semiconductor startup founded by two former NVIDIA engineers, developing controls for an automated photoresist/HMDS spin-bake system.',
-      skills: ['Motor Control', 'PID', 'Vacuum Systems', 'Thermal Control', 'Python', 'C++'],
+      description: 'Designed the wafer-transport robot end to end, including power schematics and sensor hardware, and implemented its robotics software.',
+      skills: ['Power Schematics', 'Sensor Board Design', 'ROS2', 'Rust', 'Python', 'C++'],
       image: '/microalchemy.png',
     },
     {
@@ -25,14 +25,6 @@ const Experience = () => {
       image: '/wizrobotics.webp',
     },
     {
-      title: 'Founding AI Software Engineer',
-      company: 'MiniAI',
-      location: 'Toronto (In-Person)',
-      description: 'Led the product direction and engineering behind an educational AI web platform for young learners.',
-      skills: ['React.js', 'Node.js', 'MongoDB', 'C#', 'C++'],
-      image: '/miniAi.png',
-    },
-    {
       title: 'Firmware Engineering Lead',
       company: 'FIRST Robotics',
       location: 'Toronto (In-Person)',
@@ -41,11 +33,11 @@ const Experience = () => {
       image: '/firstcube.jpg',
     },
     {
-      title: 'Electrical Engineer',
+      title: 'Robotics Engineer',
       company: 'WATonomous',
       location: 'Waterloo (In-Person)',
-      description: 'Developed and validated windshield wiper control hardware with a focus on wiring and power efficiency.',
-      skills: ['PCB Design', 'Circuit Testing', 'Soldering', 'Oscilloscope'],
+      description: 'Contributed to MuJoCo bimanual reinforcement learning with PPO, EKF estimation, and 50 Hz joint control. Validated motor-control firmware and debugged actuator interfaces with oscilloscopes and logic analysis.',
+      skills: ['MuJoCo', 'PPO', 'EKF', 'Motor Control', 'Oscilloscope', 'Logic Analyzer'],
       image: '/wato.jpeg',
     },
     {
@@ -150,7 +142,9 @@ const Experience = () => {
                       <img
                         src={experience.image}
                         alt={experience.company}
-                        className="h-80 w-full object-cover transition-transform duration-1000 hover:scale-105 lg:h-full"
+                        className={experience.company === 'FIRST Robotics'
+                          ? 'h-80 w-full bg-white object-contain lg:h-full'
+                          : 'h-80 w-full object-cover transition-transform duration-1000 hover:scale-105 lg:h-full'}
                       />
                     </div>
 

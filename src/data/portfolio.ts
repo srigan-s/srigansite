@@ -5,14 +5,13 @@ import {
   Github,
   Linkedin,
   Mail,
-  RadioTower,
   Wrench,
   FileText,
 } from 'lucide-react';
 
 export const profile = {
   name: 'Srigan Sivagnanenthirarajah',
-  title: 'Electrical Engineering @ Waterloo · Founding Hardware Engineering Intern @ MicroAlchemy',
+  title: 'Electrical Engineering @ Waterloo · Founding Robotics Engineering Intern @ MicroAlchemy',
   line: 'Building semiconductor process equipment, motion-control systems, robotics, and the embedded software that connects them.',
   email: 'srigan.siva@gmail.com',
   githubUsername: 'srigan-s',
@@ -57,11 +56,11 @@ export type ExperienceItem = {
 export const experiences: ExperienceItem[] = [
   {
     id: 'microalchemy',
-    role: 'Founding Hardware Engineering Intern',
+    role: 'Founding Robotics Engineering Intern',
     company: 'MicroAlchemy',
     date: 'September 2026 – Present',
     impact:
-      'Building a Rust-based fleet of autonomous carts to move 150 mm (6-inch) wafers between process cells. Targeting 10 consecutive dark-room cycles using LiDAR, IR, and ToF sensing with Dijkstra’s algorithm for shortest-path routing and route tracking. Migrating navigation, safety, and I/O sensors onto a custom PCB connected to NVIDIA Jetson and Raspberry Pi compute, while supporting a spin-coat module with 10–10,000 RPM chuck control and 50–250 °C bake sequencing.',
+      'Designed the 150 mm wafer-transport robot end to end, including its power schematics, sensor board, and compute architecture. Implemented its ROS2/Rust software for perception, sensor fusion, navigation, and motion control.',
     image: '/microalchemy.png',
     tags: ['Rust', 'NVIDIA Jetson', 'Raspberry Pi', 'LiDAR / IR / ToF', 'Dijkstra Path Planning', 'Custom PCB'],
   },
@@ -77,13 +76,12 @@ export const experiences: ExperienceItem[] = [
   },
   {
     id: 'watonomous',
-    role: 'Hardware Test Engineer',
+    role: 'Robotics Engineer',
     company: 'WATonomous',
-    // TODO: Replace with the exact design team date range from your resume.
-    date: ' September 2025 - December 2025',
-    impact: 'Developed and validated vehicle control hardware for autonomous systems work.',
+    date: 'September 2025 – December 2025',
+    impact: 'Contributed to a MuJoCo bimanual robot using PPO, EKF estimation, and 50 Hz control, reaching a 97.9% hit rate across 8,192 serves. Validated motor firmware and debugged actuator signals, improving accuracy by 30% and reducing faults by 25%.',
     image: '/wato.jpeg',
-    tags: ['Controls', 'PCB', 'Testing'],
+    tags: ['MuJoCo', 'PPO', 'EKF', 'Motor Control', 'Oscilloscope', 'Logic Analyzer'],
   },
   {
     id: 'baycrest',
@@ -96,14 +94,13 @@ export const experiences: ExperienceItem[] = [
     tags: ['React', 'TypeScript', 'MongoDB', "Gemini API"],
   },
   {
-    id: 'miniai',
-    role: 'Founding Engineer (AI Software)',
-    company: 'MiniAI',
-    // TODO: Replace with the exact role date range from your resume.
-    date: 'February 2024 - Present',
-    impact: 'Led engineering for a gamified AI learning platform for younger students.',
-    image: '/miniAi.png',
-    tags: ['AI', 'Product', 'Full-stack'],
+    id: 'first-robotics',
+    role: 'Firmware Engineering Lead',
+    company: 'FIRST Robotics',
+    date: 'September 2023 – June 2025',
+    impact: 'Led firmware for Northview Robotics Team 6632, integrating cameras, sensors, motor drivers, and networking on a competition robot. Implemented PID control for motor speed and positioning and helped lead the team to the Provincial Championship.',
+    image: '/firstcube.jpg',
+    tags: ['Firmware', 'Java', 'PID Control', 'Sensors', 'Motor Drivers', 'Networking'],
   },
   {
     id: 'uwaterloo-research',
@@ -150,6 +147,7 @@ const hiddenProjectIds = new Set([
   'colourmash-ai',
   'recruitercall-ai',
   'miniai-web-app',
+  'arduino-beatsync',
 ]);
 
 const visibleProjectOrder = [
@@ -157,11 +155,10 @@ const visibleProjectOrder = [
   'kiwidock-ros2-ev-charging-dock',
   'turret-auto-align',
   'cad-turret-build',
+  'pillsense',
   'ros2-gnss-nav-demo',
   'fabflow-twin',
-  'pillsense',
   'kiwibot-hardware-health-monitor',
-  'arduino-beatsync',
 ];
 
 const allProjects: ProjectItem[] = [
@@ -174,10 +171,11 @@ const allProjects: ProjectItem[] = [
     demo: 'https://devpost.com/software/pillsense',
     demoLabel: 'Devpost',
     media: {
-      type: 'image',
-      src: '/pillsense-thumb.png',
-      alt: 'PillSense custom 3D-printed rotating medication dispenser',
-      fit: 'contain',
+      type: 'video',
+      src: '/pillsense-teaser-v3.mp4',
+      alt: 'PillSense medication dispenser teaser video',
+      poster: '/pillsense-thumb.png',
+      previewSrc: '/pillsense-teaser-v3.mp4',
       unoptimized: true,
     },
   },
@@ -513,9 +511,9 @@ const allProjectDetails: ProjectDetail[] = [
     eyebrow: 'Cal Hacks 13.0 / Embedded Hardware / Agentic AI',
     year: '2026',
     role: 'CAD, hardware selection, firmware, and agent workflow integration',
-    summary: 'Cal Hacks medication dispenser recognized by Apple engineers for product creativity, combining custom CAD, Bluetooth firmware, and caregiver-facing AI workflows.',
+    summary: 'A CAD-built medication dispenser with Bluetooth firmware and caregiver workflows, recognized by Apple engineers at Cal Hacks.',
     videoUrl: 'https://www.youtube.com/watch?v=yeYd--OyaCk',
-    videoEmbedUrl: 'https://www.youtube.com/embed/yeYd--OyaCk?autoplay=1&mute=1&playsinline=1',
+    heroVideo: '/pillsense-teaser-v3.mp4',
     bullets: [
       'Fully designed and customized the rotating dispenser CAD and 3D-printed the carousel and enclosure.',
       'Selected the Arduino UNO R4 WiFi, 28BYJ-48 stepper, ULN2003 driver, and status LEDs for the physical prototype.',
@@ -524,8 +522,41 @@ const allProjectDetails: ProjectDetail[] = [
       'Prototyped computer-vision gesture checks and a voice companion while keeping observed activity separate from confirmed ingestion.',
       'Recognized by Apple engineers at Cal Hacks for the product’s creativity.',
     ],
-    highlights: [],
-    sections: [],
+    highlights: [
+      {
+        title: 'Physical dispenser',
+        copy: 'Designed and 3D-printed the rotating carousel and enclosure, then integrated the stepper motor and status LEDs.',
+      },
+      {
+        title: 'Connected firmware',
+        copy: 'Built Arduino firmware for motor positioning and LED feedback, with Bluetooth control from the web app.',
+      },
+      {
+        title: 'Caregiver workflow',
+        copy: 'Connected device events to missed-dose investigations while keeping observed activity separate from confirmed ingestion.',
+      },
+    ],
+    sections: [
+      {
+        title: 'From CAD to a working device',
+        copy: 'I designed the rotating dispenser in CAD, printed the carousel and enclosure, selected the Arduino UNO R4 WiFi, stepper motor, driver, and LEDs, and assembled the physical prototype.',
+      },
+      {
+        title: 'Firmware and app connection',
+        copy: 'The firmware positions the carousel and reports device state through LED feedback. Bluetooth Low Energy connects those device actions to the web app.',
+      },
+      {
+        title: 'What the prototype can say',
+        copy: 'Device movement, camera observations, and patient reports are separate signals. The workflow can surface a missed-dose concern for caregiver follow-up without treating an observation as proof that a dose was taken.',
+      },
+    ],
+    images: [
+      {
+        title: 'Breadboard prototype and status LED',
+        src: '/pillsense-prototype.png',
+        alt: 'PillSense Arduino UNO R4 WiFi breadboard prototype with wiring, a status LED, and a motor driver board',
+      },
+    ],
   },
   {
     ...projectById('ferroclimb-magnetic-hexapod'),
@@ -614,7 +645,7 @@ const allProjectDetails: ProjectDetail[] = [
     year: '2026',
     role: 'Multimodal AI, perception, hardware integration, and end-to-end system design',
     summary:
-      'HCP Schematic-to-Fetch bridges digital circuit design and physical prototyping: it extracts a bill of materials from a schematic, exposes that context to a vision-language model through the Hardware Context Protocol, localizes parts with camera vision, and commands an arm to retrieve and stage the requested components.',
+      'Turns a circuit schematic into a bill of materials, then uses vision and a robot arm to find and stage the components.',
     heroVideo: '/hcp-schematic-to-fetch-demo.mp4',
     highlights: [
       {
@@ -682,7 +713,7 @@ const allProjectDetails: ProjectDetail[] = [
     year: '2026',
     role: 'Robotics stack, safety supervisor, simulation, and dashboard',
     summary:
-      'KiwiDock is a ROS 2 Jazzy robotics simulation for an autonomous mobile EV charging robot. The stack drives a robot from depot to dock, aligns an end effector with a Tesla Model 3-style charge port, verifies safety interlocks, and only enables charging when the system is safe.',
+      'A ROS 2 EV charging robot simulation with dock alignment, safety interlocks, and a live dashboard.',
     heroVideo: '/kiwidock-web.mp4',
     architectureImages: [{
       title: 'KiwiDock system architecture',
@@ -837,7 +868,7 @@ const allProjectDetails: ProjectDetail[] = [
     year: '2026',
     role: 'Simulation engine, 3D digital twin, dispatch logic, and analytics dashboard',
     summary:
-      'FabFlow Twin is an interactive 3D digital twin that simulates wafer movement through a compact semiconductor production line. It helps explore material flow, identify bottlenecks, compare scheduling strategies, test equipment faults, and estimate throughput before investing in physical transport systems.',
+      'A 3D semiconductor fab simulation for comparing wafer routing, equipment faults, and throughput.',
     heroVideo: '/fabflow.mp4',
     highlights: [
       {
@@ -906,7 +937,7 @@ const allProjectDetails: ProjectDetail[] = [
     year: '2026',
     role: 'Full-stack robotics simulation and operations dashboard',
     summary:
-      'KiwiBot Hardware Health Monitor models the diagnostic and operations layer for an autonomous mobile EV charging robot. It simulates real-time hardware telemetry, fault injection, charging safety checks, and overnight parking-lot dispatch planning in one full-stack technical demo.',
+      'A robotics diagnostics dashboard for live telemetry, charging safety checks, faults, and overnight dispatch.',
     heroVideo: '/kiwibot-hardware-health-monitor-web.mp4',
     highlights: [
       {
@@ -1034,7 +1065,7 @@ const allProjectDetails: ProjectDetail[] = [
     year: '2026',
     role: 'Robotics systems demo',
     summary:
-      'A full ROS2 Jazzy navigation demo built around an RC-car-style robot that plans waypoint missions, ingests noisy GNSS and IMU measurements, and exposes the entire autonomy loop through RViz2 and post-run telemetry.',
+      'An RC car waypoint navigation simulation using noisy GNSS and IMU data, with RViz2 and run telemetry.',
     heroVideo: '/ros2-gnss-nav-demo-web.mp4',
     highlights: [
       {
@@ -1077,7 +1108,8 @@ const allProjectDetails: ProjectDetail[] = [
   {
     ...projectById('turret-auto-align'),
     bullets: [
-      'Built a vision-assisted FRC turret alignment loop in Java.',
+      'Used vision-assisted alignment to aim the turret and shoot game balls during on-robot field tests.',
+      'Built the FRC turret alignment loop in Java.',
       'Used Limelight and AprilTag measurements to track targets while moving.',
       'Developed a Python pipeline to tune control response from test data.',
     ],
@@ -1085,9 +1117,13 @@ const allProjectDetails: ProjectDetail[] = [
     year: '2026',
     role: 'Controls and ML tuning',
     summary:
-      'A vision-assisted FRC turret alignment system that combines Java robot logic, Limelight targeting, AprilTag measurements, and a Python tuning pipeline to keep the turret centered while the robot is moving.',
+      'A vision-guided FRC turret that tracks targets and shoots game balls while the robot moves.',
     heroVideo: '/turret-auto-align-field.mov',
     highlights: [
+      {
+        title: 'Ball shooting on the robot',
+        copy: 'The field-test footage shows the physical turret tracking the target and shooting game balls after alignment.',
+      },
       {
         title: 'Vision Pipeline',
         copy: 'Combined Limelight values with AprilTag-based measurements to estimate target offset and maintain a stable lock under changing field conditions.',
@@ -1102,6 +1138,10 @@ const allProjectDetails: ProjectDetail[] = [
       },
     ],
     sections: [
+      {
+        title: 'From target lock to shot',
+        copy: 'The turret uses vision measurements to hold aim while the chassis moves, then fires game balls at the field target. This on-robot shooting sequence is the central demonstration, with the tuning dashboard supporting the control work behind it.',
+      },
       {
         title: 'What it did',
         copy:
@@ -1311,7 +1351,7 @@ const allProjectDetails: ProjectDetail[] = [
     year: '2026',
     role: 'Mechanical and systems builder',
     summary:
-      'A custom turret designed in Onshape and carried through fabrication, assembly, and repeated testing. The build combined CAD, physics calculations, goBILDA motor tuning, CNC-machined plates, and 3D printed mounts to reach a reliable final mechanism.',
+      'An Onshape-designed turret built with CNC plates, 3D-printed mounts, and a tuned goBILDA flywheel.',
     heroVideo: '/turret-auto-align-field.mov',
     highlights: [
       {
@@ -1585,28 +1625,23 @@ export const projectDetails = allProjectDetails.filter(
 
 export const skillGroups = [
   {
-    title: 'Hardware Controls',
-    icon: Bot,
-    skills: ['PID control', 'motor control', 'actuator sequencing', 'motion profiling', 'RPM telemetry', 'system integration'],
-  },
-  {
-    title: 'Process Hardware',
-    icon: Cpu,
-    skills: ['spin coating', 'vacuum chucking', 'photoresist / HMDS', 'thermal control', 'N₂ automation', 'fluid dispensing'],
-  },
-  {
-    title: 'Embedded & Test',
-    icon: Wrench,
-    skills: ['C++', 'Python', 'microcontrollers', 'sensors & actuators', 'oscilloscope', 'hardware validation'],
-  },
-  {
-    title: 'Robotics',
-    icon: RadioTower,
-    skills: ['ROS2', 'GNSS/PNT', 'AprilTags', 'Limelight', 'RViz2', 'OpenCV'],
-  },
-  {
-    title: 'Software',
+    title: 'Programming',
     icon: Braces,
-    skills: ['TypeScript', 'React', 'Next.js', 'Node.js', 'Git', 'Linux'],
+    skills: ['C/C++', 'Rust', 'Python', 'Embedded C', 'MATLAB', 'Bash', 'SQL', 'Java'],
+  },
+  {
+    title: 'Robotics & Simulation',
+    icon: Bot,
+    skills: ['ROS2', 'Nav2', 'Gazebo', 'MuJoCo', 'RViz', 'PID', 'OpenCV', 'Sensor Fusion'],
+  },
+  {
+    title: 'Embedded Systems',
+    icon: Cpu,
+    skills: ['ESP32', 'Raspberry Pi', 'NVIDIA Jetson', 'I2C', 'SPI', 'CAN'],
+  },
+  {
+    title: 'Hardware & Validation',
+    icon: Wrench,
+    skills: ['Linux', 'Altium', 'KiCad', 'PCB Bring-Up', 'Oscilloscopes', 'Logic Analyzer', 'DMMs', 'HIL Testing'],
   },
 ];

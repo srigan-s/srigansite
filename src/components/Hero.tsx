@@ -96,7 +96,7 @@ const Hero = () => {
                 style={{ animation: 'card-glow 8s ease-in-out infinite' }}
               />
               <img
-                src="/sriganBlue.jpeg"
+                src="/srigan-golden-gate.png"
                 alt="Srigan Sivagnanenthirarajah"
                 className="h-[30rem] w-full object-cover object-center transition-transform duration-1000 hover:scale-105"
                 style={{ animation: 'float-drift-wide 12s ease-in-out infinite' }}

@@ -13,12 +13,12 @@ export function SkillsSection() {
             <h2 className="section-title mt-3">A concise stack for systems that touch the real world.</h2>
           </div>
           <p className="max-w-sm text-sm leading-6 muted-copy">
-            Hands-on experience across motion control, semiconductor process hardware, embedded
-            testing, robotics, and production software.
+            Hands-on experience across robotics software, simulation, embedded systems, and hardware
+            validation.
           </p>
         </div>
 
-        <div className="skills-grid grid grid-cols-2 gap-3 md:gap-4 lg:grid-cols-5">
+        <div className="skills-grid grid grid-cols-1 gap-3 sm:grid-cols-2 md:gap-4 lg:grid-cols-4">
           {skillGroups.map((group) => (
             <article className="quiet-panel interactive min-w-0 p-3 sm:p-5" data-cursor="hover" key={group.title}>
               <group.icon className="h-5 w-5" style={{ color: 'var(--accent)' }} />

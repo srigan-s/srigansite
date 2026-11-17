@@ -7,17 +7,28 @@ import { Carousel } from './Carousel';
 import { SectionReveal } from './SectionReveal';
 
 function ExperienceCard({ experience }: { experience: ExperienceItem }) {
+  const isFirstRobotics = experience.id === 'first-robotics';
+
   return (
-    <article className="panel interactive flex h-full min-h-[23rem] flex-col overflow-hidden" data-cursor="hover">
-      <div className="h-28 overflow-hidden border-b hairline">
-        <Image
-          alt={`${experience.company} visual`}
-          className="h-full w-full object-cover grayscale transition duration-500 hover:grayscale-0"
-          height={224}
-          sizes="(max-width: 640px) 86vw, 384px"
-          src={experience.image}
-          width={768}
-        />
+    <article className="experience-card panel interactive flex h-full min-h-[23rem] flex-col overflow-hidden" data-cursor="hover">
+      <div className={isFirstRobotics ? 'h-28 overflow-hidden border-b hairline bg-white' : 'h-28 overflow-hidden border-b hairline'}>
+        {isFirstRobotics ? (
+          <img
+            alt="FIRST Robotics logo"
+            className="experience-card-logo h-full w-full object-contain"
+            loading="eager"
+            src={experience.image}
+          />
+        ) : (
+          <Image
+            alt={`${experience.company} visual`}
+            className="experience-card-image h-full w-full object-cover"
+            height={224}
+            sizes="(max-width: 640px) 86vw, 384px"
+            src={experience.image}
+            width={768}
+          />
+        )}
       </div>
       <div className="flex flex-1 flex-col p-5">
         <div className="flex flex-col items-start justify-between gap-2 sm:flex-row sm:gap-5">

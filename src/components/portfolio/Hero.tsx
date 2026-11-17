@@ -6,7 +6,6 @@ import Image from 'next/image';
 import type { Variants } from 'framer-motion';
 import { profile } from '@/data/portfolio';
 import { HeroPortrait } from './HeroPortrait';
-import { PersonalPhotoCarousel } from './PersonalPhotoCarousel';
 import { PrevInternCard } from './PrevInternCard';
 import { PrevProjectCard } from './PrevProjectCard';
 import { TechnicalSkillsWheel } from './TechnicalSkillsWheel';
@@ -148,7 +147,6 @@ export function Hero() {
             <ThemeToggle />
           </div>
           <TechnicalSkillsWheel />
-          <PersonalPhotoCarousel />
 
           <div className="hero-scroll mt-10 flex items-center gap-3 text-sm muted-copy">
             <a

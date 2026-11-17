@@ -84,15 +84,6 @@ const Projects = () => {
     },
 
     {
-      title: 'Arduino BeatSync',
-      description: 'An Arduino system that syncs LED behavior to music timing for a physical audiovisual experience.',
-      technologies: ['Arduino', 'C++', 'PWM Timing', 'LED Control'],
-      featured: true,
-      github: 'https://github.com/srigan-s/ArduinoBeatSync',
-      live: 'https://github.com/srigan-s/ArduinoBeatSync',
-      image: '/arduino.jpg',
-    },
-    {
       title: 'TrackQA',
       description:
         'A full-stack engineering dashboard for debugging optical and electromagnetic 3D tracking integrations with Java WebSocket simulation, Three.js visualization, issue detection, Gemini diagnosis, CSV export, and Jira-style report generation.',

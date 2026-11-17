@@ -43,7 +43,7 @@ const About = () => {
               <div className="absolute right-[-4rem] top-[-4rem] h-44 w-44 rounded-full bg-[color:var(--accent)]/10 blur-3xl" />
               <div className="grid gap-8 md:grid-cols-[220px_1fr] md:items-center">
                 <img
-                  src="/sriganBlue.jpeg"
+                  src="/srigan-golden-gate.png"
                   alt="Srigan portrait"
                   className="h-56 w-56 rounded-[1.75rem] object-cover shadow-ambient"
                 />

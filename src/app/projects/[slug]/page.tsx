@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { ArrowLeft, ExternalLink, Github, Play, Trophy } from 'lucide-react';
-import { projectDetails } from '@/data/portfolio';
+import { ArrowLeft, ArrowRight, ExternalLink, Github, Play, Trophy } from 'lucide-react';
+import { projectDetails, projects } from '@/data/portfolio';
 import { ThemeToggle } from '@/components/portfolio/ThemeToggle';
 
 type ProjectPageProps = {
@@ -27,132 +27,190 @@ export async function generateMetadata({ params }: ProjectPageProps) {
 export default async function ProjectPage({ params }: ProjectPageProps) {
   const { slug } = await params;
   const project = projectDetails.find((item) => item.id === slug);
-
   if (!project) notFound();
 
-  const additionalVideos = project.videos?.filter((video) => video.src !== project.heroVideo) ?? [];
+  const index = projects.findIndex((item) => item.id === project.id);
+  const nextProject = projects[(index + 1) % projects.length];
+  const primaryVideo = project.heroVideo ?? (project.media?.type === 'video' ? project.media.src : undefined);
+  const additionalVideos = project.videos?.filter((video) => video.src !== primaryVideo) ?? [];
+  const poster = project.media?.poster ?? (project.media?.type === 'image' ? project.media.src : undefined);
+  const hasHeroMedia = Boolean(primaryVideo || project.videoEmbedUrl || project.media?.type === 'image');
 
   return (
-    <main className="project-page page-shell pb-20 pt-8">
+    <main className="project-case page-shell">
       <div className="content-shell">
-        <div className="mb-10 flex items-center justify-between">
+        <div className="project-case-topbar">
           <Link className="link-button" data-cursor="hover" href="/#projects">
-            <ArrowLeft className="h-4 w-4" />
-            Back to projects
+            <ArrowLeft className="h-4 w-4" /> Back to projects
           </Link>
           <ThemeToggle />
         </div>
 
-        <section className="grid gap-10 pt-12 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+        <header className="project-case-intro">
+          <p className="eyebrow">Case study / {String(index + 1).padStart(2, '0')} · {project.year}</p>
+          <p className="project-case-category">{project.eyebrow}</p>
+          <h1>{project.name}</h1>
+          <p className="project-case-summary">{project.summary}</p>
+          {project.award ? (
+            <p className="project-case-award"><Trophy className="h-4 w-4 shrink-0" />{project.award.label}</p>
+          ) : null}
+        </header>
+
+        <div className="project-case-meta">
           <div>
-            <p className="eyebrow">{project.eyebrow}</p>
-            {project.award ? (
-              <div
-                className="mt-5 inline-flex max-w-full items-center gap-2 border-l-2 py-2 pl-4 text-xs font-bold uppercase tracking-[0.12em]"
-                style={{ borderColor: 'color-mix(in srgb, var(--accent) 55%, var(--line))', color: 'var(--accent)' }}
-              >
-                <Trophy className="h-4 w-4 shrink-0" />
-                <span>{project.award.label}</span>
-              </div>
-            ) : null}
-            <h1 className="mt-5 max-w-3xl text-4xl font-semibold leading-tight md:text-6xl">{project.name}</h1>
-            <div className="mt-8 flex flex-wrap gap-2">
-              <span className="quiet-panel px-3 py-1.5 text-sm muted-copy">{project.role}</span>
-              {project.stack.map((item) => (
-                <span className="quiet-panel px-3 py-1.5 text-sm muted-copy" key={item}>{item}</span>
-              ))}
-            </div>
-            <div className="mt-8 flex flex-wrap gap-3">
+            <p className="eyebrow">My role</p>
+            <p>{project.role}</p>
+          </div>
+          <div>
+            <p className="eyebrow">Built with</p>
+            <ul className="project-case-stack">
+              {project.stack.map((item) => <li key={item}>{item}</li>)}
+            </ul>
+          </div>
+          <div>
+            <p className="eyebrow">Explore</p>
+            <div className="project-case-links">
               {project.github ? (
-                <a className="link-button" data-cursor="hover" href={project.github} rel="noopener noreferrer" target="_blank">
-                  <Github className="h-4 w-4" /> GitHub
-                </a>
+                <a href={project.github} rel="noopener noreferrer" target="_blank"><Github className="h-4 w-4" /> Code</a>
               ) : null}
               {project.demo ? (
-                <a className="accent-button" data-cursor="hover" href={project.demo} rel="noopener noreferrer" target="_blank">
-                  <ExternalLink className="h-4 w-4" /> {project.demoLabel ?? 'Live'}
-                </a>
+                <a href={project.demo} rel="noopener noreferrer" target="_blank"><ExternalLink className="h-4 w-4" /> {project.demoLabel ?? 'Demo'}</a>
               ) : null}
               {project.videoUrl ? (
-                <a className="link-button" data-cursor="hover" href={project.videoUrl} rel="noopener noreferrer" target="_blank">
-                  <Play className="h-4 w-4" /> Watch video
-                </a>
+                <a href={project.videoUrl} rel="noopener noreferrer" target="_blank"><Play className="h-4 w-4" /> Video</a>
               ) : null}
             </div>
           </div>
+        </div>
 
-          <div className="panel overflow-hidden p-2">
-            {project.videoEmbedUrl ? (
+        {hasHeroMedia ? (
+          <figure className="project-case-feature">
+            {primaryVideo ? (
+              <video
+                aria-label={`${project.name} project demo`}
+                autoPlay={project.id === 'pillsense'}
+                controls
+                loop={project.id === 'pillsense'}
+                muted={project.id === 'pillsense'}
+                playsInline
+                poster={poster}
+                preload="metadata"
+                src={primaryVideo}
+              />
+            ) : project.videoEmbedUrl ? (
               <iframe
-                className="aspect-video w-full rounded-md"
-                src={project.videoEmbedUrl}
-                title={`${project.name} demo video`}
                 allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
                 allowFullScreen
                 referrerPolicy="strict-origin-when-cross-origin"
-              />
-            ) : project.images?.length ? (
-              <div className="grid gap-2 md:grid-cols-2">
-                {project.images.map((image, index) => (
-                  <div className={index === 0 ? 'md:col-span-2' : ''} key={image.src}>
-                    <img
-                      alt={image.alt}
-                      className={index === 0 ? 'h-[22rem] w-full rounded-md object-cover md:h-[30rem]' : 'h-[14rem] w-full rounded-md object-cover md:h-[18rem]'}
-                      src={image.src}
-                    />
-                  </div>
-                ))}
-              </div>
-            ) : project.heroVideo ? (
-              <video
-                className="h-[22rem] w-full rounded-md object-cover md:h-[30rem]"
-                controls
-                playsInline
-                poster={project.media?.poster}
-                preload="none"
-                src={project.heroVideo}
+                src={project.videoEmbedUrl}
+                title={`${project.name} demo video`}
               />
             ) : project.media?.type === 'image' ? (
-              <img
-                alt={project.media.alt}
-                className={project.media.fit === 'contain' ? 'aspect-video w-full rounded-md object-contain' : 'h-[22rem] w-full rounded-md object-cover md:h-[30rem]'}
-                src={project.media.src}
-              />
+              <img alt={project.media.alt} src={project.media.src} />
             ) : null}
-          </div>
-        </section>
-
-        <section className="section-shell">
-          <ul className="quiet-panel max-w-4xl list-disc space-y-4 px-8 py-7 text-base leading-7 muted-copy marker:text-[var(--accent)] md:px-10">
-            {project.bullets.map((bullet) => <li key={bullet}>{bullet}</li>)}
-          </ul>
-        </section>
-
-        {project.architectureImages?.length ? (
-          <section className="grid gap-6" aria-label={`${project.name} architecture diagrams`}>
-            {project.architectureImages.map((diagram) => (
-              <div className="panel overflow-hidden p-2" key={diagram.src}>
-                <picture>
-                  {diagram.mobileSrc ? <source media="(max-width: 639px)" srcSet={diagram.mobileSrc} /> : null}
-                  <img alt={diagram.alt} className="h-auto w-full rounded-md" loading="lazy" src={diagram.src} />
-                </picture>
-              </div>
-            ))}
-          </section>
+            <figcaption>{project.name} demo</figcaption>
+          </figure>
         ) : null}
 
-        {additionalVideos.length ? (
-          <section className="section-shell">
-            <div className="grid gap-4 lg:grid-cols-3">
-              {additionalVideos.map((video) => (
-                <article className="panel overflow-hidden p-3" key={video.src}>
-                  <h2 className="mb-3 px-1 text-sm font-medium muted-copy">{video.title}</h2>
-                  <video className="h-[24rem] w-full rounded-md object-cover" controls playsInline preload="none" src={video.src} />
+        {project.highlights.length ? (
+          <section className="project-case-section" aria-labelledby="project-highlights">
+            <div className="project-case-section-heading">
+              <p className="eyebrow">At a glance</p>
+              <h2 id="project-highlights">Key details</h2>
+            </div>
+            <div className="project-case-highlights">
+              {project.highlights.map((highlight, highlightIndex) => (
+                <article className="project-case-highlight" key={highlight.title}>
+                  <span className="project-case-number">{String(highlightIndex + 1).padStart(2, '0')}</span>
+                  <h3>{highlight.title}</h3>
+                  <p>{highlight.copy}</p>
                 </article>
               ))}
             </div>
           </section>
         ) : null}
+
+        {project.architectureImages?.length ? (
+          <section className="project-case-section" aria-labelledby="project-architecture">
+            <div className="project-case-section-heading">
+              <p className="eyebrow">System view</p>
+              <h2 id="project-architecture">Architecture</h2>
+              {project.architectureSummary ? <p>{project.architectureSummary}</p> : null}
+            </div>
+            <div className="project-case-gallery">
+              {project.architectureImages.map((diagram) => (
+                <figure className="project-case-image" key={diagram.src}>
+                  <picture>
+                    {diagram.mobileSrc ? <source media="(max-width: 639px)" srcSet={diagram.mobileSrc} /> : null}
+                    <img alt={diagram.alt} loading="lazy" src={diagram.src} />
+                  </picture>
+                  <figcaption>{diagram.title}</figcaption>
+                </figure>
+              ))}
+            </div>
+          </section>
+        ) : null}
+
+        {project.images?.length ? (
+          <section className="project-case-section" aria-labelledby="project-gallery">
+            <div className="project-case-section-heading">
+              <p className="eyebrow">Prototype details</p>
+              <h2 id="project-gallery">Inside the build</h2>
+            </div>
+            <div className="project-case-gallery">
+              {project.images.map((image) => (
+                <figure className="project-case-image" key={image.src}>
+                  <img alt={image.alt} loading="lazy" src={image.src} />
+                  <figcaption>{image.title}</figcaption>
+                </figure>
+              ))}
+            </div>
+          </section>
+        ) : null}
+
+        {additionalVideos.length ? (
+          <section className="project-case-section" aria-labelledby="project-more-video">
+            <div className="project-case-section-heading">
+              <p className="eyebrow">More footage</p>
+              <h2 id="project-more-video">Tests and walkthroughs</h2>
+            </div>
+            <div className="project-case-video-grid">
+              {additionalVideos.map((video) => (
+                <figure className="project-case-video" key={video.src}>
+                  <video aria-label={video.title} controls playsInline preload="none" src={video.src} />
+                  <figcaption>{video.title}</figcaption>
+                </figure>
+              ))}
+            </div>
+          </section>
+        ) : null}
+
+        {project.sections.length || project.code ? (
+          <details className="project-case-details">
+            <summary>Technical details</summary>
+            {project.sections.length ? (
+              <div className="project-case-story">
+                {project.sections.map((section) => (
+                  <article className="project-case-story-row" key={section.title}>
+                    <div className="project-case-story-title"><h3>{section.title}</h3></div>
+                    <p>{section.copy}</p>
+                  </article>
+                ))}
+              </div>
+            ) : null}
+            {project.code ? (
+              <div className="project-case-details-code">
+                <h3>{project.code.label}</h3>
+                <pre className="project-case-code"><code>{project.code.snippet}</code></pre>
+              </div>
+            ) : null}
+          </details>
+        ) : null}
+
+        <nav className="project-case-next" aria-label="Next project">
+          <span className="eyebrow">Next case study</span>
+          <Link href={`/projects/${nextProject.id}`}>{nextProject.name}<ArrowRight className="h-6 w-6" /></Link>
+        </nav>
       </div>
     </main>
   );
