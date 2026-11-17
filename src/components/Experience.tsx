@@ -13,7 +13,7 @@ const Experience = () => {
       company: 'MicroAlchemy',
       location: 'Waterloo (In-Person)',
       description: 'Designed the wafer-transport robot end to end, including power schematics and sensor hardware, and implemented its robotics software.',
-      skills: ['Power Schematics', 'Sensor Board Design', 'ROS2', 'Rust', 'Python', 'C++', 'PID Control'],
+      skills: ['Power Schematics', 'Sensor Board Design', 'ROS2', 'Gazebo', 'Rust', 'Python', 'C++', 'PID Control'],
       image: '/microalchemy.png',
     },
     {

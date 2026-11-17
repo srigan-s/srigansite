@@ -62,7 +62,7 @@ export const experiences: ExperienceItem[] = [
     impact:
       'Designed the 150 mm wafer-transport robot end to end, including its power schematics, sensor board, and compute architecture. Implemented its ROS2/Rust software for perception, sensor fusion, navigation, and motion control.',
     image: '/microalchemy.png',
-    tags: ['Rust', 'NVIDIA Jetson', 'Raspberry Pi', 'LiDAR / IR / ToF', 'Dijkstra Path Planning', 'PID Control', 'Power Schematics', 'Custom PCB'],
+    tags: ['Rust', 'Gazebo', 'NVIDIA Jetson', 'Raspberry Pi', 'LiDAR / IR / ToF', 'Dijkstra Path Planning', 'PID Control', 'Power Schematics', 'Custom PCB'],
   },
   {
     id: 'wiz-robotics',
