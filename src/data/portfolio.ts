@@ -58,11 +58,11 @@ export const experiences: ExperienceItem[] = [
     id: 'microalchemy',
     role: 'Founding Robotics Engineering Intern',
     company: 'MicroAlchemy',
-    date: 'September 2026 – Present',
+    date: 'September 2026 – December 2026',
     impact:
       'Designed the 150 mm wafer-transport robot end to end, including its power schematics, sensor board, and compute architecture. Implemented its ROS2/Rust software for perception, sensor fusion, navigation, and motion control.',
     image: '/microalchemy.png',
-    tags: ['Rust', 'NVIDIA Jetson', 'Raspberry Pi', 'LiDAR / IR / ToF', 'Dijkstra Path Planning', 'Custom PCB'],
+    tags: ['Rust', 'NVIDIA Jetson', 'Raspberry Pi', 'LiDAR / IR / ToF', 'Dijkstra Path Planning', 'PID Control', 'Power Schematics', 'Custom PCB'],
   },
   {
     id: 'wiz-robotics',
@@ -72,7 +72,7 @@ export const experiences: ExperienceItem[] = [
     date: 'January 2026 - April 2026',
     impact: 'Lead Engineer of client robotics team, built robotics integrations across IoT software, perception, and hardware validation.',
     image: '/wizrobotics.webp',
-    tags: ['Robotics','Java', 'C++','OpenCV', 'Python','Embedded'],
+    tags: ['Robotics', 'Java', 'C++', 'OpenCV', 'Python', 'PID Control', 'Power Schematics', 'Embedded'],
   },
   {
     id: 'watonomous',
@@ -89,9 +89,9 @@ export const experiences: ExperienceItem[] = [
     company: 'Baycrest',
     // TODO: Replace with the exact internship date range from your resume.
     date: 'May 2025 - August 2025',
-    impact: "Shipped full-stack product work for a hospital volunteer team of 100+ with usability and reliability in focus.",
+    impact: 'Used a brain-computer interface (BCI) to bring brain-signal input into PyTorch-based research simulations.',
     image: '/bay.png',
-    tags: ['React', 'TypeScript', 'MongoDB', "Gemini API"],
+    tags: ['BCI', 'PyTorch', 'Python', 'Research Simulations'],
   },
   {
     id: 'first-robotics',

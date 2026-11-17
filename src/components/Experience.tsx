@@ -13,7 +13,7 @@ const Experience = () => {
       company: 'MicroAlchemy',
       location: 'Waterloo (In-Person)',
       description: 'Designed the wafer-transport robot end to end, including power schematics and sensor hardware, and implemented its robotics software.',
-      skills: ['Power Schematics', 'Sensor Board Design', 'ROS2', 'Rust', 'Python', 'C++'],
+      skills: ['Power Schematics', 'Sensor Board Design', 'ROS2', 'Rust', 'Python', 'C++', 'PID Control'],
       image: '/microalchemy.png',
     },
     {
@@ -21,7 +21,7 @@ const Experience = () => {
       company: 'Wiz Robotics',
       location: 'Toronto (In-Person)',
       description: 'Worked across IoT software, hardware-software integration, and AI perception for robotics systems.',
-      skills: ['Sensor Evaluation', 'OpenCV', 'TensorFlow', 'Embedded IoT', 'Microcontrollers'],
+      skills: ['Sensor Evaluation', 'OpenCV', 'TensorFlow', 'Embedded IoT', 'Microcontrollers', 'PID Control', 'Power Schematics'],
       image: '/wizrobotics.webp',
     },
     {
@@ -44,8 +44,8 @@ const Experience = () => {
       title: 'Software Engineer Intern',
       company: 'Baycrest Hospital',
       location: 'Toronto (Remote)',
-      description: 'Built full-stack web experiences for Daisy’s Journey with a focus on usability and production readiness.',
-      skills: ['React.js', 'MongoDB', 'TypeScript', 'Node.js', 'SQL'],
+      description: 'Used a brain-computer interface (BCI) to bring brain-signal input into PyTorch-based research simulations.',
+      skills: ['BCI', 'PyTorch', 'Python', 'Research Simulations'],
       image: '/bay.png',
     },
     {

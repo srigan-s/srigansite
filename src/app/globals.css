@@ -680,11 +680,11 @@ video:-webkit-full-screen {
   }
 
   .section-shell {
-    @apply py-20 md:py-28;
+    @apply py-5 md:py-6;
   }
 
   .section-heading {
-    @apply mb-8 flex flex-col gap-3 md:mb-10 md:flex-row md:items-end md:justify-between;
+    @apply mb-6 flex flex-col gap-3 md:mb-7 md:flex-row md:items-end md:justify-between;
   }
 
   .eyebrow {
@@ -1667,7 +1667,7 @@ video:-webkit-full-screen {
     padding-inline: max(1rem, env(safe-area-inset-left)) max(1rem, env(safe-area-inset-right));
   }
 
-  .section-shell { padding-block: 3.5rem; }
+  .section-shell { padding-block: 1rem; }
   .section-title { font-size: clamp(1.35rem, 5.6vw, 1.8rem); }
   .section-heading { gap: 0.75rem; }
 
@@ -2064,7 +2064,7 @@ video:-webkit-full-screen {
 }
 
 .project-case-section {
-  padding-top: clamp(3rem, 6vw, 5rem);
+  padding-top: clamp(2rem, 4vw, 3rem);
 }
 
 .project-case-section-heading {
@@ -2185,7 +2185,7 @@ video:-webkit-full-screen {
 }
 
 .project-case-details {
-  margin-top: clamp(3rem, 6vw, 5rem);
+  margin-top: clamp(2rem, 4vw, 3rem);
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
 }
@@ -2225,7 +2225,7 @@ video:-webkit-full-screen {
 .project-case-next {
   display: grid;
   gap: 0.8rem;
-  margin-top: 6rem;
+  margin-top: 3rem;
   padding-top: 2rem;
   border-top: 1px solid var(--line);
 }

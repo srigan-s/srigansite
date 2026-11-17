@@ -21,7 +21,7 @@ const heroLinks = [
 
 export function Hero() {
   return (
-    <section className="content-shell flex min-h-screen items-center pt-24" id="portfolio">
+    <section className="content-shell flex items-center pb-2 pt-10 md:pb-3 md:pt-14" id="portfolio">
       <div className="hero-layout grid w-full gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
         <motion.div
           className="hero-copy min-w-0"
